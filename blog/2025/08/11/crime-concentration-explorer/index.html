@@ -12,13 +12,11 @@
         <meta name="author" content="Andrew P Smith">
       
       
-        <link rel="canonical" href="http://safer-streets.github.io/blog/2025/07/31/comparison-of-crime-concentration-measures/">
+        <link rel="canonical" href="http://safer-streets.github.io/blog/2025/08/11/crime-concentration-explorer/">
       
       
-        <link rel="prev" href="../../30/introducing-safer-streets/">
+        <link rel="prev" href="../../../07/31/comparison-of-crime-concentration-measures/">
       
-      
-        <link rel="next" href="../../../08/11/crime-concentration-explorer/">
       
       
       <link rel="icon" href="../../../../../img/safer-streets-small.png">
@@ -26,7 +24,7 @@
     
     
       
-        <title>Comparison of Crime Concentration Measures - Safer Streets Blog</title>
+        <title>Crime Concentration Explorer - Safer Streets Blog</title>
       
     
     
@@ -76,7 +74,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#comparison-of-crime-concentration-measures" class="md-skip">
+        <a href="#crime-concentration-explorer" class="md-skip">
           Skip to content
         </a>
       
@@ -111,7 +109,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Comparison of Crime Concentration Measures
+              Crime Concentration Explorer
             
           </span>
         </div>
@@ -593,43 +591,6 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#lorenz-and-naive-gini" class="md-nav__link">
-    <span class="md-ellipsis">
-      Lorenz and naive Gini
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#clumpiness-index" class="md-nav__link">
-    <span class="md-ellipsis">
-      Clumpiness index
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#kde" class="md-nav__link">
-    <span class="md-ellipsis">
-      KDE
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#adjusted-gini" class="md-nav__link">
-    <span class="md-ellipsis">
-      Adjusted Gini
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Adjusted Gini">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
   <a href="#rationale" class="md-nav__link">
     <span class="md-ellipsis">
       Rationale
@@ -637,8 +598,8 @@
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
+      
+        <li class="md-nav__item">
   <a href="#implementation" class="md-nav__link">
     <span class="md-ellipsis">
       Implementation
@@ -646,16 +607,29 @@
   </a>
   
 </li>
-        
-      </ul>
-    </nav>
+      
+        <li class="md-nav__item">
+  <a href="#limitations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Limitations
+    </span>
+  </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#poisson-gamma" class="md-nav__link">
+  <a href="#further-work" class="md-nav__link">
     <span class="md-ellipsis">
-      Poisson-Gamma
+      Further work
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#link" class="md-nav__link">
+    <span class="md-ellipsis">
+      Link
     </span>
   </a>
   
@@ -717,7 +691,7 @@
                     <li class="md-nav__item">
                       <div class="md-nav__link">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 19H5V8h14m-3-7v2H8V1H6v2H5c-1.11 0-2 .89-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-1V1m-1 11h-5v5h5z"/></svg>
-                        <time datetime="2025-07-31 00:00:00+00:00" class="md-ellipsis">July 31, 2025</time>
+                        <time datetime="2025-08-11 00:00:00+00:00" class="md-ellipsis">August 11, 2025</time>
                       </div>
                     </li>
                     
@@ -728,7 +702,7 @@
                           <span class="md-ellipsis">
                             in
                             
-                              <a href="../../../../category/methodology/">Methodology</a></span>
+                              <a href="../../../../category/outputs/">Outputs</a></span>
                         </div>
                       </li>
                     
@@ -739,7 +713,7 @@
                           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 20a8 8 0 0 0 8-8 8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8m0-18a10 10 0 0 1 10 10 10 10 0 0 1-10 10C6.47 22 2 17.5 2 12A10 10 0 0 1 12 2m.5 5v5.25l4.5 2.67-.75 1.23L11 13V7z"/></svg>
                           <span class="md-ellipsis">
                             
-                              9 min read
+                              2 min read
                             
                           </span>
                         </div>
@@ -749,6 +723,133 @@
                 </nav>
               </li>
             </ul>
+            
+              <ul class="md-post__meta md-nav__list">
+                <li class="md-nav__item md-nav__item--section">
+                  <div class="md-post__title">
+                    <span class="md-ellipsis">
+                      Related links
+                    </span>
+                  </div>
+                  <nav class="md-nav">
+                    <ul class="md-nav__list">
+                      
+                        
+                        
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Homepage
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+                      
+                        
+                        
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Blog index
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+                      
+                        
+                        
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__ref_3" >
+        
+          
+          <label class="md-nav__link" for="__ref_3" id="__ref_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    External links
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__ref_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__ref_3">
+            <span class="md-nav__icon md-icon"></span>
+            External links
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://crime-concentration-explorer.streamlit.app/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Streamlit App
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+                      
+                    </ul>
+                  </nav>
+                </li>
+              </ul>
             
           </nav>
           
@@ -778,7 +879,13 @@
       
       
       
-        <a href="../../../../tags/#tag:poisson-distribution" class="md-tag">Poisson distribution</a>
+        <a href="../../../../tags/#tag:public-crime-data" class="md-tag">Public crime data</a>
+      
+    
+      
+      
+      
+        <a href="../../../../tags/#tag:streamlit" class="md-tag">streamlit</a>
       
     
   </nav>
@@ -788,301 +895,55 @@
   
 
 
-<h1 id="comparison-of-crime-concentration-measures">Comparison of Crime Concentration Measures</h1>
-<p>The purposes of these analyses are twofold:</p>
-<ul>
-<li>apply established methodologies for measuring crime concentration to our data and present the results</li>
-<li>critique the methodologies from both a practical and theoretical perspective</li>
-</ul>
-<p>Links are provided to the relevant notebooks in each section.</p>
+<h1 id="crime-concentration-explorer">Crime Concentration Explorer</h1>
+<p><a href="https://crime-concentration-explorer.streamlit.app/"><img alt="screenshot" src="../../../../../img/crime-concentration-explorer.png" /></a></p>
+<h2 id="rationale">Rationale</h2>
+<p>This app has been built as a proof-of-concept tool for practitioners and policymakers with an interest in the patterns
+of crime concentration, using only publically available data. It enables users to visualise crime hotspots over time
+for a given Police Force Area (PFA).</p>
 <!-- more -->
 
-<h2 id="lorenz-and-naive-gini">Lorenz and naive Gini</h2>
-<p><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg></span> <a href="https://github.com/safer-streets/safer-streets-eda/blob/main/lorenz-curve.ipynb"><code>lorenz-curve.ipynb</code></a></p>
-<p>Firstly taking crime data for different crime types and seeing how the concentration varies by
-crime type over the entire (3 year) period.</p>
-<p><img alt="lorenz-by-crime-type" src="../../../../../img/lorenz-by-crime-type.png" /></p>
-<p>Unsurprisingly, shoplifting - which requires shops - is the most concentrated category.</p>
-<p>Looking at the magnitude and temporal stability - calculating the Gini coefficient for each month in the data, and
-comparing this to <em>i.i.d.</em> random data, using both irregular and similarly-sized regular spatial units, reveals some
-important issues:</p>
+<p>The use of public data (crime data from data.police.uk) imposes some limitations: although we have
+precise (albeit slighly perturbed) location data, we only have rough temporal information (the month the crime occurred)
+and a dozen or so broad categories of crime. The Safer Streets project is concerned specifically with antisocial
+behaviour (ASB), knife crime and violence against women and girls (VAWG). While ASB is represented in the data, the demo
+app proxies the broader <em>Possession of weapons</em> and <em>Violence and sexual offences</em> categories for knife crime and VAWG.</p>
+<p>Users can select the PFA, crime type, spatial units, the degree of concentration<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup>, then run the analysis over 3
+years or inspect specific months. Counts per spatial unit are displayed on an interactive map and, optionally, a Lorenz
+curve is shown. The Gini coefficient is displayed.</p>
+<h2 id="implementation">Implementation</h2>
+<p>The app is built in the python <a href="https://streamlit.io/">streamlit</a> framework, using
+<a href="https://deckgl.readthedocs.io/en/latest/">pydeck</a> for map visualisations and
+<a href="https://altair-viz.github.io/index.html">altair</a> for graphs.</p>
+<p>Data is handled using <a href="https://pandas.pydata.org/docs/">pandas</a> and <a href="https://geopandas.org/en/stable/">geopandas</a>
+for geospatial data.</p>
+<p>Whilst the raw crime data is cached, aggregation to spatial units is done on-the-fly. The smaller the spatial units, the
+longer this will take.</p>
+<p>The code for the demo app is <a href="https://github.com/safer-streets/safer-streets-eda/blob/main/app.py">here</a></p>
+<h2 id="limitations">Limitations</h2>
+<p>The app is currently deployed on streamlit's own free-tier cloud which imposes limitation on total app size (including
+data). To keep within this limit the data available to the demo app has been restricted:</p>
 <ul>
-<li>Statistical geographies (which control for population) exhibit lower concentration than regular ones, since controlling
-for population has a spatial averaging effect.</li>
-<li>there is a seasonal variation <strong>in concentration</strong> which is more pronounced for statistical geographies</li>
-<li>Gini significantly overestimates concentration as evidenced by the random data</li>
+<li>West Yorkshire PFA only</li>
+<li>the choice of spatial unit is restricted (notably omitting output areas and street segments)</li>
+<li>3 years of crime data</li>
 </ul>
-<p><img alt="gini-temporal" src="../../../../../img/gini-temporal.png" /></p>
-<p>Further investigation on Gini, and adjustments to it, can be found in the section <a href="#adjusted-gini">below</a></p>
-<h2 id="clumpiness-index">Clumpiness index</h2>
-<p><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg></span> <a href="https://github.com/safer-streets/safer-streets-eda/blob/main/clumpiness.ipynb"><code>clumpiness.ipynb</code></a></p>
-<p>Adepeju <em>et al</em> describe a "clumpiness index" which is available in the proprietary and closed-source FRAGSTATS package.
-A quick analysis reveals some drawbacks to the measure (see below). For our purposes we made the following requirements
-for a useful clumpiness measure:</p>
-<ul>
-<li>essential:<ul>
-<li>scale invariant (i.e. adimensionless quantity)</li>
-<li>intuitive scale with known bounds, e.g. 0 for completely dispersed, 1 for a single cluster with minimal perimeter</li>
-</ul>
-</li>
-<li>desirable<ul>
-<li>agnostic to the shape of the (regular) geometry</li>
-<li>works with irregular geometries (e.g. census geographies)</li>
-</ul>
-</li>
-</ul>
-<p>The clumpiness index as described by Adepeju satisfies only one of these requirements. While we can replicate their example, it
-is inconsistent with the FRAGSTATS documentation, requires a regular (square) grid, is potentially prone to discontinuities
-The value is hard to interpret and is rather counter intuitively impacted by the size of the background surrounding the
-features.</p>
-<p>As a result we decided to create our own clumpiness measure. A simple area/perimeter ratio is not scale invariant,
-nor is it intuitive.</p>
-<p>We argue that scale is integral to any measure: consider two disjoint squares of side $x$. At a length scale of $x$
-this is a completely dispersed arrangement - two separate "units" and a "clumpiness" value of 0 would be appropriate.
-However, consider the same geometry at a scale of $x/2$ - it becomes two clusters of 4 "unit" squares and is thus, to
-some degree, clumpy. As the spatial scale is decrease this arrangement must be considered to be more and more clumped.</p>
-<p>Conversely, applying a large length scale (say $10x$) on this arrangement becomes somewhat meaningless, so the length
-scale has a lower bound approximately represented by the smallest feature of the geometry.</p>
-<p>Having now established that a representative length scale must be supplied to any unambiguous clumpiness calculation,
-it can also be used to render quantities dimensionless (between length and areal units)</p>
-<p>To this end we compute lower and upper bounds, in units of the length scale $s$, for the perimeter of a square-based
-geometry with a given area $A$.</p>
-<p>$$
-P_{min} = 4\sqrt{A}
-$$</p>
-<p>and the upper bound corresponds to $N=A/s^2$ disjoint length-unit squares:</p>
-<p>$$
-P_{max} = 4sN = \frac{4A}{s}
-$$</p>
-<p>The clumpiness - the perimeter of the geometry in question - must then lie in between these two values (assuming a
-valid length scale has been chosen) and can be normalised:</p>
-<p>$$
-CI = \frac{P_{max} - P}{P_{max} - P_{min}}
-$$</p>
-<p>thus yielding a value of 0 for fully disjoint geometries (at the given length scale) and 1 for a geometry that minimises
-the perimeter (a square in this case)</p>
-<p><img align="left" alt="clumpiness-min" src="../../../../../img/clumpiness-min.svg" /> <img align="right" alt="clumpiness-max" src="../../../../../img/clumpiness-max.svg" />
-For a more practical demonstration, we compute the clumpiness of geometries starting with a fully-disjoint 11x11
-geometry (left), gradually filling in empty squares until left with a single large square (right). The resulting curve
-is:</p>
-<p><img alt="clumpiness-index" src="../../../../../img/clumpiness-index.png" /></p>
-<p>This index can easily be applied to non-square regular geometries and even irregular geometries.</p>
-<p>When applying this measure to real data, we can apply it in a number of ways: firstly measuring the clumpiness of all
-spatial units that contain a crime in a given period, but also filtering spatial units to cover only the top $N%$ of
-crimes - that is, the smallest number of spatial units required to capture $N%$ of crime.</p>
-<p>Applying this to real data shows that clumpiness index is very stable from month to month, decreases as we filter crimes,
-and increases with coarser grids:</p>
-<p><img alt="clumpiness-time" src="../../../../../img/clumpiness-temporal.png" /></p>
-<p><img alt="clumpiness-space" src="../../../../../img/clumpiness-spatial.png" /></p>
-<p>With results like this it's open to debate whether this measure is particularly useful or insightful. It doesn't detect
-seasonal variation in concentration, at least at the scale tested (some other measures do), it's not scale-invariant
-and the spatial trend is one we'd expect for any input. If temporal and/or spatial scales can be found that maximise
-the clumpiness index, then it may become useful.</p>
-<h2 id="kde">KDE</h2>
-<p><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg></span> <a href="https://github.com/safer-streets/safer-streets-eda/blob/main/kde-sampling.ipynb"><code>kde-sampling.ipynb</code></a></p>
-<p>KDE sampling allows us to create a spatial distribution for crimes based on sampled location data (blue points below).
-The resulting distribution can then be sampled to synthesise similarly-distributed crimes (red points).</p>
-<p><img alt="kde-sample" src="../../../../../img/kde-sample.png" /></p>
-<p>However the synthesised crimes tend to be slightly more spread out than the original data, and the sampling doesn't take
-into account geographical features. This approach does not appear to have much use for our purposes, at least for now.</p>
-<h2 id="adjusted-gini">Adjusted Gini</h2>
-<p><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg></span> <a href="https://github.com/safer-streets/safer-streets-eda/blob/main/gini.ipynb"><code>gini.ipynb</code></a></p>
-<h3 id="rationale">Rationale</h3>
-<p>The Gini coefficient measures the difference between the observed Lorenz curve and the line $y=x$, which corresponds to
-a perfectly even distribution (of crimes) across all possible states (locations). If we consider crimes to be <em>i.i.d.</em>
-Poisson processes for each state, then a perfectly even distribution is actually a (very) low entropy, (highly)
-improbable, state for the system. Consider $C$ crimes occuring in $N$ units. Since we can't have fractional crimes,
-a perfectly even distribution is only possible if $C$ is an integer multiple of $N$.</p>
-<p>Taking the case where $C=N$, the probability of one crime per state is given by $N!/N^N$, which very quickly vanishes as
-$N$ increases, so much so that if N is 750 or more, the probability cannot be represented in double precision arithmetic.</p>
-<table>
-<thead>
-<tr>
-<th style="text-align: right;">N</th>
-<th style="text-align: right;">p</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: right;">10</td>
-<td style="text-align: right;">0.0003</td>
-</tr>
-<tr>
-<td style="text-align: right;">30</td>
-<td style="text-align: right;">1e-12</td>
-</tr>
-<tr>
-<td style="text-align: right;">100</td>
-<td style="text-align: right;">9e-43</td>
-</tr>
-<tr>
-<td style="text-align: right;">300</td>
-<td style="text-align: right;">2e-129</td>
-</tr>
-<tr>
-<td style="text-align: right;">1000</td>
-<td style="text-align: right;">~0 (not representable)</td>
-</tr>
-</tbody>
-</table>
-<p>Since crime analysis would typically have $N\gg 100$ and also because typically $C&lt;N$, this does not seem to be a suitable
-reference for a concentration calculation. Bernasco and Steenbeck have gone some way to address this, suggesting a
-reference described by the line $y=\text{max}(Nx/C,1)$, which is the equivalent of $C$ states containing 1 crime, and $N-C$
-states empty. However this state is also an improbable low entropy state with the chance of occurrence given by
-$\frac{N!(C-N)!}{N^C}$</p>
-<table>
-<thead>
-<tr>
-<th style="text-align: right;">N</th>
-<th style="text-align: right;">C</th>
-<th style="text-align: right;">$\lambda$</th>
-<th style="text-align: right;">p</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: right;">300</td>
-<td style="text-align: right;">30</td>
-<td style="text-align: right;">0.1</td>
-<td style="text-align: right;">0.2</td>
-</tr>
-<tr>
-<td style="text-align: right;">300</td>
-<td style="text-align: right;">60</td>
-<td style="text-align: right;">0.2</td>
-<td style="text-align: right;">0.002</td>
-</tr>
-<tr>
-<td style="text-align: right;">300</td>
-<td style="text-align: right;">150</td>
-<td style="text-align: right;">0.5</td>
-<td style="text-align: right;">1e-20</td>
-</tr>
-<tr>
-<td style="text-align: right;">1000</td>
-<td style="text-align: right;">100</td>
-<td style="text-align: right;">0.1</td>
-<td style="text-align: right;">0.006</td>
-</tr>
-<tr>
-<td style="text-align: right;">1000</td>
-<td style="text-align: right;">200</td>
-<td style="text-align: right;">0.2</td>
-<td style="text-align: right;">5e-10</td>
-</tr>
-<tr>
-<td style="text-align: right;">1000</td>
-<td style="text-align: right;">500</td>
-<td style="text-align: right;">0.5</td>
-<td style="text-align: right;">3e-67</td>
-</tr>
-</tbody>
-</table>
-<p>which is clearly a big improvement when $C\ll N$, but notably less so when $C$ is larger. But we can just use the highest
-entropy state as the reference curve, which just happens to be the scaled PDF of the (assumed) Poisson distribution -
-in other words there will likely be a mixture of counts in each state, depending in the intensity ($C/N$) of the Poisson
-process. The table below lists the expected number of states with a specific crime count, for 100 crimes at varying
-intensities:</p>
-<table>
-<thead>
-<tr>
-<th style="text-align: right;">$\lambda$</th>
-<th style="text-align: right;">N</th>
-<th style="text-align: right;">empty</th>
-<th style="text-align: right;">1 crime</th>
-<th style="text-align: right;">2 crimes</th>
-<th style="text-align: right;">3 crimes</th>
-<th style="text-align: right;">4 crimes</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: right;">0.1</td>
-<td style="text-align: right;">1000</td>
-<td style="text-align: right;">904.8</td>
-<td style="text-align: right;">90.5</td>
-<td style="text-align: right;">4.5</td>
-<td style="text-align: right;"></td>
-<td style="text-align: right;"></td>
-</tr>
-<tr>
-<td style="text-align: right;">0.2</td>
-<td style="text-align: right;">500</td>
-<td style="text-align: right;">409.4</td>
-<td style="text-align: right;">81.9</td>
-<td style="text-align: right;">8.2</td>
-<td style="text-align: right;">0.5</td>
-<td style="text-align: right;"></td>
-</tr>
-<tr>
-<td style="text-align: right;">0.5</td>
-<td style="text-align: right;">200</td>
-<td style="text-align: right;">121.3</td>
-<td style="text-align: right;">60.7</td>
-<td style="text-align: right;">15.2</td>
-<td style="text-align: right;">2.5</td>
-<td style="text-align: right;">0.3</td>
-</tr>
-</tbody>
-</table>
-<h3 id="implementation">Implementation</h3>
-<p>The first step is simply to check how closely that purely random data matches a Poisson distribution that can
-subsequently be used to create a baseline Lorenz curve. There are two options - randomly assigning points within a
-boundary, then aggregating to spatial units, or directly sampling the spatial units.</p>
-<p>There are pronounced differences between the two approaches which are illustrated in the graphs below. When the spatial
-units have different sizes (LSOAs in this case), in the first approach larger spatial units will typically have higher counts (bottom graph),
-and even regular units that intersect the boundary will have lower counts (top graph).</p>
-<p><img alt="spatial-sampling-effects" src="../../../../../img/spatial-sampling-effects.png" /></p>
-<p>The implication is that crimes are no longer identically distributed across spatial units, and if this is the case then
-it is not valid to use a Poisson distribution as a baseline Lorenz curve. More on this in the
-<a href="#poisson-gamma">next section</a>.</p>
-<p>However, assuming we do have independent and identical distributions across spatial units, the "null hypothesis" Lorenz
-curve is given by</p>
-<p>$$
-L_0(x) = \frac{1}{\lambda}\int_0^x{Q(p; \lambda) dp}
-$$</p>
-<p>where $Q(p;\lambda)$ is the inverse CDF of the Poisson distribution. The curve is piecewise-linear and continuous and
-is described by the origin and the set of points</p>
-<p>$$
-\left{ (F(k; \lambda), F(k-1; \lambda)) \mid k \in \mathbb{N}_0 \right}
-$$</p>
-<p>where $F(k; \lambda)$ is the CDF.</p>
-<p>The figure below plots this curve (blue line) alongside real crime data (green) as well as the naive Gini baseline
-(black dotted line) and the limit proposed by Bernasco and Steenbeck (described above, orange dotted line). The
-Poisson intensity in this case is approximately $1\over3$ - in other words <em>at least</em> 2/3 of spatial units are crime-
-free.</p>
-<p>The naive Gini value is (twice) the area bounded by the green and black dotted lines. Bernasco and Steenback's adjusted
-value is twice the significantly smaller area bounded by the orange rather than the black dotted line.</p>
-<p>Our proposal is to use the even smaller red shaded area ($A_0 - A$, where $A_0$ and $A$ are the areas above the blue and
-green curves respectively), either directly or as a proportion of the combined red and grey shaded areas ($A_0$)<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup>.
-Unlike the other baselines, this is not a hard limit: it <em>is</em> possible for the data to be more dispersed than would be
-expected randomly, so negative values are possible.</p>
-<p><img alt="lorenz-poisson" src="../../../../../img/lorenz-poisson.png" /></p>
-<p>Looking at how this measure would behave for a range of Poisson intensities. Maximal concentration (all crime in same
-location) correspond to $A_{min} which is always zero, yielding an adjusted Gini of 1. Maximal dispersion areas
-$A_{max}$ are always positive and peak at 0.5 (essentially the black dotted line). The red shaded area depicts the
-possible range of adjusted Gini values.</p>
-<p><img alt="adjusted-gini" src="../../../../../img/adjusted-gini.png" /></p>
-<p>Applying this to real monthly crime data over 3 years, using a regular 500m grid shows a marked difference between
-naive and adjusted Gini, with the adjusted value lower (as expected) and also accentuates the seasonality of concentration</p>
-<p><img alt="gini-vs-adjusted" src="../../../../../img/gini-vs-adjusted.png" /></p>
-<p>Finally, using random data sampled with varying weights to create greater and greater concentration, we look at how the
-Lorenz curves and the Gini measures vary:</p>
-<p><img alt="gini-vs-concentration" src="../../../../../img/gini-vs-concentration.png" /></p>
-<p>Note that in this example the number of features is smaller than the number of crimes - the Bernasco &amp; Steenback Gini
-would not be any different to naive Gini.</p>
-<h2 id="poisson-gamma">Poisson-Gamma</h2>
-<p><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg></span> <a href="https://github.com/safer-streets/safer-streets-eda/blob/main/poisson-gamma.ipynb"><code>poisson-gamma.ipynb</code></a></p>
-<p>TODO</p>
-<ul>
-<li>need to revisit spatial invariance and concentration sections in light of non-i.i.d.</li>
-<li>Poisson-Gamma based lorenz baseline</li>
-</ul>
+<p>Additionally, due to the use of public data, temporal resolution is limited to monthly units.</p>
+<h2 id="further-work">Further work</h2>
+<p>The demo app is implemented within the exploratory data analysis (EDA) repo, as it requires many of the code
+components developed there in the course of our analysis. Those components will be factored out into a separate repo,
+which will enable the app to be moved to its own standalone repo.</p>
+<p>A full-fat version of the app with full datasets will be provided when we have suitable cloud provisioning.</p>
+<h2 id="link">Link</h2>
+<p>Try the app for yourself!</p>
+<p><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg></span>
+<a href="https://crime-concentration-explorer.streamlit.app/">https://crime-concentration-explorer.streamlit.app/</a></p>
 <div class="footnote">
 <hr />
 <ol>
 <li id="fn:1">
-<p>this measure has more interpretable bounds&#160;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+<p>this refers to the smallest set of spatial units - i.e. those with most crime - that contain a set percentage of
+the total crime for a given month. For example, you may be able to capture 50% of crime in only 5% of spatial units.&#160;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
 </li>
 </ol>
 </div>
