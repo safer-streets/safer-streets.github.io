@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="A description here...">
+        <meta name="description" content="Progress updates from the Safer Streets project">
       
       
         <meta name="author" content="Andrew P Smith">
@@ -20,6 +20,9 @@
       
         <link rel="next" href="../../../08/11/crime-concentration-explorer/">
       
+      
+        <link rel="alternate" type="application/rss+xml" title="RSS feed" href="../../../../../feed_rss_created.xml">
+        <link rel="alternate" type="application/rss+xml" title="RSS feed of updated content" href="../../../../../feed_rss_updated.xml">
       
       <link rel="icon" href="../../../../../img/safer-streets-small.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.16">
@@ -254,12 +257,12 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../../tags/" class="md-nav__link">
+      <a href="../../../../author/team/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    Tags
+    Team
     
   </span>
   
@@ -564,6 +567,28 @@
   
 
     
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    See also
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
   </ul>
 </nav>
                   </div>
@@ -837,28 +862,28 @@ The value is hard to interpret and is rather counter intuitively impacted by the
 features.</p>
 <p>As a result we decided to create our own clumpiness measure. A simple area/perimeter ratio is not scale invariant,
 nor is it intuitive.</p>
-<p>We argue that scale is integral to any measure: consider two disjoint squares of side $x$. At a length scale of $x$
+<p>We argue that scale is integral to any measure: consider two disjoint squares of side <span class="arithmatex">\(x\)</span>. At a length scale of <span class="arithmatex">\(x\)</span>
 this is a completely dispersed arrangement - two separate "units" and a "clumpiness" value of 0 would be appropriate.
-However, consider the same geometry at a scale of $x/2$ - it becomes two clusters of 4 "unit" squares and is thus, to
+However, consider the same geometry at a scale of <span class="arithmatex">\(x/2\)</span> - it becomes two clusters of 4 "unit" squares and is thus, to
 some degree, clumpy. As the spatial scale is decrease this arrangement must be considered to be more and more clumped.</p>
-<p>Conversely, applying a large length scale (say $10x$) on this arrangement becomes somewhat meaningless, so the length
+<p>Conversely, applying a large length scale (say <span class="arithmatex">\(10x\)</span>) on this arrangement becomes somewhat meaningless, so the length
 scale has a lower bound approximately represented by the smallest feature of the geometry.</p>
 <p>Having now established that a representative length scale must be supplied to any unambiguous clumpiness calculation,
 it can also be used to render quantities dimensionless (between length and areal units)</p>
-<p>To this end we compute lower and upper bounds, in units of the length scale $s$, for the perimeter of a square-based
-geometry with a given area $A$.</p>
-<p>$$
+<p>To this end we compute lower and upper bounds, in units of the length scale <span class="arithmatex">\(s\)</span>, for the perimeter of a square-based
+geometry with a given area <span class="arithmatex">\(A\)</span>.</p>
+<div class="arithmatex">\[
 P_{min} = 4\sqrt{A}
-$$</p>
-<p>and the upper bound corresponds to $N=A/s^2$ disjoint length-unit squares:</p>
-<p>$$
+\]</div>
+<p>and the upper bound corresponds to <span class="arithmatex">\(N=A/s^2\)</span> disjoint length-unit squares:</p>
+<div class="arithmatex">\[
 P_{max} = 4sN = \frac{4A}{s}
-$$</p>
+\]</div>
 <p>The clumpiness - the perimeter of the geometry in question - must then lie in between these two values (assuming a
 valid length scale has been chosen) and can be normalised:</p>
-<p>$$
+<div class="arithmatex">\[
 CI = \frac{P_{max} - P}{P_{max} - P_{min}}
-$$</p>
+\]</div>
 <p>thus yielding a value of 0 for fully disjoint geometries (at the given length scale) and 1 for a geometry that minimises
 the perimeter (a square in this case)</p>
 <p><img align="left" alt="clumpiness-min" src="../../../../../img/clumpiness-min.svg" /> <img align="right" alt="clumpiness-max" src="../../../../../img/clumpiness-max.svg" />
@@ -868,8 +893,8 @@ is:</p>
 <p><img alt="clumpiness-index" src="../../../../../img/clumpiness-index.png" /></p>
 <p>This index can easily be applied to non-square regular geometries and even irregular geometries.</p>
 <p>When applying this measure to real data, we can apply it in a number of ways: firstly measuring the clumpiness of all
-spatial units that contain a crime in a given period, but also filtering spatial units to cover only the top $N%$ of
-crimes - that is, the smallest number of spatial units required to capture $N%$ of crime.</p>
+spatial units that contain a crime in a given period, but also filtering spatial units to cover only the top <span class="arithmatex">\(N%\)</span> of
+crimes - that is, the smallest number of spatial units required to capture <span class="arithmatex">\(N%\)</span> of crime.</p>
 <p>Applying this to real data shows that clumpiness index is very stable from month to month, decreases as we filter crimes,
 and increases with coarser grids:</p>
 <p><img alt="clumpiness-time" src="../../../../../img/clumpiness-temporal.png" /></p>
@@ -888,13 +913,13 @@ into account geographical features. This approach does not appear to have much u
 <h2 id="adjusted-gini">Adjusted Gini</h2>
 <p><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg></span> <a href="https://github.com/safer-streets/safer-streets-eda/blob/main/gini.ipynb"><code>gini.ipynb</code></a></p>
 <h3 id="rationale">Rationale</h3>
-<p>The Gini coefficient measures the difference between the observed Lorenz curve and the line $y=x$, which corresponds to
+<p>The Gini coefficient measures the difference between the observed Lorenz curve and the line <span class="arithmatex">\(y=x\)</span>, which corresponds to
 a perfectly even distribution (of crimes) across all possible states (locations). If we consider crimes to be <em>i.i.d.</em>
 Poisson processes for each state, then a perfectly even distribution is actually a (very) low entropy, (highly)
-improbable, state for the system. Consider $C$ crimes occuring in $N$ units. Since we can't have fractional crimes,
-a perfectly even distribution is only possible if $C$ is an integer multiple of $N$.</p>
-<p>Taking the case where $C=N$, the probability of one crime per state is given by $N!/N^N$, which very quickly vanishes as
-$N$ increases, so much so that if N is 750 or more, the probability cannot be represented in double precision arithmetic.</p>
+improbable, state for the system. Consider <span class="arithmatex">\(C\)</span> crimes occuring in <span class="arithmatex">\(N\)</span> units. Since we can't have fractional crimes,
+a perfectly even distribution is only possible if <span class="arithmatex">\(C\)</span> is an integer multiple of <span class="arithmatex">\(N\)</span>.</p>
+<p>Taking the case where <span class="arithmatex">\(C=N\)</span>, the probability of one crime per state is given by <span class="arithmatex">\(N!/N^N\)</span>, which very quickly vanishes as
+<span class="arithmatex">\(N\)</span> increases, so much so that if N is 750 or more, the probability cannot be represented in double precision arithmetic.</p>
 <table>
 <thead>
 <tr>
@@ -925,17 +950,17 @@ $N$ increases, so much so that if N is 750 or more, the probability cannot be re
 </tr>
 </tbody>
 </table>
-<p>Since crime analysis would typically have $N\gg 100$ and also because typically $C&lt;N$, this does not seem to be a suitable
+<p>Since crime analysis would typically have <span class="arithmatex">\(N\gg 100\)</span> and also because typically <span class="arithmatex">\(C&lt;N\)</span>, this does not seem to be a suitable
 reference for a concentration calculation. Bernasco and Steenbeck have gone some way to address this, suggesting a
-reference described by the line $y=\text{max}(Nx/C,1)$, which is the equivalent of $C$ states containing 1 crime, and $N-C$
+reference described by the line <span class="arithmatex">\(y=\text{max}(Nx/C,1)\)</span>, which is the equivalent of <span class="arithmatex">\(C\)</span> states containing 1 crime, and <span class="arithmatex">\(N-C\)</span>
 states empty. However this state is also an improbable low entropy state with the chance of occurrence given by
-$\frac{N!(C-N)!}{N^C}$</p>
+<span class="arithmatex">\(\frac{N!(C-N)!}{N^C}\)</span></p>
 <table>
 <thead>
 <tr>
 <th style="text-align: right;">N</th>
 <th style="text-align: right;">C</th>
-<th style="text-align: right;">$\lambda$</th>
+<th style="text-align: right;"><span class="arithmatex">\(\lambda\)</span></th>
 <th style="text-align: right;">p</th>
 </tr>
 </thead>
@@ -978,15 +1003,15 @@ $\frac{N!(C-N)!}{N^C}$</p>
 </tr>
 </tbody>
 </table>
-<p>which is clearly a big improvement when $C\ll N$, but notably less so when $C$ is larger. But we can just use the highest
+<p>which is clearly a big improvement when <span class="arithmatex">\(C\ll N\)</span>, but notably less so when <span class="arithmatex">\(C\)</span> is larger. But we can just use the highest
 entropy state as the reference curve, which just happens to be the scaled PDF of the (assumed) Poisson distribution -
-in other words there will likely be a mixture of counts in each state, depending in the intensity ($C/N$) of the Poisson
+in other words there will likely be a mixture of counts in each state, depending in the intensity (<span class="arithmatex">\(C/N\)</span>) of the Poisson
 process. The table below lists the expected number of states with a specific crime count, for 100 crimes at varying
 intensities:</p>
 <table>
 <thead>
 <tr>
-<th style="text-align: right;">$\lambda$</th>
+<th style="text-align: right;"><span class="arithmatex">\(\lambda\)</span></th>
 <th style="text-align: right;">N</th>
 <th style="text-align: right;">empty</th>
 <th style="text-align: right;">1 crime</th>
@@ -1038,29 +1063,29 @@ it is not valid to use a Poisson distribution as a baseline Lorenz curve. More o
 <a href="#poisson-gamma">next section</a>.</p>
 <p>However, assuming we do have independent and identical distributions across spatial units, the "null hypothesis" Lorenz
 curve is given by</p>
-<p>$$
+<div class="arithmatex">\[
 L_0(x) = \frac{1}{\lambda}\int_0^x{Q(p; \lambda) dp}
-$$</p>
-<p>where $Q(p;\lambda)$ is the inverse CDF of the Poisson distribution. The curve is piecewise-linear and continuous and
+\]</div>
+<p>where <span class="arithmatex">\(Q(p;\lambda)\)</span> is the inverse CDF of the Poisson distribution. The curve is piecewise-linear and continuous and
 is described by the origin and the set of points</p>
-<p>$$
-\left{ (F(k; \lambda), F(k-1; \lambda)) \mid k \in \mathbb{N}_0 \right}
-$$</p>
-<p>where $F(k; \lambda)$ is the CDF.</p>
+<div class="arithmatex">\[
+\left\{ (F(k; \lambda), F(k-1; \lambda)) \mid k \in \mathbb{N}_0 \right\}
+\]</div>
+<p>where <span class="arithmatex">\(F(k; \lambda)\)</span> is the CDF.</p>
 <p>The figure below plots this curve (blue line) alongside real crime data (green) as well as the naive Gini baseline
 (black dotted line) and the limit proposed by Bernasco and Steenbeck (described above, orange dotted line). The
-Poisson intensity in this case is approximately $1\over3$ - in other words <em>at least</em> 2/3 of spatial units are crime-
+Poisson intensity in this case is approximately <span class="arithmatex">\(1\over3\)</span> - in other words <em>at least</em> 2/3 of spatial units are crime-
 free.</p>
 <p>The naive Gini value is (twice) the area bounded by the green and black dotted lines. Bernasco and Steenback's adjusted
 value is twice the significantly smaller area bounded by the orange rather than the black dotted line.</p>
-<p>Our proposal is to use the even smaller red shaded area ($A_0 - A$, where $A_0$ and $A$ are the areas above the blue and
-green curves respectively), either directly or as a proportion of the combined red and grey shaded areas ($A_0$)<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup>.
+<p>Our proposal is to use the even smaller red shaded area (<span class="arithmatex">\(A_0 - A\)</span>, where <span class="arithmatex">\(A_0\)</span> and <span class="arithmatex">\(A\)</span> are the areas above the blue and
+green curves respectively), either directly or as a proportion of the combined red and grey shaded areas (<span class="arithmatex">\(A_0\)</span>)<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup>.
 Unlike the other baselines, this is not a hard limit: it <em>is</em> possible for the data to be more dispersed than would be
 expected randomly, so negative values are possible.</p>
 <p><img alt="lorenz-poisson" src="../../../../../img/lorenz-poisson.png" /></p>
 <p>Looking at how this measure would behave for a range of Poisson intensities. Maximal concentration (all crime in same
 location) correspond to $A_{min} which is always zero, yielding an adjusted Gini of 1. Maximal dispersion areas
-$A_{max}$ are always positive and peak at 0.5 (essentially the black dotted line). The red shaded area depicts the
+<span class="arithmatex">\(A_{max}\)</span> are always positive and peak at 0.5 (essentially the black dotted line). The red shaded area depicts the
 possible range of adjusted Gini values.</p>
 <p><img alt="adjusted-gini" src="../../../../../img/adjusted-gini.png" /></p>
 <p>Applying this to real monthly crime data over 3 years, using a regular 500m grid shows a marked difference between
@@ -1076,7 +1101,7 @@ would not be any different to naive Gini.</p>
 <p>TODO</p>
 <ul>
 <li>need to revisit spatial invariance and concentration sections in light of non-i.i.d.</li>
-<li>Poisson-Gamma based lorenz baseline</li>
+<li>Poisson-Gamma based Lorenz baseline</li>
 </ul>
 <div class="footnote">
 <hr />
