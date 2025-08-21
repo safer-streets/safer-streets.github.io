@@ -846,7 +846,7 @@ A quick analysis reveals some drawbacks to the measure (see below). For our purp
 for a useful clumpiness measure:</p>
 <ul>
 <li>essential:<ul>
-<li>scale invariant (i.e. adimensionless quantity)</li>
+<li>scale invariant (i.e. a dimensionless quantity)</li>
 <li>intuitive scale with known bounds, e.g. 0 for completely dispersed, 1 for a single cluster with minimal perimeter</li>
 </ul>
 </li>
@@ -916,7 +916,7 @@ into account geographical features. This approach does not appear to have much u
 <p>The Gini coefficient measures the difference between the observed Lorenz curve and the line <span class="arithmatex">\(y=x\)</span>, which corresponds to
 a perfectly even distribution (of crimes) across all possible states (locations). If we consider crimes to be <em>i.i.d.</em>
 Poisson processes for each state, then a perfectly even distribution is actually a (very) low entropy, (highly)
-improbable, state for the system. Consider <span class="arithmatex">\(C\)</span> crimes occuring in <span class="arithmatex">\(N\)</span> units. Since we can't have fractional crimes,
+improbable, state for the system. Consider <span class="arithmatex">\(C\)</span> crimes occurring in <span class="arithmatex">\(N\)</span> units. Since we can't have fractional crimes,
 a perfectly even distribution is only possible if <span class="arithmatex">\(C\)</span> is an integer multiple of <span class="arithmatex">\(N\)</span>.</p>
 <p>Taking the case where <span class="arithmatex">\(C=N\)</span>, the probability of one crime per state is given by <span class="arithmatex">\(N!/N^N\)</span>, which very quickly vanishes as
 <span class="arithmatex">\(N\)</span> increases, so much so that if N is 750 or more, the probability cannot be represented in double precision arithmetic.</p>
