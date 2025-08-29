@@ -658,6 +658,30 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Examples of the Lorenz curve and Gini index">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-about-population" class="md-nav__link">
+    <span class="md-ellipsis">
+      What about population?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#now-what" class="md-nav__link">
+    <span class="md-ellipsis">
+      Now what?
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
       </ul>
@@ -758,6 +782,13 @@
                       </div>
                     </li>
                     
+                      <li class="md-nav__item">
+                        <div class="md-nav__link">
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M15 13h1.5v2.82l2.44 1.41-.75 1.3L15 16.69zm4-5H5v11h4.67c-.43-.91-.67-1.93-.67-3a7 7 0 0 1 7-7c1.07 0 2.09.24 3 .67zM5 21a2 2 0 0 1-2-2V5c0-1.11.89-2 2-2h1V1h2v2h8V1h2v2h1a2 2 0 0 1 2 2v6.1c1.24 1.26 2 2.99 2 4.9a7 7 0 0 1-7 7c-1.91 0-3.64-.76-4.9-2zm11-9.85A4.85 4.85 0 0 0 11.15 16c0 2.68 2.17 4.85 4.85 4.85A4.85 4.85 0 0 0 20.85 16c0-2.68-2.17-4.85-4.85-4.85"/></svg>
+                          <time datetime="2025-08-29 00:00:00+00:00" class="md-ellipsis">August 29, 2025</time>
+                        </div>
+                      </li>
+                    
                     
                       <li class="md-nav__item">
                         <div class="md-nav__link">
@@ -776,7 +807,7 @@
                           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 20a8 8 0 0 0 8-8 8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8m0-18a10 10 0 0 1 10 10 10 10 0 0 1-10 10C6.47 22 2 17.5 2 12A10 10 0 0 1 12 2m.5 5v5.25l4.5 2.67-.75 1.23L11 13V7z"/></svg>
                           <span class="md-ellipsis">
                             
-                              8 min read
+                              9 min read
                             
                           </span>
                         </div>
@@ -826,26 +857,27 @@
 
 
 <h1 id="measuring-crime-concentration">Measuring Crime Concentration</h1>
-<p>What constitutes concentration?</p>
-<p>In this article we:</p>
+<p>What constitutes concentration? In this article we ask:</p>
 <ul>
-<li>how do we count crimes? - account for and control for heterogeneity in our observations (units with different area
-and populations)</li>
-<li>how do we decide if crime is concentrated and what measures are traditionally used?</li>
+<li>how do we count crimes? And how do we account for and control for heterogeneity in our observations (units with different area
+and populations)?</li>
+<li>how do we decide if crime is concentrated? What measures are traditionally used?</li>
 <li>if crime is purely random and thus <em>isn't</em> concentrated in any meaningful sense, will we still measure
 some concentration using traditional measures?</li>
 <li>can we develop a "null hypothesis" statistical model to create a baseline measure, allowing us to differentiate
-between random and structural effects? what features must this model have to be realistic?</li>
+between random and structural effects? What features must this model have to be realistic?</li>
 <li>how do we develop this into a useful measure?</li>
 </ul>
 <!-- more -->
 
 <h2 id="counting-crime">Counting Crime</h2>
 <p class="annotate">In the UK, the Police publish monthly crime statistics covering 12 broad categories of crime. The data includes precise
-geographic information - coordinates plus LSOA(1) - but no information on timing other than the month it occurred. For
-the purposes of this article our dataset will be the incidents of antisocial behaviour in West Yorkshire PFA(2) over the
-last 3 years.</p>
+geographic information - "snapped" coordinates(1) as well as LSOA(2) - but no information on timing other than the
+month in which it occurred. For the purposes of this article our dataset will be the incidents of antisocial behaviour
+in West Yorkshire PFA(3) over the last 3 years.</p>
 <ol>
+<li><img alt="🙋‍♂️" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/1f64b-200d-2642-fe0f.svg" title=":man_raising_hand:" /> To preserve anonymity the points are snapped to "snap points" which are typically the centre of a
+street segment or a public place</li>
 <li><img alt="🙋‍♂️" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/1f64b-200d-2642-fe0f.svg" title=":man_raising_hand:" /> LSOA (Lower layer Super Output Area) is a hierarchical census geography which controls (to some
 extent) for resident population, so LSOAs can vary widely in terms of area but less so in terms of population - usually
 containing 1000-3000 people. LSOAs are aggregations of OAs (Output Areas) and in turn aggregate into MSOAs (Middle
@@ -860,12 +892,13 @@ correlation between area too.</p>
 This boils down to three categories:</p>
 <ul>
 <li>
-<p><strong>statistical geographies</strong> that control for population but vary widely in in size and shape:</p>
+<p><strong>statistical geographies</strong> that control for population and align to administrative boundaries, but vary widely in
+size and shape.</p>
 </li>
 <li>
 <p><strong>regular spatial units</strong> (grid, hex etc) that have constant area (except where they cross the PFA boundary) but widely
-varying population. The equivalent histograms - which use a 1200m square grid, resulting in a similar number of units to
-LSOAs, look very different:</p>
+varying population. The histograms below highlight the differences between LSOAs with and 1200m square grid (this size
+results in a similar number of units)</p>
 </li>
 <li>
 <p><strong>the street network</strong>. This typically will have the largest number of units - making it computationally more expensive -
@@ -895,20 +928,33 @@ deviates from a straight line. A straight line represents a perfectly uniform di
 <p class="annotate">Using a month's worth of incidents (~2700) of antisocial behaviour in West Yorkshire, we can construct the Lorenz curves for
 crimes aggregated by LSOA and by a square grid of roughly equivalent average size. In each graph the black dotted line
 represents the "baseline", meaning the number of crimes in each spatial unit if crimes were uniformly distributed. The
-Gini coefficient(1) is represented by the shared areas:</p>
+Gini coefficient(1) is represented by the shaded areas:</p>
 <ol>
 <li><img alt="🙋‍♂️" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/1f64b-200d-2642-fe0f.svg" title=":man_raising_hand:" /> the value of Gini is actually twice the shaded area.</li>
 </ol>
+<p><img alt="lorenz-curves" src="../../../../../img/lorenz-curves.png" /></p>
 <p>For uniform spatial units there is no difference between the cumulative <em>count</em> of units and the cumulative <em>area</em> of
 units (since they all have the same area), but this is definitely not the case for LSOAs, as can be seen in the graph
 on the right.</p>
 <p>In the left-hand graphs the dotted baseline curve represents an even distribution of crimes - in this case each spatial
 unit having the same number - approximately 1.9 - of crimes.</p>
-<p>In the right-hand case we have computed the Gini coefficient using a baseline that represents an even distribution
-of *<em>crime density</em> - i.e. the crime count is proportional to the size of the unit.</p>
-<p><img alt="lorenz-curves" src="../../../../../img/lorenz-curves.png" /></p>
-<p>We've used the same raw crime data to create 3 very different representations of crime concentration, illustrating the
-subjectivity of these measure and the profound impact the choice of aggregation can have.</p>
+<p>Since LSOAs vary widely in area, a fixed number of crimes represents a wide variation in <em>crime density</em>, so in the
+right-hand graph we have computed the Gini coefficient using a baseline that represents an even distribution
+of <em>crime density</em> - i.e. the crime count is proportional to the size of the unit.</p>
+<h4 id="what-about-population">What about population?</h4>
+<p>So far we have compared cumulative area to a simple count of units, but we could also look at cumulative population
+(which is arguably more justifiable than area). The graphs below show the Lorenz curves for LSOAs (left) and the regular
+grid (right).</p>
+<p><img alt="lorenz-curves" src="../../../../../img/lorenz-curves-pop-weighted.png" /></p>
+<p>Because LSOAs do not have a high degree of variability in population, the Lorenz curve is very similar to the unweighted
+one above and the modified Gini index is lower largely due to the slight curvature of baseline curve.</p>
+<p>Conversely, because there is a very high degree of variability in population for a regular grid (some 15% of units
+actually have zero population) the baseline curve is extremely steep, steeper even than the Lorenz curve, resulting in a
+negative modified Gini index, implying that under this measure (population weighted regular grid), crime is actually
+dispersed rather than concentrated!</p>
+<h4 id="now-what">Now what?</h4>
+<p>We've used the same raw crime and population data to create 5 very different representations of crime concentration, illustrating the
+subjectivity of these measures and the profound impact the choice of aggregation can have.</p>
 <p>In the next section we shall look at whether the baselines are a sensible reference value for measuring concentration.</p>
 <h2 id="what-if-crime-isnt-concentrated">What if crime <strong>isn't</strong> concentrated?</h2>
 <p>The distribution of crimes across spatial units is necessarily a discrete distribution, since you can't have fractional
@@ -966,14 +1012,15 @@ be represented in double precision arithmetic.</p>
 </table>
 <p>Since crime analysis would typically have <span class="arithmatex">\(N\gg 100\)</span> and also because typically <span class="arithmatex">\(C&lt;N\)</span>, this does not seem to be a suitable
 reference for a concentration calculation.</p>
-<p class="annotate">When <span class="arithmatex">\(C&lt;N\)</span>, there is more degeneracy(1) so a quasi-uniform distribution would be <span class="arithmatex">\(C\)</span> units containing 1 crime, and <span class="arithmatex">\(N-C\)</span>
-units crime-free. However, this state is also an improbable low entropy state with the chance of occurrence given by</p>
+<p class="annotate">When <span class="arithmatex">\(C&lt;N\)</span>, a quasi-uniform distribution would be <span class="arithmatex">\(C\)</span> units containing 1 crime, and <span class="arithmatex">\(N-C\)</span>
+units crime-free. However, although there is more degeneracy(1), this confguration is also an improbable low entropy
+state with the chance of occurrence given by</p>
 <ol>
-<li>While there is only 1 way of putting 10 crimes in 10 different spatial units, there are over 30,000 ways of putting 5
+<li>Whilst there is only 1 way of putting 10 crimes in 10 different spatial units, there are over 30,000 ways of putting 5
 crimes into 10 units with no unit having more than one crime</li>
 </ol>
 <div class="arithmatex">\[
-p(\text{quasiuniform}) = \frac{N!(C-N)!}{N^C}
+p(\text{quasiuniform}) = \frac{N!}{(N-C)!N^C}
 \]</div>
 <p>The table below illustrates some probabilities for various values of <span class="arithmatex">\(C\)</span> and <span class="arithmatex">\(N\)</span>:</p>
 <table>
@@ -1024,19 +1071,20 @@ p(\text{quasiuniform}) = \frac{N!(C-N)!}{N^C}
 </tr>
 </tbody>
 </table>
-<p>which again is highly improbable.</p>
+<p>which again shows that this configuration is highly improbable for the typical values of <span class="arithmatex">\(N\)</span> and <span class="arithmatex">\(C\)</span> in crime analysis.</p>
 <h3 id="so-what-is-the-baseline">So what is the baseline?</h3>
-<p>What we are looking for a baseline that would closely match the Lorenz curve for <em>i.i.d.</em> randomly sampled crimes, which
-by construction are not concentrated. The most probable, highest-entropy, state is actually given by the Poisson
-distribution itself.</p>
+<p>What we are looking for is a baseline that would closely match the Lorenz curve for <em>i.i.d.</em> randomly sampled crimes,
+which by construction are not concentrated. This would ensure that a Gini-like index using this baseline would have a
+value close to zero for <em>i.i.d.</em> events.</p>
+<p>The most probable, highest-entropy, state is actually given by the Poisson distribution itself.</p>
 <p>In other words, in all likelihood there will likely be a mixture of counts in each unit, depending on the intensity
-(<span class="arithmatex">\(C/N\)</span>) of the Poisson process. The table below lists the expected number of units with a specific crime count, for
+(<span class="arithmatex">\(\lambda=C/N\)</span>) of the Poisson process. The table below lists the expected number of units with a specific crime count, for
 100 crimes at varying intensities:</p>
 <table>
 <thead>
 <tr>
-<th style="text-align: right;"><span class="arithmatex">\(\lambda\)</span></th>
 <th style="text-align: right;">N</th>
+<th style="text-align: right;"><span class="arithmatex">\(\lambda\)</span></th>
 <th style="text-align: right;">empty</th>
 <th style="text-align: right;">1 crime</th>
 <th style="text-align: right;">2 crimes</th>
@@ -1046,8 +1094,8 @@ distribution itself.</p>
 </thead>
 <tbody>
 <tr>
-<td style="text-align: right;">0.1</td>
 <td style="text-align: right;">1000</td>
+<td style="text-align: right;">0.1</td>
 <td style="text-align: right;">904.8</td>
 <td style="text-align: right;">90.5</td>
 <td style="text-align: right;">4.5</td>
@@ -1055,8 +1103,8 @@ distribution itself.</p>
 <td style="text-align: right;"></td>
 </tr>
 <tr>
-<td style="text-align: right;">0.2</td>
 <td style="text-align: right;">500</td>
+<td style="text-align: right;">0.2</td>
 <td style="text-align: right;">409.4</td>
 <td style="text-align: right;">81.9</td>
 <td style="text-align: right;">8.2</td>
@@ -1064,8 +1112,8 @@ distribution itself.</p>
 <td style="text-align: right;"></td>
 </tr>
 <tr>
-<td style="text-align: right;">0.5</td>
 <td style="text-align: right;">200</td>
+<td style="text-align: right;">0.5</td>
 <td style="text-align: right;">121.3</td>
 <td style="text-align: right;">60.7</td>
 <td style="text-align: right;">15.2</td>
@@ -1140,6 +1188,21 @@ heterogeneous units.</p>
     Made with
     <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
       Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/safer-streets" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
     </a>
   
 </div>
