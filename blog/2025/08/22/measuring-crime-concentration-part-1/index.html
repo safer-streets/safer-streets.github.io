@@ -652,6 +652,15 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#ranking-spatial-units" class="md-nav__link">
+    <span class="md-ellipsis">
+      Ranking Spatial Units
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#examples-of-the-lorenz-curve-and-gini-index" class="md-nav__link">
     <span class="md-ellipsis">
       Examples of the Lorenz curve and Gini index
@@ -892,7 +901,7 @@ between random and structural effects? What features must this model have to be 
 <p class="annotate">In the UK, the Police publish monthly crime statistics covering 12 broad categories of crime. The data includes precise
 geographic information - "snapped" coordinates(1) as well as LSOA(2) - but no information on timing other than the
 month in which it occurred. For the purposes of this article our dataset will be the incidents of antisocial behaviour
-in West Yorkshire PFA(3) over the last 3 years.</p>
+in West Yorkshire <abbr title="Police Force Area">PFA</abbr> over the last 3 years.</p>
 <ol>
 <li><img alt="🙋‍♂️" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/1f64b-200d-2642-fe0f.svg" title=":man_raising_hand:" /> To preserve anonymity the points are snapped to "snap points" which are typically the centre of a
 street segment or a public place</li>
@@ -900,7 +909,6 @@ street segment or a public place</li>
 extent) for resident population, so LSOAs can vary widely in terms of area but less so in terms of population - usually
 containing 1000-3000 people. LSOAs are aggregations of OAs (Output Areas) and in turn aggregate into MSOAs (Middle
 layer Super Output Area)</li>
-<li><img alt="🙋‍♂️" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/1f64b-200d-2642-fe0f.svg" title=":man_raising_hand:" /> Police Force Area, effectively the county</li>
 </ol>
 <p>Since perpetrators and victims are people, we'd expect a strong correlation between population and crime counts
 in given spatial units. But locations also present opportunities for crime, we would also expect to see some
@@ -914,7 +922,7 @@ This boils down to three categories:</p>
 size and shape.</p>
 </li>
 <li>
-<p><strong>regular spatial units</strong> (grid, hex etc) that have constant area (except where they cross the PFA boundary) but widely
+<p><strong>regular spatial units</strong> (grid, hex etc) that have constant area (except where they cross the <abbr title="Police Force Area">PFA</abbr> boundary) but widely
 varying population. The histograms below highlight the differences between LSOAs with and 1200m square grid (this size
 results in a similar number of units)</p>
 </li>
@@ -942,6 +950,51 @@ population.</li>
 </ol>
 <p>The Gini index can be used to capture disparity in a single value - it measures the amount by which the Lorenz curve
 deviates from a straight line. A straight line represents a perfectly uniform distribution of counts across units.</p>
+<h3 id="ranking-spatial-units">Ranking Spatial Units</h3>
+<p>Lorenz curves typically will have an <span class="arithmatex">\(x\)</span> axis that describes the proportion of spatial units, but it often makes sense to
+weight the axis, for example the proportion of land area, population, or some other factor. To understand the difference
+weighting makes, consider this example where we want to capture 50% of crime:</p>
+<table>
+<thead>
+<tr>
+<th>Index</th>
+<th style="text-align: right;">No crimes</th>
+<th style="text-align: right;">Area</th>
+<th style="text-align: right;">Density</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">0.1</td>
+</tr>
+<tr>
+<td>1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">0.1</td>
+</tr>
+<tr>
+<td>2</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">0.08</td>
+</tr>
+<tr>
+<td>3</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">0.0</td>
+</tr>
+</tbody>
+</table>
+<p>An unweighted ordering would rank index 2 highest, and 50% of crime can be accounted for one one unit. However, a
+ranking that minimises area would use the first two units to capture 50% of crime in the smallest area (20 units, as
+opposed to 25 units for the unweighted case)</p>
+<p>Thus if we are using weights, the Lorenz curve plots the <em>proportion of crimes</em> as a function of the <em>proportion of
+areas</em>, <strong>ordered by the density of crime</strong></p>
 <h3 id="examples-of-the-lorenz-curve-and-gini-index">Examples of the Lorenz curve and Gini index</h3>
 <p class="annotate">Using a month's worth of incidents (~2700) of antisocial behaviour in West Yorkshire, we can construct the Lorenz curves for
 crimes aggregated by LSOA and by a square grid of roughly equivalent average size. In each graph the black dotted line
@@ -980,7 +1033,7 @@ evenly distributed, in terms of either:</p>
 </ul>
 <p><img alt="lorenz-baselines" src="../../../../../img/lorenz-baselines.png" /></p>
 <p>Firstly, since LSOAs don't vary widely in population, and grid area is constant with the exception of truncated units
-around the PFA edges, there is little difference between the unweighted baselines and the LSOA population-weighted and
+around the <abbr title="Police Force Area">PFA</abbr> edges, there is little difference between the unweighted baselines and the LSOA population-weighted and
 grid area-weighted baselines.</p>
 <p>Conversely, the other baseline curves are much closer to the observed data and seem to imply "the observed concentration
 in crime in {LSOA, grid} can largely be explained by the variation the {area of, population in} the spatial unit".</p>
