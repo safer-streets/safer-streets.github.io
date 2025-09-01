@@ -12,7 +12,7 @@
         <meta name="author" content="Andrew P Smith">
       
       
-        <link rel="canonical" href="http://safer-streets.github.io/blog/2025/08/22/measuring-crime-concentration/">
+        <link rel="canonical" href="http://safer-streets.github.io/blog/2025/08/22/measuring-crime-concentration-part-1/">
       
       
         <link rel="prev" href="../../11/crime-concentration-explorer/">
@@ -27,7 +27,7 @@
     
     
       
-        <title>Measuring Crime Concentration - Safer Streets @ Leeds</title>
+        <title>Measuring Crime Concentration (Part 1) - Safer Streets @ Leeds</title>
       
     
     
@@ -79,7 +79,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#measuring-crime-concentration" class="md-skip">
+        <a href="#measuring-crime-concentration-part-1" class="md-skip">
           Skip to content
         </a>
       
@@ -114,7 +114,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Measuring Crime Concentration
+              Measuring Crime Concentration (Part 1)
             
           </span>
         </div>
@@ -671,6 +671,15 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#so-what-baseline-should-we-use" class="md-nav__link">
+    <span class="md-ellipsis">
+      So what baseline should we use?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#now-what" class="md-nav__link">
     <span class="md-ellipsis">
       Now what?
@@ -794,7 +803,7 @@
                       <li class="md-nav__item">
                         <div class="md-nav__link">
                           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M15 13h1.5v2.82l2.44 1.41-.75 1.3L15 16.69zm4-5H5v11h4.67c-.43-.91-.67-1.93-.67-3a7 7 0 0 1 7-7c1.07 0 2.09.24 3 .67zM5 21a2 2 0 0 1-2-2V5c0-1.11.89-2 2-2h1V1h2v2h8V1h2v2h1a2 2 0 0 1 2 2v6.1c1.24 1.26 2 2.99 2 4.9a7 7 0 0 1-7 7c-1.91 0-3.64-.76-4.9-2zm11-9.85A4.85 4.85 0 0 0 11.15 16c0 2.68 2.17 4.85 4.85 4.85A4.85 4.85 0 0 0 20.85 16c0-2.68-2.17-4.85-4.85-4.85"/></svg>
-                          <time datetime="2025-08-29 00:00:00+00:00" class="md-ellipsis">August 29, 2025</time>
+                          <time datetime="2025-09-01 00:00:00+00:00" class="md-ellipsis">September 1, 2025</time>
                         </div>
                       </li>
                     
@@ -816,7 +825,7 @@
                           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 20a8 8 0 0 0 8-8 8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8m0-18a10 10 0 0 1 10 10 10 10 0 0 1-10 10C6.47 22 2 17.5 2 12A10 10 0 0 1 12 2m.5 5v5.25l4.5 2.67-.75 1.23L11 13V7z"/></svg>
                           <span class="md-ellipsis">
                             
-                              9 min read
+                              10 min read
                             
                           </span>
                         </div>
@@ -865,8 +874,8 @@
   
 
 
-<h1 id="measuring-crime-concentration">Measuring Crime Concentration</h1>
-<p>What constitutes concentration? In this article we ask:</p>
+<h1 id="measuring-crime-concentration-part-1">Measuring Crime Concentration (Part 1)</h1>
+<p>What constitutes concentration? In these articles we ask:</p>
 <ul>
 <li>how do we count crimes? And how do we account for and control for heterogeneity in our observations (units with different area
 and populations)?</li>
@@ -949,22 +958,62 @@ on the right.</p>
 unit having the same number - approximately 1.9 - of crimes.</p>
 <p>Since LSOAs vary widely in area, a fixed number of crimes represents a wide variation in <em>crime density</em>, so in the
 right-hand graph we have computed the Gini coefficient using a baseline that represents an even distribution
-of <em>crime density</em> - i.e. the crime count is proportional to the size of the unit.</p>
+of <em>crime density</em> - i.e. the crime count is proportional to the size of the unit. This increases the Gini coefficient,
+suggesting there is no strong correlation between crime counts and unit area.</p>
 <h4 id="what-about-population">What about population?</h4>
 <p>So far we have compared cumulative area to a simple count of units, but we could also look at cumulative population
 (which is arguably more justifiable than area). The graphs below show the Lorenz curves for LSOAs (left) and the regular
 grid (right).</p>
 <p><img alt="lorenz-curves" src="../../../../../img/lorenz-curves-pop-weighted.png" /></p>
 <p>Because LSOAs do not have a high degree of variability in population, the Lorenz curve is very similar to the unweighted
-one above and the modified Gini index is lower largely due to the slight curvature of baseline curve.</p>
+one above and the Gini index.</p>
 <p>Conversely, because there is a very high degree of variability in population for a regular grid (some 15% of units
-actually have zero population) the baseline curve is extremely steep, steeper even than the Lorenz curve, resulting in a
-negative modified Gini index, implying that under this measure (population weighted regular grid), crime is actually
-dispersed rather than concentrated!</p>
+actually have zero population) the Lorenz curve is less steep, and the Gini lower, suggesting there is a link between
+crime counts and resident population.</p>
+<h4 id="so-what-baseline-should-we-use">So what baseline should we use?</h4>
+<p>In the graphs below the Lorenz curves are plotted against various baseslines - the curves you would get if crime was perfectly
+evenly distributed, in terms of either:</p>
+<ul>
+<li>"unweighted": the expected crime count is the same for each spatial unit</li>
+<li>"area-weighted": the expected crime count is proportional to the area of the spatial unit</li>
+<li>"population-weighted": the expected crime count is proportional to the population in the spatial unit</li>
+</ul>
+<p><img alt="lorenz-baselines" src="../../../../../img/lorenz-baselines.png" /></p>
+<p>Firstly, since LSOAs don't vary widely in population, and grid area is constant with the exception of truncated units
+around the PFA edges, there is little difference between the unweighted baselines and the LSOA population-weighted and
+grid area-weighted baselines.</p>
+<p>Conversely, the other baseline curves are much closer to the observed data and seem to imply "the observed concentration
+in crime in {LSOA, grid} can largely be explained by the variation the {area of, population in} the spatial unit".</p>
+<p>And the table summarises the "Gini" values</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Modified Gini</th>
+<th style="text-align: right;">Unweighted</th>
+<th style="text-align: right;">Area</th>
+<th style="text-align: right;">Population</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">LSOA</td>
+<td style="text-align: right;">0.61</td>
+<td style="text-align: right;">-0.05</td>
+<td style="text-align: right;">0.52</td>
+</tr>
+<tr>
+<td style="text-align: left;">1200m grid</td>
+<td style="text-align: right;">0.82</td>
+<td style="text-align: right;">0.74</td>
+<td style="text-align: right;">0.13</td>
+</tr>
+</tbody>
+</table>
 <h4 id="now-what">Now what?</h4>
-<p>We've used the same raw crime and population data to create 5 very different representations of crime concentration, illustrating the
-subjectivity of these measures and the profound impact the choice of aggregation can have.</p>
-<p>In the next section we shall look at whether the baselines are a sensible reference value for measuring concentration.</p>
+<p>We've used the same raw crime and population data to create some very different representations of crime concentration,
+illustrating the subjectivity of these measures and the profound impact the choice of aggregation can have.</p>
+<p>However there's a more fundamental problem in the comparison against a perfectly even distribution of crime. In the
+next section we shall look at whether any of the baselines are a sensible reference value for measuring concentration.</p>
 <h2 id="what-if-crime-isnt-concentrated">What if crime <strong>isn't</strong> concentrated?</h2>
 <p>The distribution of crimes across spatial units is necessarily a discrete distribution, since you can't have fractional
 crimes. In the previous section the baseline represented ~1.9 crimes per unit, so is impossible - the closest we could
