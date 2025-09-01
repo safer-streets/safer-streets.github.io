@@ -899,13 +899,13 @@ between random and structural effects? What features must this model have to be 
 
 <h2 id="counting-crime">Counting Crime</h2>
 <p class="annotate">In the UK, the Police publish monthly crime statistics covering 12 broad categories of crime. The data includes precise
-geographic information - "snapped" coordinates(1) as well as LSOA(2) - but no information on timing other than the
+geographic information - "snapped" coordinates(1) as well as <abbr title="Lower layer Super Output Area">LSOA</abbr>(2) - but no information on timing other than the
 month in which it occurred. For the purposes of this article our dataset will be the incidents of antisocial behaviour
 in West Yorkshire <abbr title="Police Force Area">PFA</abbr> over the last 3 years.</p>
 <ol>
 <li><img alt="🙋‍♂️" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/1f64b-200d-2642-fe0f.svg" title=":man_raising_hand:" /> To preserve anonymity the points are snapped to "snap points" which are typically the centre of a
 street segment or a public place</li>
-<li><img alt="🙋‍♂️" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/1f64b-200d-2642-fe0f.svg" title=":man_raising_hand:" /> LSOA (Lower layer Super Output Area) is a hierarchical census geography which controls (to some
+<li><img alt="🙋‍♂️" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/1f64b-200d-2642-fe0f.svg" title=":man_raising_hand:" /> <abbr title="Lower layer Super Output Area">LSOA</abbr> is a hierarchical census geography which controls (to some
 extent) for resident population, so LSOAs can vary widely in terms of area but less so in terms of population - usually
 containing 1000-3000 people. LSOAs are aggregations of OAs (Output Areas) and in turn aggregate into MSOAs (Middle
 layer Super Output Area)</li>
@@ -997,7 +997,7 @@ opposed to 25 units for the unweighted case)</p>
 areas</em>, <strong>ordered by the density of crime</strong></p>
 <h3 id="examples-of-the-lorenz-curve-and-gini-index">Examples of the Lorenz curve and Gini index</h3>
 <p class="annotate">Using a month's worth of incidents (~2700) of antisocial behaviour in West Yorkshire, we can construct the Lorenz curves for
-crimes aggregated by LSOA and by a square grid of roughly equivalent average size. In each graph the black dotted line
+crimes aggregated by <abbr title="Lower layer Super Output Area">LSOA</abbr> and by a square grid of roughly equivalent average size. In each graph the black dotted line
 represents the "baseline", meaning the number of crimes in each spatial unit if crimes were uniformly distributed. The
 Gini coefficient(1) is represented by the shaded areas:</p>
 <ol>
@@ -1033,10 +1033,10 @@ evenly distributed, in terms of either:</p>
 </ul>
 <p><img alt="lorenz-baselines" src="../../../../../img/lorenz-baselines.png" /></p>
 <p>Firstly, since LSOAs don't vary widely in population, and grid area is constant with the exception of truncated units
-around the <abbr title="Police Force Area">PFA</abbr> edges, there is little difference between the unweighted baselines and the LSOA population-weighted and
+around the <abbr title="Police Force Area">PFA</abbr> edges, there is little difference between the unweighted baselines and the <abbr title="Lower layer Super Output Area">LSOA</abbr> population-weighted and
 grid area-weighted baselines.</p>
 <p>Conversely, the other baseline curves are much closer to the observed data and seem to imply "the observed concentration
-in crime in {LSOA, grid} can largely be explained by the variation the {area of, population in} the spatial unit".</p>
+in crime in {<abbr title="Lower layer Super Output Area">LSOA</abbr>, grid} can largely be explained by the variation the {area of, population in} the spatial unit".</p>
 <p>And the table summarises the "Gini" values</p>
 <table>
 <thead>
@@ -1049,7 +1049,7 @@ in crime in {LSOA, grid} can largely be explained by the variation the {area of,
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left;">LSOA</td>
+<td style="text-align: left;"><abbr title="Lower layer Super Output Area">LSOA</abbr></td>
 <td style="text-align: right;">0.61</td>
 <td style="text-align: right;">-0.05</td>
 <td style="text-align: right;">0.52</td>
@@ -1258,7 +1258,7 @@ purely from chance. Therefore, <strong>if</strong> our model of the Poisson base
 any measure of concentration should be made relative to the Poisson baseline.</p>
 <p>So far, we have only looked at uniform spatial units, Next, we will attempt to validate the model by comparing the
 distributions of actual crime data and data simulated under the null hypothesis, and seeing if we can extend it to
-heterogeneous units such as census geographies (OA, LSOA, and/or MSOA).</p>
+heterogeneous units such as census geographies (OA, <abbr title="Lower layer Super Output Area">LSOA</abbr>, and/or MSOA).</p>
 
 
 
