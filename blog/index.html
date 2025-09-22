@@ -740,45 +740,13 @@ grids and hexes. In order to do this, we could simply place people at random poi
 then take those that fall within the new geography. However this can be unrealistic, particularly in areas that are
 rural or contain large-scale non-residential infrastructure or bodies of water (despite Monty Python's boasts, nobody
 in Yorkshire lives under a lake!).</p>
-<p>To do this reasonably accurately we need to have some idea of the geography within the areas, to avoid placing people in
-nonsensical locations. One way to achieve this is to use the street network. <abbr title="OpenStreetMap">OSM</abbr> provide detailed street
-networks including classifications, so we can even limit to certain types of streets - i.e. residential - making the
-assignment even more realistic.</p>
-<p>The next step is to place people onto the (residential) street network</p>
-<h3 id="example"><a class="toclink" href="2025/09/15/demographics/#example">Example</a></h3>
-<p>We want to realistically re-aggregate the population of the census output area E00053954 to a 250m hex grid.</p>
-<p>This output area has been deliberately chosen as it covers a relatively very large 11km² (compared to the West
-Yorkshire average of 0.28km², and the hex cell area of 0.16km²) with a very uneven population distribution.</p>
-<p>It has a population of 293 (West Yorkshire average is 320). Most of this area is uninhabited moorland, and is crossed
-by largely non-residential main roads. Residential streets are clustered in the east of the area (shown in red in the
-map below).</p>
-<p><img alt="E00053954-residential-streets" src="../img/E00053954-residential-streets.png" /></p>
-<p>The methodology we use is a three-step process:</p>
-<ol>
-<li>using appropriate census table(s), generate a population with the required attributes (e.g. age, sex, ethnicity,
-socioeconomic status) consistent with the totals for the output area</li>
-<li>assign each person to a randomly sampled point <em>on the street network</em> within the output
- area.</li>
-<li>spatially join the points with the new features and aggregate as required</li>
-</ol>
-<p>This is relatively efficient: as the first two steps are independent of the choice of new feature, the population
-data from step 2 can be cached and reused.</p>
-<p>Using the example output area above, this would result in the population of 293 people being assigned to hexes like so:</p>
-<p><img alt="E00053954-population-hex" src="../img/E00053954-population-hex.png" /></p>
-<p>Although this illustrative example only covers a single output area, in practice, the assignment is carried out
-over an entire Police Force Area, and, rather than having truncated grid cells on the edges of output areas,
-population is be assigned to the full cell from all the intersecting output areas.</p>
-<h3 id="limitations"><a class="toclink" href="2025/09/15/demographics/#limitations">Limitations</a></h3>
-<p>This methodology treats each individual separately and cannot capture households or clusters of individuals with
-shared traits (such as ethnicity). Census data does not capture any spatial heterogeneity of categorical features
-within the output area.</p>
-<p>People are assigned locations at random on street segments that are classified as residential, except for the occasional
-cases where output areas contain no residential streets (e.g. communal residences) - where people are just assigned
-random locations within the output area.</p>
-<h3 id="further-development"><a class="toclink" href="2025/09/15/demographics/#further-development">Further Development</a></h3>
-<p>If retaining household structure became desirable, the census does provide household-level statistics and locations of
-people could be grouped accordingly. Another possibility is to use <abbr title="OpenStreetMap">OSM</abbr> building data rather that street data - but at
-the time of writing the data quality is an issue, with missing data and inconsistent building classifications.</p>
+
+    
+      <nav class="md-post__action">
+        <a href="2025/09/15/demographics/">
+          Continue reading
+        </a>
+      </nav>
     
   </div>
 </article>
@@ -808,7 +776,7 @@ the time of writing the data quality is an issue, with missing data and inconsis
           
           <li class="md-meta__item">
             
-              10 min read
+              11 min read
             
           </li>
         

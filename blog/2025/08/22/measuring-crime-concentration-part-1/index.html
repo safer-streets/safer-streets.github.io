@@ -690,13 +690,13 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#examples-of-the-lorenz-curve-and-gini-index" class="md-nav__link">
+  <a href="#examples-of-the-lorenz-curve-and-gini-coefficient-using-different-measures" class="md-nav__link">
     <span class="md-ellipsis">
-      Examples of the Lorenz curve and Gini index
+      Examples of the Lorenz curve and Gini coefficient using different measures
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Examples of the Lorenz curve and Gini index">
+    <nav class="md-nav" aria-label="Examples of the Lorenz curve and Gini coefficient using different measures">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -841,7 +841,7 @@
                       <li class="md-nav__item">
                         <div class="md-nav__link">
                           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M15 13h1.5v2.82l2.44 1.41-.75 1.3L15 16.69zm4-5H5v11h4.67c-.43-.91-.67-1.93-.67-3a7 7 0 0 1 7-7c1.07 0 2.09.24 3 .67zM5 21a2 2 0 0 1-2-2V5c0-1.11.89-2 2-2h1V1h2v2h8V1h2v2h1a2 2 0 0 1 2 2v6.1c1.24 1.26 2 2.99 2 4.9a7 7 0 0 1-7 7c-1.91 0-3.64-.76-4.9-2zm11-9.85A4.85 4.85 0 0 0 11.15 16c0 2.68 2.17 4.85 4.85 4.85A4.85 4.85 0 0 0 20.85 16c0-2.68-2.17-4.85-4.85-4.85"/></svg>
-                          <time datetime="2025-09-01 00:00:00+00:00" class="md-ellipsis">September 1, 2025</time>
+                          <time datetime="2025-09-22 00:00:00+00:00" class="md-ellipsis">September 22, 2025</time>
                         </div>
                       </li>
                     
@@ -863,7 +863,7 @@
                           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 20a8 8 0 0 0 8-8 8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8m0-18a10 10 0 0 1 10 10 10 10 0 0 1-10 10C6.47 22 2 17.5 2 12A10 10 0 0 1 12 2m.5 5v5.25l4.5 2.67-.75 1.23L11 13V7z"/></svg>
                           <span class="md-ellipsis">
                             
-                              10 min read
+                              11 min read
                             
                           </span>
                         </div>
@@ -977,12 +977,13 @@ in some way? Traditional measures include the Lorenz curve(1), which plots the p
 <li><img alt="🙋‍♂️" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/1f64b-200d-2642-fe0f.svg" title=":man_raising_hand:" /> originally used in Economics to measure income disparity - cumulative wealth versus cumulative
 population.</li>
 </ol>
-<p>The Gini index can be used to capture disparity in a single value - it measures the amount by which the Lorenz curve
-deviates from a straight line. A straight line represents a perfectly uniform distribution of counts across units.</p>
+<p>The steeper the Lorenz curve, the more crime is concentrated in a small number of areas. The Gini coefficient can be used to capture the disparity in a single value - it measures the amount by which the Lorenz curve deviates from a straight line. A straight line represents a perfectly uniform distribution of counts across units.</p>
+<p>Using Antisocial behaviour in West Yorkshire as an example, the following graphs illustrate the variability of the Lorenz curve and Gini coefficient against different spatial and temporal aggregation scales:</p>
+<p><img alt="Lorenz and Gini" src="../../../../../img/asb-concentration-vs-area-time.png" /></p>
+<p>Unsurprisingly, higher concentrations are observed at higher spatial and temporal resolutions. But this does not
+necessarily imply a structural concentration mechanism: after all, the smaller the spatial unit, the smaller the total area required to capture all crimes.</p>
 <h3 id="ranking-spatial-units">Ranking Spatial Units</h3>
-<p>Lorenz curves typically will have an <span class="arithmatex">\(x\)</span> axis that describes the proportion of spatial units, but it often makes sense to
-weight the axis, for example the proportion of land area, population, or some other factor. To understand the difference
-weighting makes, consider this example where we want to capture 50% of crime:</p>
+<p>Lorenz curves typically will have an <span class="arithmatex">\(x\)</span> axis that describes the proportion of spatial units, but it often makes sense to weight the axis, for example the proportion of land area, population, or some other factor. To understand the difference weighting makes, consider this example where we want to capture 50% of crime:</p>
 <table>
 <thead>
 <tr>
@@ -1019,12 +1020,12 @@ weighting makes, consider this example where we want to capture 50% of crime:</p
 </tr>
 </tbody>
 </table>
-<p>An unweighted ordering would rank index 2 highest, and 50% of crime can be accounted for one one unit. However, a
+<p>An unweighted ordering would rank index 2 highest, and 50% of crime can be accounted for one unit. However, a
 ranking that minimises area would use the first two units to capture 50% of crime in the smallest area (20 units, as
 opposed to 25 units for the unweighted case)</p>
 <p>Thus if we are using weights, the Lorenz curve plots the <em>proportion of crimes</em> as a function of the <em>proportion of
 areas</em>, <strong>ordered by the density of crime</strong></p>
-<h3 id="examples-of-the-lorenz-curve-and-gini-index">Examples of the Lorenz curve and Gini index</h3>
+<h3 id="examples-of-the-lorenz-curve-and-gini-coefficient-using-different-measures">Examples of the Lorenz curve and Gini coefficient using different measures</h3>
 <p class="annotate">Using a month's worth of incidents (~2700) of antisocial behaviour in West Yorkshire, we can construct the Lorenz curves for
 crimes aggregated by <abbr title="Lower layer Super Output Area">LSOA</abbr> and by a square grid of roughly equivalent average size. In each graph the black dotted line
 represents the "baseline", meaning the number of crimes in each spatial unit if crimes were uniformly distributed. The
@@ -1048,7 +1049,7 @@ suggesting there is no strong correlation between crime counts and unit area.</p
 grid (right).</p>
 <p><img alt="lorenz-curves" src="../../../../../img/lorenz-curves-pop-weighted.png" /></p>
 <p>Because LSOAs do not have a high degree of variability in population, the Lorenz curve is very similar to the unweighted
-one above and the Gini index.</p>
+one above and the Gini coefficient.</p>
 <p>Conversely, because there is a very high degree of variability in population for a regular grid (some 15% of units
 actually have zero population) the Lorenz curve is less steep, and the Gini lower, suggesting there is a link between
 crime counts and resident population.</p>
@@ -1106,10 +1107,7 @@ and further reducing the shaded area.</p>
 <p>So in order to measure how concentrated crime actually is, we first need to establish what metrics we get when
 we <strong>know</strong> crime isn't concentrated. This is our <strong>null hypothesis</strong> and can be easily simulated with random sampling.</p>
 <p class="annotate">Let's say we have <span class="arithmatex">\(N\)</span> identical spatial units and our expectations is a total of <span class="arithmatex">\(C\)</span> crimes. We consider crimes to be
-<em>i.i.d.</em>(1) Poisson processes with intensity <span class="arithmatex">\(\lambda=C/N\)</span> for each spatial unit.</p>
-<ol>
-<li>Independent and identically distributed</li>
-</ol>
+<em><abbr title="independent and identically distributed">i.i.d</abbr>.</em> Poisson processes with intensity <span class="arithmatex">\(\lambda=C/N\)</span> for each spatial unit.</p>
 <p>In this model, our baseline of a perfectly even distribution is actually a (very) low entropy, (highly)
 improbable, state for the system. Firstly since we can't have fractional crimes, a perfectly even distribution isn't
 actually possible unless <span class="arithmatex">\(C\)</span> is an integer multiple of <span class="arithmatex">\(N\)</span>.</p>
@@ -1213,9 +1211,9 @@ p(\text{quasiuniform}) = \frac{N!}{(N-C)!N^C}
 </table>
 <p>which again shows that this configuration is highly improbable for the typical values of <span class="arithmatex">\(N\)</span> and <span class="arithmatex">\(C\)</span> in crime analysis.</p>
 <h3 id="so-what-is-the-baseline">So what is the baseline?</h3>
-<p>What we are looking for is a baseline that would closely match the Lorenz curve for <em>i.i.d.</em> randomly sampled crimes,
+<p>What we are looking for is a baseline that would closely match the Lorenz curve for <em><abbr title="independent and identically distributed">i.i.d</abbr>.</em> randomly sampled crimes,
 which by construction are not concentrated. This would ensure that a Gini-like index using this baseline would have a
-value close to zero for <em>i.i.d.</em> events.</p>
+value close to zero for <em><abbr title="independent and identically distributed">i.i.d</abbr>.</em> events.</p>
 <p>The most probable, highest-entropy, state is actually given by the Poisson distribution itself.</p>
 <p>In other words, in all likelihood there will likely be a mixture of counts in each unit, depending on the intensity
 (<span class="arithmatex">\(\lambda=C/N\)</span>) of the Poisson process. The table below lists the expected number of units with a specific crime count, for
@@ -1282,7 +1280,7 @@ crime data. Observe the following points:</p>
 <p><img alt="lorenz-poisson" src="../../../../../img/lorenz-poisson2.png" /></p>
 <h3 id="what-does-this-mean">What does this mean?</h3>
 <p>Our assertion is that only the blue shaded area represents a level of concentration over and above purely random events,
-and in particular the grey shaded area (the "excess" Gini) cannot be be used to explain any structural mechanism - it arises
+and in particular the grey shaded area (the "excess" Gini) cannot be be used to justify any structural mechanism - it arises
 purely from chance. Therefore, <strong>if</strong> our model of the Poisson baseline is valid (spoiler alert - it probably isn't),
 any measure of concentration should be made relative to the Poisson baseline.</p>
 <p>So far, we have only looked at uniform spatial units, Next, we will attempt to validate the model by comparing the
