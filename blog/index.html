@@ -652,6 +652,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#measuring-crime-concentration-part-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Measuring Crime Concentration (Part 2)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#demographics" class="md-nav__link">
     <span class="md-ellipsis">
       Demographics
@@ -673,15 +682,6 @@
   <a href="#measuring-crime-concentration-part-1" class="md-nav__link">
     <span class="md-ellipsis">
       Measuring Crime Concentration (Part 1)
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#why-is-all-this-maths-important" class="md-nav__link">
-    <span class="md-ellipsis">
-      Why is all this maths important?
     </span>
   </a>
   
@@ -755,6 +755,65 @@ the possibilities duckdb enables and want to share some progress...</p>
     
       <nav class="md-post__action">
         <a href="2025/11/18/scaling-up/">
+          Continue reading
+        </a>
+      </nav>
+    
+  </div>
+</article>
+      
+        <article class="md-post md-post--excerpt">
+  <header class="md-post__header">
+    
+      <nav class="md-post__authors md-typeset">
+        
+          <span class="md-author">
+            <img src="https://avatars.githubusercontent.com/u/19323577" alt="Andrew Smith">
+          </span>
+        
+      </nav>
+    
+    <div class="md-post__meta md-meta">
+      <ul class="md-meta__list">
+        <li class="md-meta__item">
+          <time datetime="2025-10-13 00:00:00+00:00">October 13, 2025</time></li>
+        
+          <li class="md-meta__item">
+            in
+            
+              <a href="category/methodology/" class="md-meta__link">Methodology</a></li>
+        
+        
+          
+          <li class="md-meta__item">
+            
+              11 min read
+            
+          </li>
+        
+      </ul>
+      
+    </div>
+  </header>
+  <div class="md-post__content md-typeset">
+    <h2 id="measuring-crime-concentration-part-2"><a class="toclink" href="2025/10/13/measuring-crime-concentration-part-2/">Measuring Crime Concentration (Part 2)</a></h2>
+<p>We demonstrated in <a href="2025/08/22/measuring-crime-concentration-part-1/">part 1</a> that random data with no structural concentration will exhibit
+some concentration using the traditional measures. In this article we taker a deeper dive into this claim.</p>
+<p>Recall that our <em>null hypothesis</em> was that crimes are not concentrated, crime is is no more or less likely to occur
+in any given spatial unit, and the chance of a crime occurrence is not affected by previous events.</p>
+<h3 id="motivating-example-seasonality"><a class="toclink" href="2025/10/13/measuring-crime-concentration-part-2/#motivating-example-seasonality">Motivating example - Seasonality</a></h3>
+<p>Public crime data in the UK contains precise (but obfuscated) location data, imprecise temporal information (the month
+of occurrence) and broad categorical information (around a dozen categories). Taking 3 years of data for incidents of
+<abbr title="antisocial behaviour">ASB</abbr> in West Yorkshire, aggregating crime into spatial units (in this case <abbr title="a statistical (census) geography containing roughly 2000 residents">LSOA</abbr>) we can plot a graph of (naive) Gini over time.</p>
+<p>This graph shows some clear seasonality - concentration increases in the winter and decreases in the summer. A fairly
+obvious explanation for this would be that since antisocial behaviour generally occurs outdoors, there are simply more
+outdoor gatherings in warmer weather and longer daylight hours, therefore more opportunities.</p>
+<p><img alt="Gini seasonality" src="../img/gini-seasonality.png" /></p>
+<p>However, more careful analysis of the data shows the apparent seasonality <strong>is an illusion</strong>. Here's why...</p>
+
+    
+      <nav class="md-post__action">
+        <a href="2025/10/13/measuring-crime-concentration-part-2/">
           Continue reading
         </a>
       </nav>
@@ -913,50 +972,6 @@ between random and structural effects? What features must this model have to be 
     
       <nav class="md-post__action">
         <a href="2025/08/22/measuring-crime-concentration-part-1/">
-          Continue reading
-        </a>
-      </nav>
-    
-  </div>
-</article>
-      
-        <article class="md-post md-post--excerpt">
-  <header class="md-post__header">
-    
-      <nav class="md-post__authors md-typeset">
-        
-          <span class="md-author">
-            <img src="https://avatars.githubusercontent.com/u/2468237" alt="Dan Birks">
-          </span>
-        
-      </nav>
-    
-    <div class="md-post__meta md-meta">
-      <ul class="md-meta__list">
-        <li class="md-meta__item">
-          <time datetime="2025-08-18 00:00:00+00:00">August 18, 2025</time></li>
-        
-        
-          
-          <li class="md-meta__item">
-            
-              3 min read
-            
-          </li>
-        
-      </ul>
-      
-    </div>
-  </header>
-  <div class="md-post__content md-typeset">
-    <h2 id="why-is-all-this-maths-important"><a class="toclink" href="2025/08/18/why-is-all-this-maths/">Why is all this maths important?</a></h2>
-<h4 id="an-introduction-to-the-rationale-behind-our-analytical-approach"><a class="toclink" href="2025/08/18/why-is-all-this-maths/#an-introduction-to-the-rationale-behind-our-analytical-approach">An introduction to the rationale behind our analytical approach</a></h4>
-<p><em>This post is the first in a short blog series designed to accompany the analyses, documentation and reproducible code developed as part of our Safer Streets project. While the technical outputs are aimed at transparency and reusability, this series provides a more accessible commentary on the </em>why<em> behind the </em>what<em> - why we’re doing what we’re doing, and why it matters for policing and crime prevention practice.</em></p>
-<hr />
-
-    
-      <nav class="md-post__action">
-        <a href="2025/08/18/why-is-all-this-maths/">
           Continue reading
         </a>
       </nav>

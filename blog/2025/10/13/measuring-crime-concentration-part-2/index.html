@@ -12,13 +12,13 @@
         <meta name="author" content="Andrew P Smith">
       
       
-        <link rel="canonical" href="http://safer-streets.github.io/blog/2025/09/15/demographics/">
+        <link rel="canonical" href="http://safer-streets.github.io/blog/2025/10/13/measuring-crime-concentration-part-2/">
       
       
-        <link rel="prev" href="../../../08/27/crime-prevention-features/">
+        <link rel="prev" href="../../../09/15/demographics/">
       
       
-        <link rel="next" href="../../../10/13/measuring-crime-concentration-part-2/">
+        <link rel="next" href="../../../11/18/scaling-up/">
       
       
         <link rel="alternate" type="application/rss+xml" title="RSS feed" href="../../../../../feed_rss_created.xml">
@@ -29,7 +29,7 @@
     
     
       
-        <title>Demographics - Safer Streets @ Leeds</title>
+        <title>Measuring Crime Concentration (Part 2) - Safer Streets @ Leeds</title>
       
     
     
@@ -81,7 +81,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#demographics" class="md-skip">
+        <a href="#measuring-crime-concentration-part-2" class="md-skip">
           Skip to content
         </a>
       
@@ -116,7 +116,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Demographics
+              Measuring Crime Concentration (Part 2)
             
           </span>
         </div>
@@ -647,27 +647,102 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#example" class="md-nav__link">
+  <a href="#motivating-example-seasonality" class="md-nav__link">
     <span class="md-ellipsis">
-      Example
+      Motivating example - Seasonality
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#limitations" class="md-nav__link">
+  <a href="#poisson-gamma-and-negative-binomial" class="md-nav__link">
     <span class="md-ellipsis">
-      Limitations
+      Poisson-Gamma and Negative Binomial
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#further-development" class="md-nav__link">
+  <a href="#hawkes-processes" class="md-nav__link">
     <span class="md-ellipsis">
-      Further Development
+      Hawkes Processes
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#spatial-heterogeneity" class="md-nav__link">
+    <span class="md-ellipsis">
+      Spatial Heterogeneity
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#scale-invariance" class="md-nav__link">
+    <span class="md-ellipsis">
+      Scale Invariance
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Scale Invariance">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#modified-gini" class="md-nav__link">
+    <span class="md-ellipsis">
+      Modified Gini
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#results" class="md-nav__link">
+    <span class="md-ellipsis">
+      Results
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Results">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#p-value" class="md-nav__link">
+    <span class="md-ellipsis">
+      p-value
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#skew" class="md-nav__link">
+    <span class="md-ellipsis">
+      Skew
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conclusions-and-further-work" class="md-nav__link">
+    <span class="md-ellipsis">
+      Conclusions and Further Work
     </span>
   </a>
   
@@ -729,7 +804,7 @@
                     <li class="md-nav__item">
                       <div class="md-nav__link">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 19H5V8h14m-3-7v2H8V1H6v2H5c-1.11 0-2 .89-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-1V1m-1 11h-5v5h5z"/></svg>
-                        <time datetime="2025-09-15 00:00:00+00:00" class="md-ellipsis">September 15, 2025</time>
+                        <time datetime="2025-10-13 00:00:00+00:00" class="md-ellipsis">October 13, 2025</time>
                       </div>
                     </li>
                     
@@ -740,7 +815,7 @@
                           <span class="md-ellipsis">
                             in
                             
-                              <a href="../../../../category/demographics/">Demographics</a></span>
+                              <a href="../../../../category/methodology/">Methodology</a></span>
                         </div>
                       </li>
                     
@@ -751,7 +826,7 @@
                           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 20a8 8 0 0 0 8-8 8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8m0-18a10 10 0 0 1 10 10 10 10 0 0 1-10 10C6.47 22 2 17.5 2 12A10 10 0 0 1 12 2m.5 5v5.25l4.5 2.67-.75 1.23L11 13V7z"/></svg>
                           <span class="md-ellipsis">
                             
-                              3 min read
+                              11 min read
                             
                           </span>
                         </div>
@@ -773,65 +848,258 @@
   
 
 
+  <nav class="md-tags" >
+    
+      
+      
+      
+        <a href="../../../../tags/#tag:gini-coefficient" class="md-tag">Gini coefficient</a>
+      
+    
+      
+      
+      
+        <a href="../../../../tags/#tag:lorenz-curve" class="md-tag">Lorenz curve</a>
+      
+    
+      
+      
+      
+        <a href="../../../../tags/#tag:poisson-distribution" class="md-tag">Poisson distribution</a>
+      
+    
+  </nav>
+
 
   
   
 
 
-<h1 id="demographics">Demographics</h1>
-<p>When we look at crime counts at different spatial scales, it is often useful to try to understand the demographics of
-the area. Older people are more likely to be victims of certain crimes, for instance, and for others there are often
-correlations between crime incidence and the deprivation, socioeconomic status or other makeup of the area.</p>
-<p>The UK census is the biggest source of demographic data, providing many attributes over various spatial scales. With
-census data there is always a tradeoff between spatial and categorical resolutions, often to preserve anonymity. For
-example, the highest spatial resolution for counts of people by age in years is <abbr title="Middle-layer Super Output Area">MSOA</abbr>, and at higher resolutions
-(<abbr title="Lower-layer Super Output Area">LSOA</abbr>, <abbr title="Output Area">OA</abbr>) age is only given in 5-year bands.</p>
-<p>Another very important consideration is that we will want to aggregate people to non-statistical geographies, such as
-grids and hexes. In order to do this, we could simply place people at random points within the statistical geography,
-then take those that fall within the new geography. However this can be unrealistic, particularly in areas that are
-rural or contain large-scale non-residential infrastructure or bodies of water (despite Monty Python's boasts, nobody
-in Yorkshire lives under a lake!).</p>
+<h1 id="measuring-crime-concentration-part-2">Measuring Crime Concentration (Part 2)</h1>
+<p>We demonstrated in <a href="../../../08/22/measuring-crime-concentration-part-1/">part 1</a> that random data with no structural concentration will exhibit
+some concentration using the traditional measures. In this article we taker a deeper dive into this claim.</p>
+<p>Recall that our <em>null hypothesis</em> was that crimes are not concentrated, crime is is no more or less likely to occur
+in any given spatial unit, and the chance of a crime occurrence is not affected by previous events.</p>
+<h2 id="motivating-example-seasonality">Motivating example - Seasonality</h2>
+<p>Public crime data in the UK contains precise (but obfuscated) location data, imprecise temporal information (the month
+of occurrence) and broad categorical information (around a dozen categories). Taking 3 years of data for incidents of
+<abbr title="antisocial behaviour">ASB</abbr> in West Yorkshire, aggregating crime into spatial units (in this case <abbr title="a statistical (census) geography containing roughly 2000 residents">LSOA</abbr>) we can plot a graph of (naive) Gini over time.</p>
+<p>This graph shows some clear seasonality - concentration increases in the winter and decreases in the summer. A fairly
+obvious explanation for this would be that since antisocial behaviour generally occurs outdoors, there are simply more
+outdoor gatherings in warmer weather and longer daylight hours, therefore more opportunities.</p>
+<p><img alt="Gini seasonality" src="../../../../../img/gini-seasonality.png" /></p>
+<p>However, more careful analysis of the data shows the apparent seasonality <strong>is an illusion</strong>. Here's why...</p>
 <!-- more -->
 
-<p>To do this reasonably accurately we need to have some idea of the geography within the areas, to avoid placing people in
-nonsensical locations. One way to achieve this is to use the street network. <abbr title="OpenStreetMap">OSM</abbr> provide detailed street
-networks including classifications, so we can even limit to certain types of streets - i.e. residential - making the
-assignment even more realistic.</p>
-<p>The next step is to place people onto the (residential) street network</p>
-<h2 id="example">Example</h2>
-<p>We want to realistically re-aggregate the population of the census output area E00053954 to a 250m hex grid.</p>
-<p>This output area has been deliberately chosen as it covers a relatively very large 11km² (compared to the West
-Yorkshire average of 0.28km², and the hex cell area of 0.16km²) with a very uneven population distribution.</p>
-<p>It has a population of 293 (West Yorkshire average is 320). Most of this area is uninhabited moorland, and is crossed
-by largely non-residential main roads. Residential streets are clustered in the east of the area (shown in red in the
-map below).</p>
-<p><img alt="E00053954-residential-streets" src="../../../../../img/E00053954-residential-streets.png" /></p>
-<p>The methodology we use is a three-step process:</p>
+<p>Put in statistical terms, our null hypothesis is that crime counts in each
+spatial unit are <em><abbr title="independent and identically distributed">i.i.d</abbr></em> Poisson processes, with intensity <span class="arithmatex">\(\lambda = C / N\)</span> where <span class="arithmatex">\(C\)</span> is the total number of crimes
+and <span class="arithmatex">\(N\)</span> the number of spatial units. In other words each spatial unit is identical in terms of its propensity to
+contain crime.</p>
+<p>For the dataset in question, <span class="arithmatex">\(\lambda\)</span> ranges between 0.82 and 2.26 over the 3 years. Since in most cases <span class="arithmatex">\(\lambda \ge 1\)</span>,
+the adjustment suggested by Bernasco and Steenbeck (see <a href="../../../08/22/measuring-crime-concentration-part-1/">part 1</a>) would have no effect.</p>
+<p>A comparison of actual vs sampled crimes - both Lorenz curves and Gini coefficient - broadly shows what we expect: actual
+crime data is more concentrated than sampled data and the sampled data appears to show some level of concentration.</p>
+<p><img alt="actual vs sampled Gini" src="../../../../../img/actual-sampled-gini.png" /></p>
+<p>But the most interesting point to note is that the sampled data appears to share the seasonality of concentration of
+the real data, and if you compute the "excess" Gini by subtracting the sampled Gini from the actual Gini values, the
+seasonality disappears, in fact the "excess" is negatively correlated with naive Gini, suggesting - if anything - the
+opposite of our original explanation.</p>
+<p>But since we know the sampled data is not concentrated (by construction) we must conclude that there is no (strong)
+seasonality in the actual data. The variation we observe is (almost) entirely due to a seasonality in <strong>count data</strong>,
+that is, there are simply fewer incidents of <abbr title="antisocial behaviour">ASB</abbr>, and because our concentration metric is flawed, it appears as an
+increase in concentration. This is clear from a scatterplot of Gini against total crimes in each month:</p>
+<p><img alt="gini-count-scatter" src="../../../../../img/gini-count-scatter.png" /></p>
+<p>Now, going back to the null hypothesis, we have a range of counts and we could compute a null-hypothesis Lorenz curve
+for each, but it probably makes more practical sense to compute bounds on the Lorenz curves we would expect under the
+null hypothesis. Repeating the graph from above yields</p>
+<p><img alt="actual vs null-hypothesis Gini ASB" src="../../../../../img/actual-null-hypothesis-gini.png" /></p>
+<p>There is little discernable difference from the analytic null-hypothesis Gini and the sampled Gini (as we would expect).</p>
+<p>Looking at some other crime types - firstly violent crime, which has a much higher incidence (~11000 per month compared
+to ~2300 for <abbr title="antisocial behaviour">ASB</abbr>) and no apparent seasonality:</p>
+<p><img alt="actual vs null-hypothesis Gini violence" src="../../../../../img/actual-null-hypothesis-gini-violence.png" /></p>
+<p>Here most of the observed concentration is real, as the bias is lower due to the higher incident counts at this spatial scale.</p>
+<p>Whereas for the less frequent crime of possession of weapons (~210 per month):</p>
+<p><img alt="actual vs null-hypothesis Gini weapons" src="../../../../../img/actual-null-hypothesis-gini-weapons.png" /></p>
+<p>almost all of the apparent concentration arises from the low-observation bias.</p>
+<p>From here, the next steps are to determine how far along the road to spatial invariance this get us, and also potentially
+investigate whether it is possible we can improve upon our null hypothesis using a more sophisticated statistical model?
+Some potential avenues might be:</p>
+<hr />
+<p>TODO remove these sections?</p>
+<h2 id="poisson-gamma-and-negative-binomial">Poisson-Gamma and Negative Binomial</h2>
+<p>It is well-known that crime count distributions do not follow a Poisson distribution - they tend to be overdispersed,
+since we know that spatial units are not homogeneous because opportunities to commit crime are not (and vary widely
+between crime type). This dispersion presents itself as some degree of concentration.</p>
+<p>The Poisson distribution has a single degree of freedom - the variance of the distribution is fixed by the mean, but
+counts are overdispersed, meaning they have a higher variance than a Poisson distribution can achieve. But counts over
+time in a given spatial unit are known to fit a negative binomial (<abbr title="negative binomial">NB</abbr>) distribution much more closely, e.g.:</p>
+<p>The rationale behind using a <abbr title="negative binomial">NB</abbr> distribution comes from Bayesian statistics: for a given <span class="arithmatex">\(\lambda\)</span>, the
+likelihood is a Poisson distribution, however <span class="arithmatex">\(\lambda\)</span> is uncertain so is modelled by a gamma distribution with
+parameters determined by observed counts and number of observations. The resulting <em>posterior predictive distribution</em> is <abbr title="negative binomial">NB</abbr>,
+capturing the overdispersion that a Poisson distribution cannot.</p>
+<p>Whilst this is a useful formulation, it is probably not a suitable baseline model as it already incorporates
+concentration - although it is concentration arising from parameter uncertainty, rather than a structural mechanism.</p>
+<h2 id="hawkes-processes">Hawkes Processes</h2>
+<p>A Hawkes process is a self-exciting stochastic process that can be used to model crime that tends to occur more
+frequently if crime has already happened in the recent past in the same location. As it specifically and deliberately
+builds in non-independence (and thus concentration), a baseline based on this process is not suitable.</p>
+<h2 id="spatial-heterogeneity">Spatial Heterogeneity</h2>
+<p>When we state that our baseline uses <em><abbr title="independent and identically distributed">i.i.d</abbr>.</em> Poisson processes we are basically saying that there is no concentration
+(independent) and there is no spatial heterogeneity (identically distributed)</p>
+<p>Perhaps for a better baseline we could keep independence and drop the identically distributed part, in other words
+capture the heterogeneity of spatial units without implying any concentration. The overall distribution of counts then
+becomes a <a href="">Poisson mixture</a></p>
+<p>Rather than using a model such as Poisson-Gamma (that incorporates concentration) it may be possible to use one or more
+of the attributes for the spatial units: land area, population, deprivation, etc, with the proviso that the attributes
+will be heavily dependent on the crime type - e.g. shoplifting requires shops.</p>
+<p>The difficulty then is to select the optimal attributes and weights used to compute the Poisson intensities for the
+baseline. This can be framed as an optimisation problem - finding a set of weights that minimises (a modified) Gini
+coefficient for the observed crimes.</p>
+<p>This would be a step towards <em>explainability</em> - we can argue the attributes are drivers of concentration and with the weights,
+give us a relative importance of those attributes. Furthermore, if any concentration is still observed, the implication
+is that other factors are driving concentration.</p>
+<p>This is still very hypothetical and even if it works, it's usefulness as a prediction tool will be extremely limited
+unless the weights exhibit strong temporal stability.</p>
+<!--
+The assumption here is that for a given set of attributes for a spatial unit, there is an optimal set of weights that
+minimises the Gini coefficient. -->
+
+<hr />
+<h2 id="scale-invariance">Scale Invariance</h2>
+<p>Traditional measures of concentration are well-known to not be scale-invariant, and thus making comparisons of count
+data at different spatial or temporal scales is extremely difficult - smaller scales will always produce higher
+concentration values, and, importantly, this is true for randomly sampled data.</p>
+<p>The hope is that by using a concentration measure that compensates for the null hypothesis we will take a step towards
+scale-invariance. We shall investigate this further in a subsequent post.</p>
+<h3 id="modified-gini">Modified Gini</h3>
+<p class="annotate">Naive Gini is given by double the area under the Lorenz curve (1), above the diagonal. This means it can take values
+between 0 (fully dispersed) and 1 (fully concentrated). Recall the Lorenz curve for ordered discrete count data <span class="arithmatex">\(c(i)\)</span>
+of length <span class="arithmatex">\(N\)</span> is</p>
 <ol>
-<li>using appropriate census table(s), generate a population with the required attributes (e.g. age, sex, ethnicity,
-socioeconomic status) consistent with the totals for the output area</li>
-<li>assign each person to a randomly sampled point <em>on the street network</em> within the output
- area.</li>
-<li>spatially join the points with the new features and aggregate as required</li>
+<li>The convention in criminology is to represent the curve as a plot of cumulative counts from highest to lowest,
+which "flips" (both vertically and horizontally) the form normally seen in fields such as Economics.</li>
 </ol>
-<p>This is relatively efficient: as the first two steps are independent of the choice of new feature, the population
-data from step 2 can be cached and reused.</p>
-<p>Using the example output area above, this would result in the population of 293 people being assigned to hexes like so:</p>
-<p><img alt="E00053954-population-hex" src="../../../../../img/E00053954-population-hex.png" /></p>
-<p>Although this illustrative example only covers a single output area, in practice, the assignment is carried out
-over an entire Police Force Area, and, rather than having truncated grid cells on the edges of output areas,
-population is be assigned to the full cell from all the intersecting output areas.</p>
-<h2 id="limitations">Limitations</h2>
-<p>This methodology treats each individual separately and cannot capture households or clusters of individuals with
-shared traits (such as ethnicity). Census data does not capture any spatial heterogeneity of categorical features
-within the output area.</p>
-<p>People are assigned locations at random on street segments that are classified as residential, except for the occasional
-cases where output areas contain no residential streets (e.g. communal residences) - where people are just assigned
-random locations within the output area.</p>
-<h2 id="further-development">Further Development</h2>
-<p>If retaining household structure became desirable, the census does provide household-level statistics and locations of
-people could be grouped accordingly. Another possibility is to use <abbr title="OpenStreetMap">OSM</abbr> building data rather that street data - but at
-the time of writing the data quality is an issue, with missing data and inconsistent building classifications.</p>
+<div class="arithmatex">\[
+L(x) = \frac{\sum_{i=1}^k c(i)} {\sum_{i=1}^N c(i)}
+\]</div>
+<p>where <span class="arithmatex">\(x=k/N\)</span> - thus the curve is bounded between <span class="arithmatex">\([0,1]\)</span> in both the <span class="arithmatex">\(x\)</span> and <span class="arithmatex">\(y\)</span> axes, enabling easy comparison between
+datasets of different sizes.</p>
+<details class="note">
+<summary>Properties of the Lorenz curve</summary>
+<p>Other important properties arise from the ordering - the curve is bounded by the lines
+<span class="arithmatex">\(y=x\)</span> and <span class="arithmatex">\(y=1\)</span>, and must increase monotonically. If it rises above <span class="arithmatex">\(y=x\)</span> then it must level off - the rate of change of the
+gradient can only stay the same or decrease:</p>
+<div class="arithmatex">\[
+x \le L(x) \le 1, \quad \frac{dL(x)}{dx} \ge 0, \quad \frac{d^2L(x)}{dx^2} \le 0
+\]</div>
+</details>
+<p>The Gini coefficient can be computed from the Lorenz curve using the formula:</p>
+<div class="arithmatex">\[
+Gini = 2\int_0^1{\big(L(x) - x\big)}dx
+\]</div>
+<p>We can compute an exact null-hypothesis Lorenz curve from the inverse CDF of the Poisson distribution:</p>
+<div class="arithmatex">\[
+L_0(x) = \frac{1}{\lambda}\int_0^x{F^{-1}(p; \lambda) dp}
+\]</div>
+<details class="note">
+<summary>Explanation of the formula</summary>
+<p>The theoretical Lorenz curve for independent identically distributed samples is the cumulative sum of inverse CDF
+<span class="arithmatex">\(F^{-1}(p; \lambda)\)</span> of the Poisson distribution</p>
+<div class="arithmatex">\[
+L_0(x) = \int_0^x{F^{-1}(p; \lambda) dp} \bigg/ \int_0^1{F^{-1}(p; \lambda) dp}
+\]</div>
+<p>the denominator can be simplified using a change of variables - it is in fact just the mean of the distribution.
+Since <span class="arithmatex">\(x = F^{-1}(p)\)</span>, <span class="arithmatex">\(p = F(x)\)</span> and <span class="arithmatex">\(dp=f(x)dx\)</span> (the PDF). When <span class="arithmatex">\(p=0\)</span>, <span class="arithmatex">\(x=-\infty\)</span> and when <span class="arithmatex">\(p=1\)</span>, <span class="arithmatex">\(x=+\infty\)</span>.
+Substituting into the denominator produces the expectation, i.e. the mean:</p>
+<div class="arithmatex">\[
+\int_{-\infty}^{+\infty}{xf(x)dx} = E[X] = \lambda
+\]</div>
+</details>
+<p>In the Gini formula, the <span class="arithmatex">\(x\)</span> term represents the maximal dispersion line. we have argued that this line does not
+represent a reasonable lower bound and should be replaced by the null hypothesis Lorenz curve, resulting in the modified
+Gini coefficient:</p>
+<div class="arithmatex">\[
+Gini_{modified} = 2\int_0^1{\big(L(x) - L_0(x)\big)}dx
+\]</div>
+<p>which has different properties to naive Gini. Although a value of 1 still represents maximal concentration, 0 now
+represents the level of concentration expected under the null hypothesis, and negative values can arise if the counts
+are more dispersed than this. Significant negative values imply some form of mean-reversion mechanism, in practical
+terms this could imply some level of planning and organisation on the part of perpetrators, or a finite number of
+dispersed and limited opportunities.</p>
+<h3 id="results">Results</h3>
+<p>The graphs below depict naive and modified Gini coefficients for simulated (non-concentrated) data matching actual
+crime counts for the three crimes of varying rates of incidence we have studied, at varying spatial and temporal scales,
+using census geographies:</p>
+<p><img alt="invariance-simulated-census" src="../../../../../img/invariance-simulated-census.png" /></p>
+<p>The x-axis is expressed in terms of the count of total crimes in the aggregation period. The periods vary from 1 to 36
+months. As expected, our modified Gini measure correctly shows no concentration, whereas the naive Gini measure shows a
+degree of concentration that varies according to the size of the spatial unit and the total count/temporal scale,
+demonstrating that is is neither accurate nor consistent and thus not a statistic that can be used for comparison.</p>
+<p>Turning to the real data, we do (as expected) observe some concentration. The modified Gini is always lower, again as
+expected, as we knew concentration was being overestimated. As the count/temporal scale increases, the two curves
+converge on the same value, again as expected. Repeating the analysis for census geographies:</p>
+<p><img alt="invariance-actual-census" src="../../../../../img/invariance-actual-census.png" /></p>
+<p>and also for regular square grids of different sizes</p>
+<!--A partial explanation for this that a the crime count increases, the adjustment made to the naive
+Gini value will decrease - thus larger spatial and temporal units will have a smaller adjustment.-->
+
+<p><img alt="invariance-actual-regular" src="../../../../../img/invariance-actual-regular.png" /></p>
+<p>However, whereas the naive Gini tends to be significantly higher for smaller spatial scales or total counts, the
+opposite appears to be true for for the modified Gini. This could be because</p>
+<ol>
+<li>there is a flaw in the Gini adjustment, and/or...</li>
+<li>the data actually has a structure where the degree of concentration varies with scales</li>
+</ol>
+<p>In order to fully confirm or eliminate these points, we need to investigate how the modified Gini behaves using
+simulated counts from an over-dispersed distribution. More on that in the next instalment, but in the meantime there
+are a couple of tests we can carry out to see if the modified Gini is trustworthy:</p>
+<h4 id="p-value">p-value</h4>
+<p>The Gini adjustment is based on our null hypothesis that crimes are not concentrated. Therefore we can compute a p-value
+from a Chi-squared test on the count data, and if the null hypothesis is <em>not</em> rejected (i.e. a p-value above ~0.05) we
+can say with certainty that the count data is too sparse to measure any meaningful concentration.</p>
+<p>Consider the extreme case where we have 100 spatial units and a total count of 1. Because we are dealing with discrete
+quantities the single value must be in a single state. Clearly in this case it is meaningless to attribute a
+concentration, but Naive Gini will give this a value of 0.99, and modified Gini around 0.</p>
+<p>If the total count is 2, and the crimes occur in 2 different units, this represents the least concentration possible,
+yet naive Gini will be 0.98. Modified Gini however, is - correctly - around zero. But conversely, the concentrated case
+where both events happen in the same spatial unit - naive Gini is 0.99 but modified is a very low ~0.01. However, the
+p-value tells us that we cannot meaningfully measure concentration for data this sparse</p>
+<h4 id="skew">Skew</h4>
+<p>However, even when counts are on the low side, but high enough for the null hypothesis to be rejected, concentration
+measures are not consistent.</p>
+<p>The Poisson distribution is highly skewed when the intensity is low, with a value of <span class="arithmatex">\(1/\sqrt{\lambda}\)</span>. This creates
+a bias when sampling from the distribution, or fitting observed values to a Poisson distribution, resulting in a larger
+adjustment than necessary. One possible</p>
+<h2 id="conclusions-and-further-work">Conclusions and Further Work</h2>
+<ul>
+<li>
+<p>Naive Gini overestimates concentration</p>
+</li>
+<li>
+<p>Naive Gini is not comparable across different spatial or temporal scales</p>
+</li>
+<li>
+<p>Even at the same spatio-temporal scale, Naive Gini is not <em>comparable over time</em> when there is variation in unit
+counts</p>
+</li>
+<li>
+<p>Modified Gini allows more direct comparison between different spatio-temporal, but it is not completely scale
+invariant so care must be taken</p>
+</li>
+<li>
+<p>More work needs to be done to understand how modified Gini behaves when counts are low, especially in the presence of
+ overdispersion.</p>
+</li>
+<li>
+<p>More work needs to be done on establishing whether Poisson-Gamma can in fact be treated as a useful baseline for Gini
+adjustment.</p>
+</li>
+<li>
+<p>More work needs to be done on the viability of an "explainable" Poisson mixture model. This could be combined with
+"zero-inflated" models (Poisson or <abbr title="negative binomial">NB</abbr>) that account for an excess of zero counts driven potentially by features of the
+spatial units.</p>
+</li>
+</ul>
 
 
 
