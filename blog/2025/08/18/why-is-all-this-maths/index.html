@@ -12,13 +12,13 @@
         <meta name="author" content="Andrew P Smith">
       
       
-        <link rel="canonical" href="http://safer-streets.github.io/blog/2025/09/15/demographics/">
+        <link rel="canonical" href="http://safer-streets.github.io/blog/2025/08/18/why-is-all-this-maths/">
       
       
-        <link rel="prev" href="../../../08/27/crime-prevention-features/">
+        <link rel="prev" href="../../11/crime-concentration-explorer/">
       
       
-        <link rel="next" href="../../../11/18/scaling-up/">
+        <link rel="next" href="../../22/measuring-crime-concentration-part-1/">
       
       
         <link rel="alternate" type="application/rss+xml" title="RSS feed" href="../../../../../feed_rss_created.xml">
@@ -29,7 +29,7 @@
     
     
       
-        <title>Demographics - Safer Streets @ Leeds</title>
+        <title>Why is all this maths important? - Safer Streets @ Leeds</title>
       
     
     
@@ -81,7 +81,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#demographics" class="md-skip">
+        <a href="#why-is-all-this-maths-important" class="md-skip">
           Skip to content
         </a>
       
@@ -116,7 +116,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Demographics
+              Why is all this maths important?
             
           </span>
         </div>
@@ -647,27 +647,9 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#example" class="md-nav__link">
+  <a href="#an-introduction-to-the-rationale-behind-our-analytical-approach" class="md-nav__link">
     <span class="md-ellipsis">
-      Example
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#limitations" class="md-nav__link">
-    <span class="md-ellipsis">
-      Limitations
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#further-development" class="md-nav__link">
-    <span class="md-ellipsis">
-      Further Development
+      An introduction to the rationale behind our analytical approach
     </span>
   </a>
   
@@ -702,12 +684,12 @@
                 
                   <div class="md-profile md-post__profile">
                     <span class="md-author md-author--long">
-                      <img src="https://avatars.githubusercontent.com/u/19323577" alt="Andrew Smith">
+                      <img src="https://avatars.githubusercontent.com/u/2468237" alt="Dan Birks">
                     </span>
                     <span class="md-profile__description">
                       <strong>
                         
-                          Andrew Smith
+                          Dan Birks
                         
                       </strong>
                       <br>
@@ -729,20 +711,10 @@
                     <li class="md-nav__item">
                       <div class="md-nav__link">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 19H5V8h14m-3-7v2H8V1H6v2H5c-1.11 0-2 .89-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-1V1m-1 11h-5v5h5z"/></svg>
-                        <time datetime="2025-09-15 00:00:00+00:00" class="md-ellipsis">September 15, 2025</time>
+                        <time datetime="2025-08-18 00:00:00+00:00" class="md-ellipsis">August 18, 2025</time>
                       </div>
                     </li>
                     
-                    
-                      <li class="md-nav__item">
-                        <div class="md-nav__link">
-                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 3v15h3V3zm3 2 4 13 3-1-4-13zM5 5v13h3V5zM3 19v2h18v-2z"/></svg>
-                          <span class="md-ellipsis">
-                            in
-                            
-                              <a href="../../../../category/demographics/">Demographics</a></span>
-                        </div>
-                      </li>
                     
                     
                       
@@ -773,65 +745,50 @@
   
 
 
+  <nav class="md-tags" >
+    
+      
+      
+      
+        <a href="../../../../tags/#tag:explainer" class="md-tag">Explainer</a>
+      
+    
+  </nav>
+
 
   
   
 
 
-<h1 id="demographics">Demographics</h1>
-<p>When we look at crime counts at different spatial scales, it is often useful to try to understand the demographics of
-the area. Older people are more likely to be victims of certain crimes, for instance, and for others there are often
-correlations between crime incidence and the deprivation, socioeconomic status or other makeup of the area.</p>
-<p>The UK census is the biggest source of demographic data, providing many attributes over various spatial scales. With
-census data there is always a tradeoff between spatial and categorical resolutions, often to preserve anonymity. For
-example, the highest spatial resolution for counts of people by age in years is <abbr title="Middle-layer Super Output Area">MSOA</abbr>, and at higher resolutions
-(<abbr title="Lower-layer Super Output Area">LSOA</abbr>, <abbr title="Output Area">OA</abbr>) age is only given in 5-year bands.</p>
-<p>Another very important consideration is that we will want to aggregate people to non-statistical geographies, such as
-grids and hexes. In order to do this, we could simply place people at random points within the statistical geography,
-then take those that fall within the new geography. However this can be unrealistic, particularly in areas that are
-rural or contain large-scale non-residential infrastructure or bodies of water (despite Monty Python's boasts, nobody
-in Yorkshire lives under a lake!).</p>
+<h1 id="why-is-all-this-maths-important">Why is all this maths important?</h1>
+<h3 id="an-introduction-to-the-rationale-behind-our-analytical-approach">An introduction to the rationale behind our analytical approach</h3>
+<p><em>This post is the first in a short blog series designed to accompany the analyses, documentation and reproducible code developed as part of our Safer Streets project. While the technical outputs are aimed at transparency and reusability, this series provides a more accessible commentary on the </em>why<em> behind the </em>what<em> - why we’re doing what we’re doing, and why it matters for policing and crime prevention practice.</em></p>
+<hr />
 <!-- more -->
-
-<p>To do this reasonably accurately we need to have some idea of the geography within the areas, to avoid placing people in
-nonsensical locations. One way to achieve this is to use the street network. <abbr title="OpenStreetMap">OSM</abbr> provide detailed street
-networks including classifications, so we can even limit to certain types of streets - i.e. residential - making the
-assignment even more realistic.</p>
-<p>The next step is to place people onto the (residential) street network</p>
-<h2 id="example">Example</h2>
-<p>We want to realistically re-aggregate the population of the census output area E00053954 to a 250m hex grid.</p>
-<p>This output area has been deliberately chosen as it covers a relatively very large 11km² (compared to the West
-Yorkshire average of 0.28km², and the hex cell area of 0.16km²) with a very uneven population distribution.</p>
-<p>It has a population of 293 (West Yorkshire average is 320). Most of this area is uninhabited moorland, and is crossed
-by largely non-residential main roads. Residential streets are clustered in the east of the area (shown in red in the
-map below).</p>
-<p><img alt="E00053954-residential-streets" src="../../../../../img/E00053954-residential-streets.png" /></p>
-<p>The methodology we use is a three-step process:</p>
-<ol>
-<li>using appropriate census table(s), generate a population with the required attributes (e.g. age, sex, ethnicity,
-socioeconomic status) consistent with the totals for the output area</li>
-<li>assign each person to a randomly sampled point <em>on the street network</em> within the output
- area.</li>
-<li>spatially join the points with the new features and aggregate as required</li>
-</ol>
-<p>This is relatively efficient: as the first two steps are independent of the choice of new feature, the population
-data from step 2 can be cached and reused.</p>
-<p>Using the example output area above, this would result in the population of 293 people being assigned to hexes like so:</p>
-<p><img alt="E00053954-population-hex" src="../../../../../img/E00053954-population-hex.png" /></p>
-<p>Although this illustrative example only covers a single output area, in practice, the assignment is carried out
-over an entire Police Force Area, and, rather than having truncated grid cells on the edges of output areas,
-population is be assigned to the full cell from all the intersecting output areas.</p>
-<h2 id="limitations">Limitations</h2>
-<p>This methodology treats each individual separately and cannot capture households or clusters of individuals with
-shared traits (such as ethnicity). Census data does not capture any spatial heterogeneity of categorical features
-within the output area.</p>
-<p>People are assigned locations at random on street segments that are classified as residential, except for the occasional
-cases where output areas contain no residential streets (e.g. communal residences) - where people are just assigned
-random locations within the output area.</p>
-<h2 id="further-development">Further Development</h2>
-<p>If retaining household structure became desirable, the census does provide household-level statistics and locations of
-people could be grouped accordingly. Another possibility is to use <abbr title="OpenStreetMap">OSM</abbr> building data rather that street data - but at
-the time of writing the data quality is an issue, with missing data and inconsistent building classifications.</p>
+<p><br></p>
+<p>In policing, every decision has an opportunity cost. Whether it's about where to send officers, which partnerships to invest in, or which issues to prioritise, resources are always finite. That means doing one thing comes at the expense of not doing something else. So the key question becomes: how can we allocate time, attention, and resources to the places and problems where they will make the most difference?</p>
+<p>A core part of the answer lies in understanding which problems are most frequent, most harmful, or have the greatest overall impact, and then targeting those problems with appropriate interventions. In other words: <em>focus effort where it matters most</em>.</p>
+<p>This is the logic that underpins hotspot policing - a well-established approach that recognises <a href="https://en.wikipedia.org/wiki/Law_of_Crime_Concentration">crime tends to concentrate in certain places</a>, often at specific times. The evidence shows that targeting these micro-locations with the right type of action can reduce crime without simply shifting it elsewhere. It’s a rare example of a policing strategy with strong and consistent empirical support.</p>
+<p>That sad, much of the research behind hotspot policing is based on high volume violent and property crimes - <a href="https://eprints.whiterose.ac.uk/id/eprint/97466/1/Farrell%20Tilley%20Tseloni%202014%20Why%20the%20Crime%20Drop%20%28C%26J%20vol43%29.pdf?mod=article_inline">types of offending that have seen substantial declines since the mid 1990s</a>. These types of offences often exhibit clear spatial and temporal patterning and are well suited to mapping, analysis and ultimatley targetted intervention techniques.</p>
+<p>Today’s policing priorities are somewhat different. Under the Safer Streets programme, forces are focused on issues like:</p>
+<ul>
+<li><strong>Violence against women and girls (VAWG)</strong></li>
+<li><strong>Knife crime</strong> </li>
+<li><strong>Anti-social behaviour (ASB)</strong></li>
+</ul>
+<p>These categories are complex, multi-faceted, and some may be underpinned by different dynamics than traditional property or violent crime.</p>
+<p>These challenges raise important questions:</p>
+<ul>
+<li>Do these offences concentrate in the same way as burglary, car crime or other forms of violence?  </li>
+<li>At what scale - street, neighbourhood, town - do patterns emerge?  </li>
+<li>Are those patterns stable over time, or highly variable?  </li>
+</ul>
+<p>At present, the evidence base for these questions is limited. That’s why this project begins by returning to basics: descriptive analysis, guided by clear, reproducible methods, to explore how these priority crime types behave in space and time. This kind of foundational analysis is essential groundwork for any future efforts to reduce crime by targeting patterns effectively.</p>
+<p>And just as importantly, we need to recognise that different crime problems require different responses, and those responses must be scaled appropriately. Some interventions work at the level of an individual facility, street, or hotspot. Others make more sense at the community or borough level. A mismatch between the scale of the problem and the scale of the solution risks wasting precious time and money.</p>
+<p>So, why is all this maths important? Because when it comes to selecting and targetting crime prevention interventions at specific problems, doing the right thing, in the right place, at the right time starts with understanding what’s really happening - and that understanding begins with data.</p>
+<hr />
+<p><br></p>
+<p><em>In the next post, we’ll explore the different features of crime prevention interventions, from cost and scale to duration and speed of effect, and consider how these characteristics might be matched to the spatial and temporal patterns of offending. By doing so, we hope to better understand how to maximise the effectiveness of interventions in addressing the specific problems they’re designed to tackle.</em></p>
 
 
 
