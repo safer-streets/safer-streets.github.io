@@ -656,33 +656,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#poisson-gamma-and-negative-binomial" class="md-nav__link">
-    <span class="md-ellipsis">
-      Poisson-Gamma and Negative Binomial
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#hawkes-processes" class="md-nav__link">
-    <span class="md-ellipsis">
-      Hawkes Processes
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#spatial-heterogeneity" class="md-nav__link">
-    <span class="md-ellipsis">
-      Spatial Heterogeneity
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#scale-invariance" class="md-nav__link">
     <span class="md-ellipsis">
       Scale Invariance
@@ -826,7 +799,7 @@
                           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 20a8 8 0 0 0 8-8 8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8m0-18a10 10 0 0 1 10 10 10 10 0 0 1-10 10C6.47 22 2 17.5 2 12A10 10 0 0 1 12 2m.5 5v5.25l4.5 2.67-.75 1.23L11 13V7z"/></svg>
                           <span class="md-ellipsis">
                             
-                              11 min read
+                              9 min read
                             
                           </span>
                         </div>
@@ -892,7 +865,7 @@ outdoor gatherings in warmer weather and longer daylight hours, therefore more o
 <!-- more -->
 
 <p>Put in statistical terms, our null hypothesis is that crime counts in each
-spatial unit are <em><abbr title="independent and identically distributed">i.i.d</abbr></em> Poisson processes, with intensity <span class="arithmatex">\(\lambda = C / N\)</span> where <span class="arithmatex">\(C\)</span> is the total number of crimes
+spatial unit are <em>i.i.d</em> Poisson processes, with intensity <span class="arithmatex">\(\lambda = C / N\)</span> where <span class="arithmatex">\(C\)</span> is the total number of crimes
 and <span class="arithmatex">\(N\)</span> the number of spatial units. In other words each spatial unit is identical in terms of its propensity to
 contain crime.</p>
 <p>For the dataset in question, <span class="arithmatex">\(\lambda\)</span> ranges between 0.82 and 2.26 over the 3 years. Since in most cases <span class="arithmatex">\(\lambda \ge 1\)</span>,
@@ -922,49 +895,69 @@ to ~2300 for <abbr title="antisocial behaviour">ASB</abbr>) and no apparent seas
 <p><img alt="actual vs null-hypothesis Gini weapons" src="../../../../../img/actual-null-hypothesis-gini-weapons.png" /></p>
 <p>almost all of the apparent concentration arises from the low-observation bias.</p>
 <p>From here, the next steps are to determine how far along the road to spatial invariance this get us, and also potentially
-investigate whether it is possible we can improve upon our null hypothesis using a more sophisticated statistical model?
-Some potential avenues might be:</p>
-<hr />
-<p>TODO remove these sections?</p>
-<h2 id="poisson-gamma-and-negative-binomial">Poisson-Gamma and Negative Binomial</h2>
-<p>It is well-known that crime count distributions do not follow a Poisson distribution - they tend to be overdispersed,
+investigate whether it is possible we can improve upon our null hypothesis using a more sophisticated statistical model?</p>
+<!--
+TODO remove these sections?
+
+## Poisson-Gamma and Negative Binomial
+
+It is well-known that crime count distributions do not follow a Poisson distribution - they tend to be overdispersed,
 since we know that spatial units are not homogeneous because opportunities to commit crime are not (and vary widely
-between crime type). This dispersion presents itself as some degree of concentration.</p>
-<p>The Poisson distribution has a single degree of freedom - the variance of the distribution is fixed by the mean, but
+between crime type). This dispersion presents itself as some degree of concentration.
+
+The Poisson distribution has a single degree of freedom - the variance of the distribution is fixed by the mean, but
 counts are overdispersed, meaning they have a higher variance than a Poisson distribution can achieve. But counts over
-time in a given spatial unit are known to fit a negative binomial (<abbr title="negative binomial">NB</abbr>) distribution much more closely, e.g.:</p>
-<p>The rationale behind using a <abbr title="negative binomial">NB</abbr> distribution comes from Bayesian statistics: for a given <span class="arithmatex">\(\lambda\)</span>, the
-likelihood is a Poisson distribution, however <span class="arithmatex">\(\lambda\)</span> is uncertain so is modelled by a gamma distribution with
-parameters determined by observed counts and number of observations. The resulting <em>posterior predictive distribution</em> is <abbr title="negative binomial">NB</abbr>,
-capturing the overdispersion that a Poisson distribution cannot.</p>
-<p>Whilst this is a useful formulation, it is probably not a suitable baseline model as it already incorporates
-concentration - although it is concentration arising from parameter uncertainty, rather than a structural mechanism.</p>
-<h2 id="hawkes-processes">Hawkes Processes</h2>
-<p>A Hawkes process is a self-exciting stochastic process that can be used to model crime that tends to occur more
+time in a given spatial unit are known to fit a negative binomial (NB) distribution much more closely, e.g.:
+
+The rationale behind using a NB distribution comes from Bayesian statistics: for a given $\lambda$, the
+likelihood is a Poisson distribution, however $\lambda$ is uncertain so is modelled by a gamma distribution with
+parameters determined by observed counts and number of observations. The resulting *posterior predictive distribution* is NB,
+capturing the overdispersion that a Poisson distribution cannot.
+
+*[NB]: negative binomial
+
+Whilst this is a useful formulation, it is probably not a suitable baseline model as it already incorporates
+concentration - although it is concentration arising from parameter uncertainty, rather than a structural mechanism.
+
+## Hawkes Processes
+
+A Hawkes process is a self-exciting stochastic process that can be used to model crime that tends to occur more
 frequently if crime has already happened in the recent past in the same location. As it specifically and deliberately
-builds in non-independence (and thus concentration), a baseline based on this process is not suitable.</p>
-<h2 id="spatial-heterogeneity">Spatial Heterogeneity</h2>
-<p>When we state that our baseline uses <em><abbr title="independent and identically distributed">i.i.d</abbr>.</em> Poisson processes we are basically saying that there is no concentration
-(independent) and there is no spatial heterogeneity (identically distributed)</p>
-<p>Perhaps for a better baseline we could keep independence and drop the identically distributed part, in other words
+builds in non-independence (and thus concentration), a baseline based on this process is not suitable.
+
+## Spatial Heterogeneity
+
+When we state that our baseline uses *i.i.d.* Poisson processes we are basically saying that there is no concentration
+(independent) and there is no spatial heterogeneity (identically distributed)
+
+*[i.i.d]: independent and identically distributed
+
+Perhaps for a better baseline we could keep independence and drop the identically distributed part, in other words
 capture the heterogeneity of spatial units without implying any concentration. The overall distribution of counts then
-becomes a <a href="">Poisson mixture</a></p>
-<p>Rather than using a model such as Poisson-Gamma (that incorporates concentration) it may be possible to use one or more
+becomes a [Poisson mixture]()
+
+Rather than using a model such as Poisson-Gamma (that incorporates concentration) it may be possible to use one or more
 of the attributes for the spatial units: land area, population, deprivation, etc, with the proviso that the attributes
-will be heavily dependent on the crime type - e.g. shoplifting requires shops.</p>
-<p>The difficulty then is to select the optimal attributes and weights used to compute the Poisson intensities for the
+will be heavily dependent on the crime type - e.g. shoplifting requires shops.
+
+The difficulty then is to select the optimal attributes and weights used to compute the Poisson intensities for the
 baseline. This can be framed as an optimisation problem - finding a set of weights that minimises (a modified) Gini
-coefficient for the observed crimes.</p>
-<p>This would be a step towards <em>explainability</em> - we can argue the attributes are drivers of concentration and with the weights,
+coefficient for the observed crimes.
+
+This would be a step towards *explainability* - we can argue the attributes are drivers of concentration and with the weights,
 give us a relative importance of those attributes. Furthermore, if any concentration is still observed, the implication
-is that other factors are driving concentration.</p>
-<p>This is still very hypothetical and even if it works, it's usefulness as a prediction tool will be extremely limited
-unless the weights exhibit strong temporal stability.</p>
+is that other factors are driving concentration.
+
+This is still very hypothetical and even if it works, it's usefulness as a prediction tool will be extremely limited
+unless the weights exhibit strong temporal stability.
+
+
 <!--
 The assumption here is that for a given set of attributes for a spatial unit, there is an optimal set of weights that
-minimises the Gini coefficient. -->
+minimises the Gini coefficient.
 
-<hr />
+-->
+
 <h2 id="scale-invariance">Scale Invariance</h2>
 <p>Traditional measures of concentration are well-known to not be scale-invariant, and thus making comparisons of count
 data at different spatial or temporal scales is extremely difficult - smaller scales will always produce higher
@@ -1069,7 +1062,10 @@ p-value tells us that we cannot meaningfully measure concentration for data this
 measures are not consistent.</p>
 <p>The Poisson distribution is highly skewed when the intensity is low, with a value of <span class="arithmatex">\(1/\sqrt{\lambda}\)</span>. This creates
 a bias when sampling from the distribution, or fitting observed values to a Poisson distribution, resulting in a larger
-adjustment than necessary. One possible</p>
+adjustment than necessary. One possibility is to incorporate a further adjustment, based on the observed skew (or
+coefficient of variation) to the modified Gini to compensate for overdispersed low count effects. However, this adds
+a further level of complexity that could deter adoption of the measure and its usefulness in terms of explainability to
+wider audiences.</p>
 <h2 id="conclusions-and-further-work">Conclusions and Further Work</h2>
 <ul>
 <li>
@@ -1083,7 +1079,7 @@ adjustment than necessary. One possible</p>
 counts</p>
 </li>
 <li>
-<p>Modified Gini allows more direct comparison between different spatio-temporal, but it is not completely scale
+<p>Modified Gini allows more direct comparison between different spatio-temporal, but it also is not scale
 invariant so care must be taken</p>
 </li>
 <li>
@@ -1096,7 +1092,7 @@ adjustment.</p>
 </li>
 <li>
 <p>More work needs to be done on the viability of an "explainable" Poisson mixture model. This could be combined with
-"zero-inflated" models (Poisson or <abbr title="negative binomial">NB</abbr>) that account for an excess of zero counts driven potentially by features of the
+"zero-inflated" models (Poisson or NB) that account for an excess of zero counts driven potentially by features of the
 spatial units.</p>
 </li>
 </ul>
