@@ -925,6 +925,105 @@
   
   
   
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../apps/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Apps
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Apps
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../explorer/app/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Crime Capture Explorer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
     <li class="md-nav__item">
       <a href="../references/" class="md-nav__link">
         
@@ -1090,7 +1189,7 @@
 </ul>
 <p>All commands assume the project venv, so prefix with <code>uv run</code>.</p>
 <h2 id="static-html">Static HTML</h2>
-<div class="highlight"><pre><span></span><code>uv<span class="w"> </span>run<span class="w"> </span>marimo<span class="w"> </span><span class="nb">export</span><span class="w"> </span>html<span class="w"> </span>h3-analysis.mo.py<span class="w"> </span>-o<span class="w"> </span>../site/docs/notebooks/h3-analysis.html
+<div class="highlight"><pre><span></span><code>uv<span class="w"> </span>run<span class="w"> </span>marimo<span class="w"> </span><span class="nb">export</span><span class="w"> </span>html<span class="w"> </span>h3-analysis.mo.py<span class="w"> </span>-o<span class="w"> </span>../site/docs/notebooks/h3-analysis.html<span class="w"> </span>--no-include-code<span class="w"> </span>-f
 </code></pre></div>
 <p>Renders the code and the currently-embedded outputs to a single file. It is a snapshot:
 nothing re-executes, and UI elements (sliders, dropdowns, etc.) are inert.</p>

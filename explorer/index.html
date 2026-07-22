@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="generator" content="Observable Framework v1.13.4">
+<title>Crime capture explorer | Safer Streets</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&amp;display=swap" crossorigin>
+<link rel="preload" as="style" href="./_observablehq/theme-air,near-midnight.b050d634.css">
+<link rel="preload" as="style" href="./_observablehq/stdlib/inputs.f7bf0e12.css">
+<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&amp;display=swap" crossorigin>
+<link rel="stylesheet" type="text/css" href="./_observablehq/theme-air,near-midnight.b050d634.css">
+<link rel="stylesheet" type="text/css" href="./_observablehq/stdlib/inputs.f7bf0e12.css">
+<link rel="modulepreload" href="./_observablehq/client.7ae78092.js">
+<link rel="modulepreload" href="./_observablehq/runtime.607a8173.js">
+<link rel="modulepreload" href="./_observablehq/stdlib.b9f8e389.js">
+<link rel="modulepreload" href="./_import/components/capture.27575c94.js">
+<link rel="modulepreload" href="./_import/components/dataClient.3fb6a59d.js">
+<link rel="modulepreload" href="./_import/components/mapLayers.8ba36dc9.js">
+<link rel="modulepreload" href="./_import/components/meta.ee86b169.js">
+<link rel="modulepreload" href="./_npm/htl@1.0.0/11521f02.js">
+<link rel="modulepreload" href="./_observablehq/stdlib/inputs.d294e3a0.js">
+<link rel="modulepreload" href="./_npm/@duckdb/duckdb-wasm@1.29.0/aa84eaa4.js">
+<link rel="modulepreload" href="./_npm/maplibre-gl@5.24.0/ad5fb69e.js">
+<link rel="modulepreload" href="./_npm/@deck.gl/mapbox@9.3.7/ab10615b.js">
+<link rel="modulepreload" href="./_npm/@deck.gl/layers@9.3.7/19b83270.js">
+<link rel="modulepreload" href="./_npm/isoformat@0.2.1/604cb63b.js">
+<link rel="modulepreload" href="./_npm/apache-arrow@21.1.0/df6914f1.js">
+<link rel="modulepreload" href="./_npm/@deck.gl/core@9.3.7/1a7ce6dd.js">
+<link rel="modulepreload" href="./_npm/@math.gl/web-mercator@4.1.0/3f7a5984.js">
+<link rel="modulepreload" href="./_npm/@luma.gl/engine@9.3.6/5e9bc5d4.js">
+<link rel="modulepreload" href="./_npm/@math.gl/core@4.1.0/9ca9810c.js">
+<link rel="modulepreload" href="./_npm/@loaders.gl/core@4.4.3/08598333.js">
+<link rel="modulepreload" href="./_npm/@math.gl/polygon@4.1.0/49b02c6d.js">
+<link rel="modulepreload" href="./_npm/earcut@2.2.4/94e23b08.js">
+<link rel="modulepreload" href="./_npm/@mapbox/tiny-sdf@2.2.0/4e5750a9.js">
+<link rel="modulepreload" href="./_npm/tslib@2.8.1/396b382b.js">
+<link rel="modulepreload" href="./_npm/flatbuffers@25.9.23/c8db6147.js">
+<link rel="modulepreload" href="./_npm/@loaders.gl/images@4.4.3/c16dd504.js">
+<link rel="modulepreload" href="./_npm/@probe.gl/log@4.1.1/602e72fb.js">
+<link rel="modulepreload" href="./_npm/@luma.gl/shadertools@9.3.6/269af6d2.js">
+<link rel="modulepreload" href="./_npm/mjolnir.js@3.0.1/b3218c50.js">
+<link rel="modulepreload" href="./_npm/@math.gl/sun@4.1.0/26ca02b0.js">
+<link rel="modulepreload" href="./_npm/@probe.gl/stats@4.1.1/5f5ef09f.js">
+<link rel="modulepreload" href="./_npm/@luma.gl/core@9.3.6/4d9f1d66.js">
+<link rel="modulepreload" href="./_npm/@luma.gl/webgl@9.3.6/306e6156.js">
+<link rel="modulepreload" href="./_npm/@luma.gl/webgl@9.3.6/constants.9018b8dd.js">
+<link rel="modulepreload" href="./_npm/@math.gl/types@4.1.0/428973ba.js">
+<link rel="modulepreload" href="./_npm/@loaders.gl/loader-utils@4.4.3/52245023.js">
+<link rel="modulepreload" href="./_npm/@loaders.gl/worker-utils@4.4.3/5c3b03b5.js">
+<link rel="modulepreload" href="./_npm/@loaders.gl/schema-utils@4.4.3/e895facc.js">
+<link rel="modulepreload" href="./_npm/@probe.gl/env@4.1.1/91dc9a05.js">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20100%20100%22%3E%3Ctext%20y=%22.9em%22%20font-size=%2290%22%3E%F0%9F%91%AE%3C/text%3E%3C/svg%3E">
+<script type="module">
+
+import {define} from "./_observablehq/client.7ae78092.js";
+
+define({id: "61cd9d16", outputs: ["computeCapture","monthLabel","fetchCounts","fetchForceBoundary","fetchGeo","fetchMonths","getConnection","buildLayers","createMap","updateLayers","CRIME_TYPES","DEFAULT_FORCE","FORCES","GEOGRAPHIES","fixForceName"], body: async () => {
+const [{computeCapture, monthLabel}, {fetchCounts, fetchForceBoundary, fetchGeo, fetchMonths, getConnection}, {buildLayers, createMap, updateLayers}, {CRIME_TYPES, DEFAULT_FORCE, FORCES, GEOGRAPHIES, fixForceName}] = await Promise.all([import("./_import/components/capture.27575c94.js"), import("./_import/components/dataClient.3fb6a59d.js"), import("./_import/components/mapLayers.8ba36dc9.js"), import("./_import/components/meta.ee86b169.js")]);
+
+return {computeCapture,monthLabel,fetchCounts,fetchForceBoundary,fetchGeo,fetchMonths,getConnection,buildLayers,createMap,updateLayers,CRIME_TYPES,DEFAULT_FORCE,FORCES,GEOGRAPHIES,fixForceName};
+}});
+
+define({id: "2b3238c4", inputs: ["getConnection","fetchMonths","GEOGRAPHIES"], outputs: ["conn","months","geographyKeys"], body: async (getConnection,fetchMonths,GEOGRAPHIES) => {
+const conn = await getConnection();
+const months = await fetchMonths(conn);
+const geographyKeys = [...GEOGRAPHIES.keys()];
+return {conn,months,geographyKeys};
+}});
+
+define({id: "c745ee8c", inputs: ["view","Inputs","FORCES","DEFAULT_FORCE","CRIME_TYPES","geographyKeys","GEOGRAPHIES"], outputs: ["force","crimeType","geographyKey"], body: (view,Inputs,FORCES,DEFAULT_FORCE,CRIME_TYPES,geographyKeys,GEOGRAPHIES) => {
+const force = view(Inputs.select(FORCES, { label: "Force area", value: DEFAULT_FORCE }));
+const crimeType = view(Inputs.select(CRIME_TYPES, { label: "Crime type" }));
+const geographyKey = view(
+  Inputs.select(geographyKeys, { label: "Spatial unit", format: (k) => GEOGRAPHIES.get(k).label, value: "lad" })
+);
+return {force,crimeType,geographyKey};
+}});
+
+define({id: "a4aaf71f", inputs: ["view","Inputs"], outputs: ["coverage","lookback","showMissed"], body: (view,Inputs) => {
+const coverage = view(
+  Inputs.range([1, 100], { label: "Coverage (km²)", step: 1, value: 10 })
+);
+const lookback = view(Inputs.range([1, 12], { label: "Lookback (months)", step: 1, value: 1 }));
+const showMissed = view(Inputs.toggle({ label: "Show areas not captured" }));
+return {coverage,lookback,showMissed};
+}});
+
+define({id: "e191167d", inputs: ["months","lookback","view","Inputs","monthLabel"], outputs: ["monthOptions","month"], body: (months,lookback,view,Inputs,monthLabel) => {
+// options shrink as the lookback grows, so a stale selection can never escape the valid range
+const monthOptions = months.slice(lookback - 1);
+const month = view(
+  Inputs.select(monthOptions, {
+    label: "Months displayed",
+    value: monthOptions.at(-1),
+    format: (m) => monthLabel(months, m, lookback),
+  })
+);
+return {monthOptions,month};
+}});
+
+define({id: "30f86601", inputs: ["GEOGRAPHIES","geographyKey"], outputs: ["geography"], body: (GEOGRAPHIES,geographyKey) => {
+const geography = GEOGRAPHIES.get(geographyKey);
+return {geography};
+}});
+
+define({id: "0da36290", inputs: ["fetchForceBoundary","conn","force","fixForceName","fetchGeo","geographyKey","geography","fetchCounts","crimeType"], outputs: ["forceInfo","geo","counts"], body: async (fetchForceBoundary,conn,force,fixForceName,fetchGeo,geographyKey,geography,fetchCounts,crimeType) => {
+const forceInfo = await fetchForceBoundary(conn, force, fixForceName);
+const geo = await fetchGeo(conn, forceInfo.pfa23cd, geographyKey, geography);
+const counts = await fetchCounts(conn, forceInfo.pfa23cd, geographyKey, geography, crimeType);
+return {forceInfo,geo,counts};
+}});
+
+define({id: "3c9108f0", inputs: ["computeCapture","geo","counts","months","month","lookback","coverage"], outputs: ["result"], body: (computeCapture,geo,counts,months,month,lookback,coverage) => {
+const result = computeCapture({
+  features: geo.features.map((f) => f.properties),
+  counts,
+  monthsList: months,
+  month,
+  lookback,
+  thresholdKm2: coverage,
+});
+return {result};
+}});
+
+define({id: "059e6e2f", inputs: ["months","month","lookback"], outputs: ["startMonth","endYear","endMonthNum","endDay","pct"], body: (months,month,lookback) => {
+// the window's calendar dates, matching the prototype's summary line
+const startMonth = months[Math.max(0, months.indexOf(month) - lookback + 1)];
+const [endYear, endMonthNum] = month.split("-").map(Number);
+const endDay = new Date(endYear, endMonthNum, 0).getDate();
+const pct = (x) => (x * 100).toFixed(1) + "%";
+return {startMonth,endYear,endMonthNum,endDay,pct};
+}});
+
+define({id: "32bac0b6", inputs: ["display","result","html","crimeType","force","startMonth","month","endDay","geography","coverage","pct","forceInfo"], body: (display,result,html,crimeType,force,startMonth,month,endDay,geography,coverage,pct,forceInfo) => {
+display(
+  result.totalCrimes === 0
+    ? html`<div class="warning" label="No data">No ${crimeType} incidents were recorded in ${force} PFA between ${startMonth}-01 and ${month}-${endDay}.</div>`
+    : html`<h3>${crimeType} in ${force} PFA</h3>
+        <ul>
+          <li><b>${result.totalCrimes.toLocaleString()} incidents occurred between ${startMonth}-01 and ${month}-${endDay} inclusive</b></li>
+          <li><b>${result.captured.length.toLocaleString()} features (${geography.label}) covering ${result.capturedAreaKm2.toFixed(1)} km² meet the required coverage of ${coverage} km²</b></li>
+          <li><b>${result.capturedCrimes.toLocaleString()} crimes (${pct(result.capturedCrimes / result.totalCrimes)}) are captured in these features, which comprise ${pct(result.capturedAreaKm2 / forceInfo.areaKm2)} of the PFA (${forceInfo.areaKm2.toLocaleString()} km²)</b></li>
+        </ul>`
+);
+}});
+
+define({id: "8d0060a6", inputs: ["display","html"], outputs: ["mapDiv"], body: (display,html) => {
+const mapDiv = display(html`<div style="height: 700px; border-radius: 8px; overflow: hidden;"></div>`);
+return {mapDiv};
+}});
+
+define({id: "e72278c4", inputs: ["createMap","mapDiv","dark","invalidation"], outputs: ["ctx"], body: (createMap,mapDiv,dark,invalidation) => {
+// the basemap is rebuilt only on theme change; layers and viewpoint update in the cell below
+const ctx = createMap(mapDiv, { center: [-2.5, 53.5], zoom: 6, pitch: 30, dark });
+invalidation.then(() => ctx.destroy());
+return {ctx};
+}});
+
+define({id: "e50446a8", inputs: ["ctx","forceInfo","buildLayers","geo","result","showMissed","updateLayers"], body: (ctx,forceInfo,buildLayers,geo,result,showMissed,updateLayers) => {
+{
+  if (ctx.currentForce !== forceInfo.pfa23cd) {
+    ctx.map.jumpTo({ center: forceInfo.centroid, zoom: 9, pitch: 30 });
+    ctx.currentForce = forceInfo.pfa23cd;
+  }
+  const layers = buildLayers({ boundary: forceInfo.geojson, geo, captured: result.captured, missed: result.missed, showMissed });
+  updateLayers(ctx, layers, { totalCrimes: result.totalCrimes });
+}
+}});
+
+define({id: "950c1789", inputs: ["display","Inputs","result"], body: (display,Inputs,result) => {
+display(
+  Inputs.table(
+    result.captured.map((r) => ({
+      spatial_id: r.spatial_id,
+      n_crimes: r.n,
+      area_km2: r.area_km2,
+      density: r.density,
+    })),
+    {
+      sort: "n_crimes",
+      reverse: true,
+      format: { area_km2: (d) => d.toFixed(3), density: (d) => d.toFixed(1) },
+    }
+  )
+);
+}});
+
+define({id: "f4771388", mode: "inline", inputs: ["months","display"], body: async (months,display) => {
+display(await(
+months[0]
+))
+}});
+
+define({id: "0423daa6", mode: "inline", inputs: ["months","display"], body: async (months,display) => {
+display(await(
+months.at(-1)
+))
+}});
+
+</script>
+</head>
+<body>
+<div id="observablehq-center">
+<main id="observablehq-main" class="observablehq">
+<h1 id="crime-capture-explorer" tabindex="-1"><a class="observablehq-header-anchor" href="#crime-capture-explorer">Crime capture explorer</a></h1>
+<p>Given a target land area, find the areas that capture the most <a href="https://data.police.uk" target="_blank" rel="noopener noreferrer">police.uk</a> recorded crime of a chosen type — per police force, spatial unit and time window. All computation happens in your browser; every query runs live against Azure Blob Storage over short-lived, read-only SAS tokens — nothing is pre-aggregated or cached server-side.</p>
+<link rel="stylesheet" type="text/css" href="./_npm/maplibre-gl@5.24.0/dist/maplibre-gl.css">
+<div class="observablehq observablehq--block"><!--:61cd9d16:--></div>
+<div class="observablehq observablehq--block"><!--:2b3238c4:--></div>
+<div class="grid grid-cols-4">
+<div class="card">
+<div class="observablehq observablehq--block"><!--:c745ee8c:--></div>
+</div>
+<div class="card">
+<div class="observablehq observablehq--block"><!--:a4aaf71f:--></div>
+</div>
+<div class="card grid-colspan-2">
+<div class="observablehq observablehq--block"><!--:e191167d:--></div>
+<p>Hover a highlighted area for its crime count; the red outline reports the force-wide total. Yellow areas are the densest "captured" set within the coverage target; blue (optional) contain crimes that didn't make the cut.</p>
+</div>
+</div>
+<div class="observablehq observablehq--block"><!--:30f86601:--></div>
+<div class="observablehq observablehq--block"><!--:0da36290:--></div>
+<div class="observablehq observablehq--block"><!--:3c9108f0:--></div>
+<div class="observablehq observablehq--block"><!--:059e6e2f:--></div>
+<div class="observablehq observablehq--block"><!--:32bac0b6:--></div>
+<div class="observablehq observablehq--block"><!--:8d0060a6:--></div>
+<div class="observablehq observablehq--block"><!--:e72278c4:--></div>
+<div class="observablehq observablehq--block"><!--:e50446a8:--></div>
+<details>
+<summary>Hotspot table</summary>
+<div class="observablehq observablehq--block"><!--:950c1789:--></div>
+</details>
+<p><small>Live query against Azure Blob Storage · months <observablehq-loading></observablehq-loading><!--:f4771388:--> to <observablehq-loading></observablehq-loading><!--:0423daa6:--> · Demographic boundaries: 2021 Census / ONS.</small></p>
+</main>
+<footer id="observablehq-footer">
+<div>Crime data: <a href="https://data.police.uk" target="_blank" rel="noopener noreferrer">police.uk</a> · Boundaries: ONS · Basemap © <a href="https://carto.com/attributions" target="_blank" rel="noopener noreferrer">CARTO</a> © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap</a> contributors</div>
+</footer>
+</div>
+</body>
+</html>
