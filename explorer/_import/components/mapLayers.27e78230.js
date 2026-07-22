@@ -8,8 +8,8 @@
 // alpha ramp (sequential by magnitude).
 
 import maplibregl from "../../_npm/maplibre-gl@5.24.0/ad5fb69e.js";
-import { MapboxOverlay } from "../../_npm/@deck.gl/mapbox@9.3.7/ab10615b.js";
-import { GeoJsonLayer } from "../../_npm/@deck.gl/layers@9.3.7/19b83270.js";
+import { MapboxOverlay } from "../../_npm/@deck.gl/mapbox@9.3.7/1b913423.js";
+import { GeoJsonLayer } from "../../_npm/@deck.gl/layers@9.3.7/dad52464.js";
 
 const BASEMAP = {
   light: "https://basemaps.cartocdn.com/gl/positron-gl-style/style.json",
