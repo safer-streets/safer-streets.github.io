@@ -7,9 +7,9 @@
 // strokes, per-feature tooltips and the hotspot table, and per-feature opacity is a single-hue
 // alpha ramp (sequential by magnitude).
 
-import maplibregl from "../../_npm/maplibre-gl@5.24.0/ad5fb69e.js";
-import { MapboxOverlay } from "../../_npm/@deck.gl/mapbox@9.3.7/1b913423.js";
-import { GeoJsonLayer } from "../../_npm/@deck.gl/layers@9.3.7/dad52464.js";
+import maplibregl from "../../_npm/maplibre-gl@6.1.0/3e8b3e3e.js";
+import { MapboxOverlay } from "../../_npm/@deck.gl/mapbox@9.3.7/dde90862.js";
+import { GeoJsonLayer } from "../../_npm/@deck.gl/layers@9.3.7/cf634198.js";
 
 const BASEMAP = {
   light: "https://basemaps.cartocdn.com/gl/positron-gl-style/style.json",
