@@ -7,17 +7,28 @@
 // strokes, per-feature tooltips and the hotspot table, and per-feature opacity is a single-hue
 // alpha ramp (sequential by magnitude).
 
-import maplibregl from "../../_npm/maplibre-gl@5.24.0/ad5fb69e.js";
-import { MapboxOverlay } from "../../_npm/@deck.gl/mapbox@9.3.7/dde90862.js";
-import { GeoJsonLayer } from "../../_npm/@deck.gl/layers@9.3.7/cf634198.js";
+import { MapLibreMap, NavigationControl, setWorkerUrl } from "../../_npm/maplibre-gl@6.4.1/78628c50.js";
+import { MapboxOverlay } from "../../_npm/@deck.gl/mapbox@9.3.10/d76e8440.js";
+import { GeoJsonLayer } from "../../_npm/@deck.gl/layers@9.3.10/4ed8ee3f.js";
 
 const BASEMAP = {
   light: "https://basemaps.cartocdn.com/gl/positron-gl-style/style.json",
   dark: "https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json",
 };
 
+// MapLibre v6's bundle resolves its worker script against a hardcoded root-relative
+// "/npm/maplibre-gl@<version>/dist/..." path (a jsDelivr/unpkg CDN layout assumption), but
+// Observable Framework serves proxied npm packages under "/_npm/...", so the worker 404s and
+// vector tiles silently never render. Rebase it from the maplibre-gl stylesheet link's already
+// Framework-rewritten href instead of hardcoding a version.
+function fixWorkerUrl() {
+  const cssHref = document.querySelector('link[href*="/maplibre-gl@"][href$=".css"]')?.href;
+  if (cssHref) setWorkerUrl(new URL("maplibre-gl-worker.mjs", cssHref).href);
+}
+
 export function createMap(container, { center, zoom = 9, pitch = 30, dark = false }) {
-  const map = new maplibregl.Map({
+  fixWorkerUrl();
+  const map = new MapLibreMap({
     container,
     style: BASEMAP[dark ? "dark" : "light"],
     center,
@@ -27,7 +38,7 @@ export function createMap(container, { center, zoom = 9, pitch = 30, dark = fals
   });
   const overlay = new MapboxOverlay({ interleaved: false, layers: [] });
   map.addControl(overlay);
-  map.addControl(new maplibregl.NavigationControl(), "top-right");
+  map.addControl(new NavigationControl(), "top-right");
   return {
     map,
     overlay,

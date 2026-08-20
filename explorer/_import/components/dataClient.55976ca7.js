@@ -11,7 +11,7 @@
 // cover) this app doesn't use and mustn't expose. For local dev, `scripts/generate-sas-manifest.mjs`
 // mints the same shape of file using the same connection string, kept out of git.
 
-import { AsyncDuckDB, ConsoleLogger, LogLevel, getJsDelivrBundles, selectBundle } from "../../_npm/@duckdb/duckdb-wasm@1.29.0/d167315f.js";
+import { AsyncDuckDB, ConsoleLogger, LogLevel, getJsDelivrBundles, selectBundle } from "../../_npm/@duckdb/duckdb-wasm@1.32.0/b20dfadb.js";
 
 const STORAGE_ACCOUNT = "saferstreets";
 const cache = new Map();

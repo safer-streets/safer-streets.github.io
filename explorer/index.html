@@ -12,22 +12,22 @@
 <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&amp;display=swap" crossorigin>
 <link rel="stylesheet" type="text/css" href="./_observablehq/theme-air,near-midnight.b050d634.css">
 <link rel="stylesheet" type="text/css" href="./_observablehq/stdlib/inputs.f7bf0e12.css">
-<link rel="modulepreload" href="./_observablehq/client.731b1e83.js">
+<link rel="modulepreload" href="./_observablehq/client.02e8f0fb.js">
 <link rel="modulepreload" href="./_observablehq/runtime.607a8173.js">
 <link rel="modulepreload" href="./_observablehq/stdlib.44a3a80e.js">
 <link rel="modulepreload" href="./_import/components/capture.27575c94.js">
-<link rel="modulepreload" href="./_import/components/dataClient.60533ed6.js">
-<link rel="modulepreload" href="./_import/components/mapLayers.91ba1686.js">
+<link rel="modulepreload" href="./_import/components/dataClient.55976ca7.js">
+<link rel="modulepreload" href="./_import/components/mapLayers.699782bc.js">
 <link rel="modulepreload" href="./_import/components/meta.ee86b169.js">
 <link rel="modulepreload" href="./_npm/htl@1.0.0/11521f02.js">
 <link rel="modulepreload" href="./_observablehq/stdlib/inputs.8182baf7.js">
-<link rel="modulepreload" href="./_npm/@duckdb/duckdb-wasm@1.29.0/d167315f.js">
-<link rel="modulepreload" href="./_npm/maplibre-gl@5.24.0/ad5fb69e.js">
-<link rel="modulepreload" href="./_npm/@deck.gl/mapbox@9.3.7/dde90862.js">
-<link rel="modulepreload" href="./_npm/@deck.gl/layers@9.3.7/cf634198.js">
+<link rel="modulepreload" href="./_npm/@duckdb/duckdb-wasm@1.32.0/b20dfadb.js">
+<link rel="modulepreload" href="./_npm/maplibre-gl@6.4.1/78628c50.js">
+<link rel="modulepreload" href="./_npm/@deck.gl/mapbox@9.3.10/d76e8440.js">
+<link rel="modulepreload" href="./_npm/@deck.gl/layers@9.3.10/4ed8ee3f.js">
 <link rel="modulepreload" href="./_npm/isoformat@0.2.1/604cb63b.js">
 <link rel="modulepreload" href="./_npm/apache-arrow@21.2.0/b9fc0486.js">
-<link rel="modulepreload" href="./_npm/@deck.gl/core@9.3.7/a023fb89.js">
+<link rel="modulepreload" href="./_npm/@deck.gl/core@9.3.10/4fe6b4e3.js">
 <link rel="modulepreload" href="./_npm/@math.gl/web-mercator@4.1.0/3f7a5984.js">
 <link rel="modulepreload" href="./_npm/@luma.gl/engine@9.3.6/5e9bc5d4.js">
 <link rel="modulepreload" href="./_npm/@math.gl/core@4.1.0/9ca9810c.js">
@@ -54,10 +54,10 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20100%20100%22%3E%3Ctext%20y=%22.9em%22%20font-size=%2290%22%3E%F0%9F%91%AE%3C/text%3E%3C/svg%3E">
 <script type="module">
 
-import {define} from "./_observablehq/client.731b1e83.js";
+import {define} from "./_observablehq/client.02e8f0fb.js";
 
 define({id: "61cd9d16", outputs: ["computeCapture","monthLabel","fetchCounts","fetchForceBoundary","fetchGeo","fetchMonths","getConnection","buildLayers","createMap","updateLayers","CRIME_TYPES","DEFAULT_FORCE","FORCES","GEOGRAPHIES","fixForceName"], body: async () => {
-const [{computeCapture, monthLabel}, {fetchCounts, fetchForceBoundary, fetchGeo, fetchMonths, getConnection}, {buildLayers, createMap, updateLayers}, {CRIME_TYPES, DEFAULT_FORCE, FORCES, GEOGRAPHIES, fixForceName}] = await Promise.all([import("./_import/components/capture.27575c94.js"), import("./_import/components/dataClient.60533ed6.js"), import("./_import/components/mapLayers.91ba1686.js"), import("./_import/components/meta.ee86b169.js")]);
+const [{computeCapture, monthLabel}, {fetchCounts, fetchForceBoundary, fetchGeo, fetchMonths, getConnection}, {buildLayers, createMap, updateLayers}, {CRIME_TYPES, DEFAULT_FORCE, FORCES, GEOGRAPHIES, fixForceName}] = await Promise.all([import("./_import/components/capture.27575c94.js"), import("./_import/components/dataClient.55976ca7.js"), import("./_import/components/mapLayers.699782bc.js"), import("./_import/components/meta.ee86b169.js")]);
 
 return {computeCapture,monthLabel,fetchCounts,fetchForceBoundary,fetchGeo,fetchMonths,getConnection,buildLayers,createMap,updateLayers,CRIME_TYPES,DEFAULT_FORCE,FORCES,GEOGRAPHIES,fixForceName};
 }});
@@ -206,7 +206,7 @@ months.at(-1)
 <main id="observablehq-main" class="observablehq">
 <h1 id="crime-capture-explorer" tabindex="-1"><a class="observablehq-header-anchor" href="#crime-capture-explorer">Crime capture explorer</a></h1>
 <p>Given a target land area, find the areas that capture the most <a href="https://data.police.uk" target="_blank" rel="noopener noreferrer">police.uk</a> recorded crime of a chosen type — per police force, spatial unit and time window. All computation happens in your browser; every query runs live against Azure Blob Storage over short-lived, read-only SAS tokens — nothing is pre-aggregated or cached server-side.</p>
-<link rel="stylesheet" type="text/css" href="./_npm/maplibre-gl@5.24.0/dist/maplibre-gl.css">
+<link rel="stylesheet" type="text/css" href="./_npm/maplibre-gl@6.4.1/dist/maplibre-gl.css">
 <div class="observablehq observablehq--block"><!--:61cd9d16:--></div>
 <div class="observablehq observablehq--block"><!--:2b3238c4:--></div>
 <div class="grid grid-cols-4">
