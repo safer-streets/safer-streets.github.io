@@ -15,10 +15,10 @@
 <link rel="modulepreload" href="./_observablehq/client.1d81f18f.js">
 <link rel="modulepreload" href="./_observablehq/runtime.607a8173.js">
 <link rel="modulepreload" href="./_observablehq/stdlib.44a3a80e.js">
-<link rel="modulepreload" href="./_import/components/capture.27575c94.js">
-<link rel="modulepreload" href="./_import/components/dataClient.55976ca7.js">
-<link rel="modulepreload" href="./_import/components/mapLayers.6f929377.js">
-<link rel="modulepreload" href="./_import/components/meta.ee86b169.js">
+<link rel="modulepreload" href="./_import/components/capture.d47e0781.js">
+<link rel="modulepreload" href="./_import/components/dataClient.a538d7df.js">
+<link rel="modulepreload" href="./_import/components/mapLayers.5d842bb3.js">
+<link rel="modulepreload" href="./_import/components/meta.edb4419a.js">
 <link rel="modulepreload" href="./_npm/htl@1.0.0/11521f02.js">
 <link rel="modulepreload" href="./_observablehq/stdlib/inputs.8182baf7.js">
 <link rel="modulepreload" href="./_npm/@duckdb/duckdb-wasm@1.32.0/b20dfadb.js">
@@ -60,23 +60,33 @@
 import {define} from "./_observablehq/client.1d81f18f.js";
 
 define({id: "61cd9d16", outputs: ["computeCapture","monthLabel","fetchCounts","fetchForceBoundary","fetchGeo","fetchMonths","getConnection","buildLayers","createMap","updateLayers","CRIME_TYPES","DEFAULT_FORCE","FORCES","GEOGRAPHIES","fixForceName"], body: async () => {
-const [{computeCapture, monthLabel}, {fetchCounts, fetchForceBoundary, fetchGeo, fetchMonths, getConnection}, {buildLayers, createMap, updateLayers}, {CRIME_TYPES, DEFAULT_FORCE, FORCES, GEOGRAPHIES, fixForceName}] = await Promise.all([import("./_import/components/capture.27575c94.js"), import("./_import/components/dataClient.55976ca7.js"), import("./_import/components/mapLayers.6f929377.js"), import("./_import/components/meta.ee86b169.js")]);
+const [{computeCapture, monthLabel}, {fetchCounts, fetchForceBoundary, fetchGeo, fetchMonths, getConnection}, {buildLayers, createMap, updateLayers}, {CRIME_TYPES, DEFAULT_FORCE, FORCES, GEOGRAPHIES, fixForceName}] = await Promise.all([import("./_import/components/capture.d47e0781.js"), import("./_import/components/dataClient.a538d7df.js"), import("./_import/components/mapLayers.5d842bb3.js"), import("./_import/components/meta.edb4419a.js")]);
 
 return {computeCapture,monthLabel,fetchCounts,fetchForceBoundary,fetchGeo,fetchMonths,getConnection,buildLayers,createMap,updateLayers,CRIME_TYPES,DEFAULT_FORCE,FORCES,GEOGRAPHIES,fixForceName};
 }});
 
-define({id: "2b3238c4", inputs: ["getConnection","fetchMonths","GEOGRAPHIES"], outputs: ["conn","months","geographyKeys"], body: async (getConnection,fetchMonths,GEOGRAPHIES) => {
-const conn = await getConnection();
-const months = await fetchMonths(conn);
+define({id: "bcd160fd", inputs: ["GEOGRAPHIES"], outputs: ["geographyKeys"], body: (GEOGRAPHIES) => {
+// Purely static, and deliberately in its own cell: Observable resolves a cell as a unit, so putting
+// this alongside the awaits below would make the Force/Crime type/Spatial unit dropdowns wait on
+// duckdb-wasm booting and the first Azure round trip before rendering at all.
 const geographyKeys = [...GEOGRAPHIES.keys()];
-return {conn,months,geographyKeys};
+return {geographyKeys};
 }});
 
-define({id: "c745ee8c", inputs: ["view","Inputs","FORCES","DEFAULT_FORCE","CRIME_TYPES","geographyKeys","GEOGRAPHIES"], outputs: ["force","crimeType","geographyKey"], body: (view,Inputs,FORCES,DEFAULT_FORCE,CRIME_TYPES,geographyKeys,GEOGRAPHIES) => {
+define({id: "f4702353", inputs: ["getConnection","fetchMonths"], outputs: ["conn","months"], body: async (getConnection,fetchMonths) => {
+// The slow path, isolated: getConnection() pulls the duckdb-wasm bundle from jsDelivr and installs
+// the spatial + h3 extensions over the network, then fetchMonths scans crime_data.parquet by range
+// request. Only the "Months displayed" dropdown depends on it.
+const conn = await getConnection();
+const months = await fetchMonths(conn);
+return {conn,months};
+}});
+
+define({id: "a9ca9fff", inputs: ["view","Inputs","FORCES","DEFAULT_FORCE","CRIME_TYPES","geographyKeys","GEOGRAPHIES"], outputs: ["force","crimeType","geographyKey"], body: (view,Inputs,FORCES,DEFAULT_FORCE,CRIME_TYPES,geographyKeys,GEOGRAPHIES) => {
 const force = view(Inputs.select(FORCES, { label: "Force area", value: DEFAULT_FORCE }));
 const crimeType = view(Inputs.select(CRIME_TYPES, { label: "Crime type" }));
 const geographyKey = view(
-  Inputs.select(geographyKeys, { label: "Spatial unit", format: (k) => GEOGRAPHIES.get(k).label, value: "lad" })
+  Inputs.select(geographyKeys, { label: "Spatial unit", format: (k) => GEOGRAPHIES.get(k).label, value: geographyKeys[0] })
 );
 return {force,crimeType,geographyKey};
 }});
@@ -108,10 +118,10 @@ const geography = GEOGRAPHIES.get(geographyKey);
 return {geography};
 }});
 
-define({id: "0da36290", inputs: ["fetchForceBoundary","conn","force","fixForceName","fetchGeo","geographyKey","geography","fetchCounts","crimeType"], outputs: ["forceInfo","geo","counts"], body: async (fetchForceBoundary,conn,force,fixForceName,fetchGeo,geographyKey,geography,fetchCounts,crimeType) => {
+define({id: "e93090a6", inputs: ["fetchForceBoundary","conn","force","fixForceName","fetchGeo","geographyKey","geography","fetchCounts","crimeType"], outputs: ["forceInfo","geo","counts"], body: async (fetchForceBoundary,conn,force,fixForceName,fetchGeo,geographyKey,geography,fetchCounts,crimeType) => {
 const forceInfo = await fetchForceBoundary(conn, force, fixForceName);
-const geo = await fetchGeo(conn, forceInfo.pfa23cd, geographyKey, geography);
-const counts = await fetchCounts(conn, forceInfo.pfa23cd, geographyKey, geography, crimeType);
+const geo = await fetchGeo(conn, forceInfo.pfa24cd, geographyKey, geography);
+const counts = await fetchCounts(conn, forceInfo.pfa24cd, geographyKey, geography, crimeType);
 return {forceInfo,geo,counts};
 }});
 
@@ -161,11 +171,11 @@ invalidation.then(() => ctx.destroy());
 return {ctx};
 }});
 
-define({id: "e50446a8", inputs: ["ctx","forceInfo","buildLayers","geo","result","showMissed","updateLayers"], body: (ctx,forceInfo,buildLayers,geo,result,showMissed,updateLayers) => {
+define({id: "8f8ebc84", inputs: ["ctx","forceInfo","buildLayers","geo","result","showMissed","updateLayers"], body: (ctx,forceInfo,buildLayers,geo,result,showMissed,updateLayers) => {
 {
-  if (ctx.currentForce !== forceInfo.pfa23cd) {
+  if (ctx.currentForce !== forceInfo.pfa24cd) {
     ctx.map.jumpTo({ center: forceInfo.centroid, zoom: 9, pitch: 30 });
-    ctx.currentForce = forceInfo.pfa23cd;
+    ctx.currentForce = forceInfo.pfa24cd;
   }
   const layers = buildLayers({ boundary: forceInfo.geojson, geo, captured: result.captured, missed: result.missed, showMissed });
   updateLayers(ctx, layers, { totalCrimes: result.totalCrimes });
@@ -211,10 +221,11 @@ months.at(-1)
 <p>Given a target land area, find the areas that capture the most <a href="https://data.police.uk" target="_blank" rel="noopener noreferrer">police.uk</a> recorded crime of a chosen type — per police force, spatial unit and time window. All computation happens in your browser; every query runs live against Azure Blob Storage over short-lived, read-only SAS tokens — nothing is pre-aggregated or cached server-side.</p>
 <link rel="stylesheet" type="text/css" href="./_npm/maplibre-gl@6.9.0/dist/maplibre-gl.css">
 <div class="observablehq observablehq--block"><!--:61cd9d16:--></div>
-<div class="observablehq observablehq--block"><!--:2b3238c4:--></div>
+<div class="observablehq observablehq--block"><!--:bcd160fd:--></div>
+<div class="observablehq observablehq--block"><!--:f4702353:--></div>
 <div class="grid grid-cols-4">
 <div class="card">
-<div class="observablehq observablehq--block"><!--:c745ee8c:--></div>
+<div class="observablehq observablehq--block"><!--:a9ca9fff:--></div>
 </div>
 <div class="card">
 <div class="observablehq observablehq--block"><!--:a4aaf71f:--></div>
@@ -225,13 +236,13 @@ months.at(-1)
 </div>
 </div>
 <div class="observablehq observablehq--block"><!--:30f86601:--></div>
-<div class="observablehq observablehq--block"><!--:0da36290:--></div>
+<div class="observablehq observablehq--block"><!--:e93090a6:--></div>
 <div class="observablehq observablehq--block"><!--:3c9108f0:--></div>
 <div class="observablehq observablehq--block"><!--:059e6e2f:--></div>
 <div class="observablehq observablehq--block"><!--:32bac0b6:--></div>
 <div class="observablehq observablehq--block"><!--:8d0060a6:--></div>
 <div class="observablehq observablehq--block"><!--:e72278c4:--></div>
-<div class="observablehq observablehq--block"><!--:e50446a8:--></div>
+<div class="observablehq observablehq--block"><!--:8f8ebc84:--></div>
 <details>
 <summary>Hotspot table</summary>
 <div class="observablehq observablehq--block"><!--:950c1789:--></div>

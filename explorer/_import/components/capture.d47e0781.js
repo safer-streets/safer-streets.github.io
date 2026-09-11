@@ -1,6 +1,7 @@
-// The crime-capture computation, ported 1:1 from prototypes/streamlit-app/main.py so the static
-// app reproduces the Streamlit prototype's numbers exactly (guarded by the shared parity fixture
-// in safer-streets-tooling/tests/fixtures/capture_parity.json).
+// The crime-capture computation, ported 1:1 from prototype-streamlit-app's main.py so this app
+// reproduces the Streamlit prototype's numbers exactly (guarded by the parity fixture vendored at
+// test/fixtures/capture_parity.json, which originates in safer-streets-tooling and is also asserted
+// by its Python reference implementation — re-vendor it if that copy changes).
 
 /**
  * The lookback window: the `lookback` months of `monthsList` ending at `endMonth`.

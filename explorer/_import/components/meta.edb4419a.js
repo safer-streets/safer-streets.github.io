@@ -58,7 +58,7 @@ const FORCE_NAME_ADJUSTMENTS = {
   "Dyfed Powys": "Dyfed-Powys",
 };
 
-/** Only use this for the PFA boundary parquet's pfa23nm column, which spells a few forces differently. */
+/** Only use this for the PFA boundary parquet's pfa24nm column, which spells a few forces differently. */
 export function fixForceName(force) {
   return FORCE_NAME_ADJUSTMENTS[force] ?? force;
 }
@@ -84,26 +84,16 @@ export const CRIME_TYPES = [
 // spatialUnit: column in featureTable holding the spatial id (h3 geographies use spatial_id directly)
 // featureTable: phase2/transform table used to find the ids within a force (crosswalk for ONS
 //   geographies; the geometry+id source itself for H3 geographies)
-// countTable: phase2/transform/crime_counts_<countTable>.parquet
+// countTable: phase2/transform/<countTable>_crime_counts.parquet
 // boundaryTable: phase2/extract/<boundaryTable>.parquet holding the actual geometry; null for H3,
 //   whose cell geometry is computed from the cell id via h3_cell_to_boundary_wkt
 export const GEOGRAPHIES = new Map([
-  [
-    "lad",
-    {
-      label: "Local authority districts (2024)",
-      spatialUnit: "lad24cd",
-      featureTable: "h3_8_geogs",
-      countTable: "lad24cd",
-      boundaryTable: "local_authority_districts",
-    },
-  ],
   [
     "msoa",
     {
       label: "Middle layer Super Output Areas (census)",
       spatialUnit: "msoa21cd",
-      featureTable: "h3_8_geogs",
+      featureTable: "h3r9_geogs",
       countTable: "msoa21cd",
       boundaryTable: "msoa_2021",
     },
@@ -113,7 +103,7 @@ export const GEOGRAPHIES = new Map([
     {
       label: "Lower layer Super Output Areas (census)",
       spatialUnit: "lsoa21cd",
-      featureTable: "h3_8_geogs",
+      featureTable: "h3r9_geogs",
       countTable: "lsoa21cd",
       boundaryTable: "lsoa_2021",
     },
@@ -123,12 +113,27 @@ export const GEOGRAPHIES = new Map([
     {
       label: "Output Areas (census)",
       spatialUnit: "oa21cd",
-      featureTable: "h3_8_geogs",
+      featureTable: "h3r9_geogs",
       countTable: "oa21cd",
       boundaryTable: "output_areas_2021",
     },
   ],
-  ["h3_8", { label: "H3(8)", spatialUnit: "spatial_id", featureTable: "h3_8_geogs", countTable: "h3_8", boundaryTable: null }],
-  ["h3_9", { label: "H3(9)", spatialUnit: "spatial_id", featureTable: "h3_9_geogs", countTable: "h3_9", boundaryTable: null }],
-  ["h3_10", { label: "H3(10)", spatialUnit: "spatial_id", featureTable: "h3_10_geogs", countTable: "h3_10", boundaryTable: null }],
+  ["H3r9", { label: "H3r9", spatialUnit: "spatial_id", featureTable: "h3r9_geogs", countTable: "h3r9", boundaryTable: null }],
+  // Not an H3 unit despite the identical `spatial_id` shape: a BEAHIV id decodes to a polygon only
+  // through beahiv's own `cell_polygons`, a Python UDF the tooling registers server-side. There is no
+  // browser equivalent, so unlike H3 this geography cannot reconstruct its cells from the id and must
+  // read them from the `beahiv202` extract, which carries the hex outlines as real geometry.
+  // boundaryForceColumn: that extract holds one row per (cell, force), so a cell straddling a force
+  // boundary appears once per force it touches — filter on it or straddlers get drawn twice.
+  [
+    "BEAHIV202",
+    {
+      label: "BEAHIV202",
+      spatialUnit: "spatial_id",
+      featureTable: "beahiv202_geogs",
+      countTable: "beahiv202",
+      boundaryTable: "beahiv_202",
+      boundaryForceColumn: "pfa24cd",
+    },
+  ],
 ]);

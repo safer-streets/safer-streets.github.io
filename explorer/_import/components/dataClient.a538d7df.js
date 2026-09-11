@@ -14,6 +14,23 @@
 import { AsyncDuckDB, ConsoleLogger, LogLevel, getJsDelivrBundles, selectBundle } from "../../_npm/@duckdb/duckdb-wasm@1.32.0/b20dfadb.js";
 
 const STORAGE_ACCOUNT = "saferstreets";
+
+// Transport thinning, mirroring main.py's BOUNDARY_SIMPLIFY_M / COORD_PRECISION. Applied in BNG,
+// where the tolerance is honest metres, and only ever to the geometry that gets drawn — never to the
+// one that gets measured. ST_SimplifyPreserveTopology leaves ring orientation alone.
+//
+// Both apply to the PFA boundary ONLY, and precision deliberately goes no further. It earns its keep
+// on the one big multi-thousand-vertex polygon and saves almost nothing on a 7-point hex; on the ONS
+// layers it would be marginal at best. It is also actively unsafe anywhere a fill is drawn: DuckDB's
+// ST_ReducePrecision re-nodes the ring and returns the reverse winding — measured at 400/400 H3 cells
+// flipped CCW -> CW. That's invisible to ST_Equals (same polygon, same area, same vertex count) but
+// not to a renderer: GeoJSON wants CCW exterior rings and deck.gl's tessellator can take a CW one for
+// a hole, which paints fills erratically. DuckDB spatial has no orientation-aware repair (no
+// ST_ForcePolygonCCW, only an unconditional ST_Reverse). The boundary layer is stroked, never filled
+// (see buildLayers), so winding cannot affect it — but that is the reason this is safe here, and the
+// thing to recheck if the boundary ever gains a fill.
+const BOUNDARY_SIMPLIFY_M = 10;
+const COORD_PRECISION = 1e-6;
 const cache = new Map();
 
 async function cached(key, load) {
@@ -120,30 +137,49 @@ export async function fetchMonths(conn) {
 }
 
 /**
- * The selected force's boundary, centroid and area — mirrors main.py's get_boundary(), but folds in
- * the centroid/area fields the old static meta.json used to carry per-force, since they're right
- * there in the same source row (police_force_areas.parquet already has lat/long columns).
+ * The selected force's boundary, centroid and area — mirrors main.py's get_boundary(), plus the
+ * centroid/area fields the old static meta.json used to carry per-force.
+ *
+ * The centroid is derived from the geometry, matching main.py's
+ * `boundary.geometry.union_all().centroid` — deliberately NOT the parquet's own lat/long columns.
+ * Those arrive verbatim from the upstream ONS GeoPackage (the extractor does `SELECT * FROM
+ * ST_Read(...)`), so their presence, naming and units are not ours to rely on, and unlike `geom`
+ * they'd carry no CRS we reproject. Reading them raw put the camera at a BNG easting/northing
+ * interpreted as degrees; the polygon still drew correctly, which is what made it look like a
+ * "wrong coords" rendering bug rather than a bad camera.
  */
 export async function fetchForceBoundary(conn, force, fixForceName) {
   return cached(`boundary/${force}`, async () => {
     const url = await blobUrl("phase2/extract/police_force_areas.parquet");
     const table = await run(
       conn,
-      `SELECT spatial_id AS pfa23cd, long, lat, ST_Area(geom) / 1000000 AS area_km2,
-              ST_AsGeoJSON(ST_Transform(geom, 'EPSG:27700', 'EPSG:4326', always_xy := true)) AS geojson
-       FROM read_parquet('${url}') WHERE pfa23nm = ?`,
+      `WITH pfa AS (
+         SELECT spatial_id, geom,
+                ST_Transform(geom, 'EPSG:27700', 'EPSG:4326', always_xy := true) AS geom_wgs84
+         FROM read_parquet('${url}') WHERE pfa24nm = ?
+       )
+       SELECT spatial_id AS pfa24cd,
+              ST_X(ST_Centroid(geom_wgs84)) AS long,
+              ST_Y(ST_Centroid(geom_wgs84)) AS lat,
+              ST_Area(geom) / 1000000 AS area_km2,
+              ST_AsGeoJSON(ST_ReducePrecision(
+                ST_Transform(ST_SimplifyPreserveTopology(geom, ${BOUNDARY_SIMPLIFY_M}),
+                             'EPSG:27700', 'EPSG:4326', always_xy := true),
+                ${COORD_PRECISION})) AS geojson
+       FROM pfa`,
       fixForceName(force)
     );
     const row = table.toArray()[0];
     if (!row) throw new Error(`no PFA boundary found for force ${force}`);
     return {
-      pfa23cd: row.pfa23cd,
+      pfa24cd: row.pfa24cd,
       name: force,
       centroid: [row.long, row.lat],
       areaKm2: row.area_km2,
       geojson: {
         type: "FeatureCollection",
-        features: [{ type: "Feature", geometry: JSON.parse(row.geojson), properties: { spatial_id: row.pfa23cd, name: force } }],
+        // spatial_id alone: it's all updateLayers' tooltip reads off this feature.
+        features: [{ type: "Feature", geometry: JSON.parse(row.geojson), properties: { spatial_id: row.pfa24cd } }],
       },
     };
   });
@@ -151,11 +187,15 @@ export async function fetchForceBoundary(conn, force, fixForceName) {
 
 /**
  * Feature geometries + areas for one force x geography — mirrors the feature half of main.py's
- * get_counts_and_features(). H3 geographies compute their own cell boundary; ONS geographies look up
- * the ids present in the force via the h3_8_geogs crosswalk, then join into the real boundary table.
+ * get_counts_and_features().
+ *
+ * The split is on whether the geography has a boundaryTable, not on whether it's a grid: H3 is the
+ * only unit whose cells can be rebuilt from the id alone (the h3 extension decodes them in-browser),
+ * so everything else — ONS layers via the geogs crosswalk, and BEAHIV, whose ids only Python can
+ * decode — joins the ids present in the force into a real geometry table.
  */
-export async function fetchGeo(conn, pfa23cd, geographyKey, geog) {
-  return cached(`geo/${pfa23cd}/${geographyKey}`, async () => {
+export async function fetchGeo(conn, pfa24cd, geographyKey, geog) {
+  return cached(`geo/${pfa24cd}/${geographyKey}`, async () => {
     const featureUrl = await blobUrl(`phase2/transform/${geog.featureTable}.parquet`);
     let table;
     if (geog.boundaryTable === null) {
@@ -163,25 +203,34 @@ export async function fetchGeo(conn, pfa23cd, geographyKey, geog) {
         conn,
         `SELECT spatial_id, cell_area / 1000000 AS area_km2,
                 ST_AsGeoJSON(ST_GeomFromText(h3_cell_to_boundary_wkt(spatial_id))) AS geojson
-         FROM read_parquet('${featureUrl}') WHERE pfa23cd = ?`,
-        pfa23cd
+         FROM read_parquet('${featureUrl}') WHERE pfa24cd = ?`,
+        pfa24cd
       );
     } else {
       const boundaryUrl = await blobUrl(`phase2/extract/${geog.boundaryTable}.parquet`);
+      // Boundary tables keyed per (feature, force) — currently only beahiv202 — need the force
+      // filter as well as the id join, or cells straddling a force boundary come back once per
+      // force they touch and get drawn on top of themselves. ONS layers have no such column.
+      const forceFilter = geog.boundaryForceColumn ? `b.${geog.boundaryForceColumn} = ? AND ` : "";
+      const params = geog.boundaryForceColumn ? [pfa24cd, pfa24cd] : [pfa24cd];
       table = await run(
         conn,
         `WITH ids AS (
-           SELECT DISTINCT ${geog.spatialUnit} AS spatial_id FROM read_parquet('${featureUrl}') WHERE pfa23cd = ?
+           SELECT DISTINCT ${geog.spatialUnit} AS spatial_id FROM read_parquet('${featureUrl}') WHERE pfa24cd = ?
          )
          SELECT b.spatial_id, ST_Area(b.geom) / 1000000 AS area_km2,
                 ST_AsGeoJSON(ST_Transform(b.geom, 'EPSG:27700', 'EPSG:4326', always_xy := true)) AS geojson
          FROM read_parquet('${boundaryUrl}') AS b
-         WHERE b.spatial_id IN (SELECT spatial_id FROM ids)`,
-        pfa23cd
+         WHERE ${forceFilter}b.spatial_id IN (SELECT spatial_id FROM ids)`,
+        ...params
       );
     }
-    const features = table.toArray().map(toGeoFeature);
-    return { features, byId: new Map(features.map((f) => [f.properties.spatial_id, f])) };
+    // byId is the deduplicating step, so derive features from it rather than from the rows: a
+    // boundary table with more than one row per cell would otherwise put the same polygon in the
+    // layer twice, and two stacked translucent fills read as a darker cell that no count explains.
+    // boundaryForceColumn already removes the known case (straddlers); this covers the rest.
+    const byId = new Map(table.toArray().map((row) => [row.spatial_id, toGeoFeature(row)]));
+    return { features: [...byId.values()], byId };
   });
 }
 
@@ -191,22 +240,22 @@ export async function fetchGeo(conn, pfa23cd, geographyKey, geog) {
  * capture.js's existing client-side month-window logic — already parity-tested against main.py —
  * doesn't need to change, and moving the month/lookback sliders never needs a new Azure round trip).
  */
-export async function fetchCounts(conn, pfa23cd, geographyKey, geog, crimeType) {
-  const key = `counts/${pfa23cd}/${geographyKey}/${crimeType}`;
+export async function fetchCounts(conn, pfa24cd, geographyKey, geog, crimeType) {
+  const key = `counts/${pfa24cd}/${geographyKey}/${crimeType}`;
   return cached(key, async () => {
-    const countsUrl = await blobUrl(`phase2/transform/crime_counts_${geog.countTable}.parquet`);
+    const countsUrl = await blobUrl(`phase2/transform/${geog.countTable}_crime_counts.parquet`);
     const featureUrl = await blobUrl(`phase2/transform/${geog.featureTable}.parquet`);
     const idsSubquery =
       geog.boundaryTable === null
-        ? `SELECT spatial_id FROM read_parquet('${featureUrl}') WHERE pfa23cd = ?`
-        : `SELECT DISTINCT ${geog.spatialUnit} FROM read_parquet('${featureUrl}') WHERE pfa23cd = ?`;
+        ? `SELECT spatial_id FROM read_parquet('${featureUrl}') WHERE pfa24cd = ?`
+        : `SELECT DISTINCT ${geog.spatialUnit} FROM read_parquet('${featureUrl}') WHERE pfa24cd = ?`;
     const table = await run(
       conn,
       `SELECT spatial_id, month, count::INT AS count
        FROM read_parquet('${countsUrl}')
        WHERE crime_type = ? AND spatial_id IN (${idsSubquery})`,
       crimeType,
-      pfa23cd
+      pfa24cd
     );
     return table.toArray().map((row) => ({ ...row }));
   });

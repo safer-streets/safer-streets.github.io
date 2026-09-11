@@ -49,21 +49,24 @@ export function createMap(container, { center, zoom = 9, pitch = 30, dark = fals
   };
 }
 
+// Properties are rebuilt explicitly rather than spread from the source feature: deck.gl serialises
+// every property of every feature into the layer, so anything carried here is paid for per feature
+// across a whole force. These three are the complete set the layers read — spatial_id and n_crimes
+// for the tooltip, opacity for getFillColor. area_km2 deliberately does not come along: capture.js
+// reads it straight off geo.features, upstream of any layer.
 function featuresWithCounts(geo, rows, opacityScale) {
   const maxN = Math.max(...rows.map((r) => r.n));
   return rows
     .filter((row) => geo.byId.has(row.spatial_id))
-    .map((row) => {
-      const feature = geo.byId.get(row.spatial_id);
-      return {
-        ...feature,
-        properties: {
-          ...feature.properties,
-          n_crimes: row.n,
-          opacity: Math.round((opacityScale * row.n) / maxN),
-        },
-      };
-    });
+    .map((row) => ({
+      type: "Feature",
+      geometry: geo.byId.get(row.spatial_id).geometry,
+      properties: {
+        spatial_id: row.spatial_id,
+        n_crimes: row.n,
+        opacity: Math.round((opacityScale * row.n) / maxN),
+      },
+    }));
 }
 
 /** The three GeoJsonLayers of main.py: boundary stroke, captured (yellow), missed (blue). */
