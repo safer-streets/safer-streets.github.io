@@ -54,8 +54,19 @@ export function createMap(container, { center, zoom = 9, pitch = 30, dark = fals
 // across a whole force. These three are the complete set the layers read — spatial_id and n_crimes
 // for the tooltip, opacity for getFillColor. area_km2 deliberately does not come along: capture.js
 // reads it straight off geo.features, upstream of any layer.
-function featuresWithCounts(geo, rows, opacityScale) {
-  const maxN = Math.max(...rows.map((r) => r.n));
+// maxN is passed in, not derived per layer, and that is the whole point: captured and missed have to
+// share one scale or their alphas mean different things. Normalised separately, the missed layer
+// divides by its own (always smaller) maximum, which inflates it — with one month of West Yorkshire
+// burglary, captured maxN=7 and missed maxN=2, so a missed cell holding a single crime rendered at
+// alpha 48 against alpha 55 for a captured cell holding two. On the Metropolitan force it inverted
+// outright: one crime scored 32 as missed but only 21 as captured, so the "this is a hotspot" layer
+// came out fainter than the layer meaning the opposite. It shifts with force, crime type, month and
+// lookback, which is what made it look intermittent. 192 vs 96 stays as the captured/missed
+// distinction; it is now the only difference between them.
+//
+// reduce rather than Math.max(...rows): the spread passes one argument per cell, and a force can
+// carry >12k cells.
+function featuresWithCounts(geo, rows, opacityScale, maxN) {
   return rows
     .filter((row) => geo.byId.has(row.spatial_id))
     .map((row) => ({
@@ -71,6 +82,13 @@ function featuresWithCounts(geo, rows, opacityScale) {
 
 /** The three GeoJsonLayers of main.py: boundary stroke, captured (yellow), missed (blue). */
 export function buildLayers({ boundary, geo, captured, missed, showMissed }) {
+  // One scale for both fill layers. Guarded at 1 so an empty or all-zero set yields alpha 0 rather
+  // than the NaN that -Infinity (Math.max of nothing) or a divide by zero would put into the buffer.
+  const maxN = Math.max(
+    1,
+    captured.reduce((a, r) => (r.n > a ? r.n : a), 0),
+    missed.reduce((a, r) => (r.n > a ? r.n : a), 0)
+  );
   const layers = [
     new GeoJsonLayer({
       id: "boundary",
@@ -87,7 +105,7 @@ export function buildLayers({ boundary, geo, captured, missed, showMissed }) {
     layers.push(
       new GeoJsonLayer({
         id: "missed",
-        data: { type: "FeatureCollection", features: featuresWithCounts(geo, missed, 96) },
+        data: { type: "FeatureCollection", features: featuresWithCounts(geo, missed, 96, maxN) },
         stroked: true,
         filled: true,
         getFillColor: (f) => [0, 63, 245, f.properties.opacity],
@@ -100,7 +118,7 @@ export function buildLayers({ boundary, geo, captured, missed, showMissed }) {
   layers.push(
     new GeoJsonLayer({
       id: "captured",
-      data: { type: "FeatureCollection", features: featuresWithCounts(geo, captured, 192) },
+      data: { type: "FeatureCollection", features: featuresWithCounts(geo, captured, 192, maxN) },
       stroked: true,
       filled: true,
       getFillColor: (f) => [201, 241, 0, f.properties.opacity],
