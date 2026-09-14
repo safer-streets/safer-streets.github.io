@@ -54,18 +54,15 @@ export function createMap(container, { center, zoom = 9, pitch = 30, dark = fals
 // across a whole force. These three are the complete set the layers read — spatial_id and n_crimes
 // for the tooltip, opacity for getFillColor. area_km2 deliberately does not come along: capture.js
 // reads it straight off geo.features, upstream of any layer.
-// maxN is passed in, not derived per layer, and that is the whole point: captured and missed have to
-// share one scale or their alphas mean different things. Normalised separately, the missed layer
-// divides by its own (always smaller) maximum, which inflates it — with one month of West Yorkshire
-// burglary, captured maxN=7 and missed maxN=2, so a missed cell holding a single crime rendered at
-// alpha 48 against alpha 55 for a captured cell holding two. On the Metropolitan force it inverted
-// outright: one crime scored 32 as missed but only 21 as captured, so the "this is a hotspot" layer
-// came out fainter than the layer meaning the opposite. It shifts with force, crime type, month and
-// lookback, which is what made it look intermittent. 192 vs 96 stays as the captured/missed
-// distinction; it is now the only difference between them.
-//
-// reduce rather than Math.max(...rows): the spread passes one argument per cell, and a force can
-// carry >12k cells.
+// maxN is passed in rather than derived per layer: captured and missed have to share one scale or
+// their alphas mean different things. Normalised separately, the missed layer divides by its own
+// (always smaller) maximum, which inflates it — one month of West Yorkshire burglary gives captured
+// maxN=7 against missed maxN=2, so a missed cell holding a single crime rendered at alpha 48 where a
+// captured cell holding two rendered at 55. On the Metropolitan force it inverted outright: one
+// crime scored 32 as missed but only 21 as captured, so the layer meaning "this is a hotspot" came
+// out fainter than the layer meaning the opposite. It moves with force, crime type, month and
+// lookback, so it reads as erratic rather than as a fixed bias. 192 vs 96 remains the captured/missed
+// distinction and is now the only difference between them.
 function featuresWithCounts(geo, rows, opacityScale, maxN) {
   return rows
     .filter((row) => geo.byId.has(row.spatial_id))
@@ -80,10 +77,29 @@ function featuresWithCounts(geo, rows, opacityScale, maxN) {
     }));
 }
 
-/** The three GeoJsonLayers of main.py: boundary stroke, captured (yellow), missed (blue). */
-export function buildLayers({ boundary, geo, captured, missed, showMissed }) {
-  // One scale for both fill layers. Guarded at 1 so an empty or all-zero set yields alpha 0 rather
-  // than the NaN that -Infinity (Math.max of nothing) or a divide by zero would put into the buffer.
+/**
+ * The three GeoJsonLayers of main.py: boundary stroke, captured (yellow), missed (blue).
+ *
+ * The fill layers MUST carry layerKey in their ids. deck.gl reconciles layers by id, so a constant
+ * id made every change re-feed a different-length feature array into the same layer, leaving its
+ * SolidPolygonLayer to resize the tessellated position and index buffers in place. Stale vertices
+ * left in those buffers got indexed into triangles spanning unrelated cells — long translucent
+ * slivers fanning across the force, while the strokes stayed correct. Varying the key retires the
+ * layer instead of resizing it.
+ *
+ * Only the grid geographies showed it, because their feature counts swing by thousands between
+ * selections where MSOA moves by a handful. That made it look like a geometry problem, and it is
+ * worth recording that it isn't: the source geometry is clean (7552 BEAHIV cells for West Yorkshire,
+ * every one a closed single-ring hexagon of 7 points, uniform 0.106 km², all rings CCW, all
+ * positions 2D), and GeoJsonLayer hands that same array to its PathLayer, whose strokes always drew
+ * correctly. Winding, coordinate precision and ring orientation were each investigated and cleared.
+ *
+ * The boundary keeps a fixed id: one polygon, and it is stroked, never filled.
+ */
+export function buildLayers({ boundary, geo, captured, missed, showMissed, layerKey = "" }) {
+  // One scale across both fill layers. Floored at 1 so an empty or all-zero set gives alpha 0 rather
+  // than the NaN a -Infinity (Math.max of nothing) or a divide by zero would put in the buffer.
+  // reduce, not Math.max(...rows): the spread passes one argument per cell and a force carries >12k.
   const maxN = Math.max(
     1,
     captured.reduce((a, r) => (r.n > a ? r.n : a), 0),
@@ -104,7 +120,7 @@ export function buildLayers({ boundary, geo, captured, missed, showMissed }) {
   if (showMissed) {
     layers.push(
       new GeoJsonLayer({
-        id: "missed",
+        id: `missed-${layerKey}`,
         data: { type: "FeatureCollection", features: featuresWithCounts(geo, missed, 96, maxN) },
         stroked: true,
         filled: true,
@@ -117,7 +133,7 @@ export function buildLayers({ boundary, geo, captured, missed, showMissed }) {
   }
   layers.push(
     new GeoJsonLayer({
-      id: "captured",
+      id: `captured-${layerKey}`,
       data: { type: "FeatureCollection", features: featuresWithCounts(geo, captured, 192, maxN) },
       stroked: true,
       filled: true,
