@@ -132,7 +132,7 @@ export const GEOGRAPHIES = new Map([
       spatialUnit: "spatial_id",
       featureTable: "beahiv202_geogs",
       countTable: "beahiv202",
-      boundaryTable: "beahiv_202",
+      boundaryTable: "beahiv202",
       boundaryForceColumn: "pfa24cd",
     },
   ],
