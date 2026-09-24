@@ -7,7 +7,7 @@
 // strokes, per-feature tooltips and the hotspot table, and per-feature opacity is a single-hue
 // alpha ramp (sequential by magnitude).
 
-import { MapLibreMap, NavigationControl, setWorkerUrl } from "../../_npm/maplibre-gl@6.11.1/bc1eb40c.js";
+import { MapLibreMap, NavigationControl, setWorkerUrl } from "../../_npm/maplibre-gl@6.11.2/356c9cfd.js";
 import { MapboxOverlay } from "../../_npm/@deck.gl/mapbox@9.4.0/0793edb6.js";
 import { GeoJsonLayer } from "../../_npm/@deck.gl/layers@9.4.0/cb2425d8.js";
 

@@ -17,12 +17,12 @@
 <link rel="modulepreload" href="./_observablehq/stdlib.d8c742ec.js">
 <link rel="modulepreload" href="./_import/components/capture.d47e0781.js">
 <link rel="modulepreload" href="./_import/components/dataClient.a538d7df.js">
-<link rel="modulepreload" href="./_import/components/mapLayers.c2575ff9.js">
+<link rel="modulepreload" href="./_import/components/mapLayers.24d5933e.js">
 <link rel="modulepreload" href="./_import/components/meta.89f28480.js">
 <link rel="modulepreload" href="./_npm/htl@1.0.0/11521f02.js">
 <link rel="modulepreload" href="./_observablehq/stdlib/inputs.fc59492c.js">
 <link rel="modulepreload" href="./_npm/@duckdb/duckdb-wasm@1.32.0/b20dfadb.js">
-<link rel="modulepreload" href="./_npm/maplibre-gl@6.11.1/bc1eb40c.js">
+<link rel="modulepreload" href="./_npm/maplibre-gl@6.11.2/356c9cfd.js">
 <link rel="modulepreload" href="./_npm/@deck.gl/mapbox@9.4.0/0793edb6.js">
 <link rel="modulepreload" href="./_npm/@deck.gl/layers@9.4.0/cb2425d8.js">
 <link rel="modulepreload" href="./_npm/isoformat@0.2.1/604cb63b.js">
@@ -60,7 +60,7 @@
 import {define} from "./_observablehq/client.618e288e.js";
 
 define({id: "61cd9d16", outputs: ["computeCapture","monthLabel","fetchCounts","fetchForceBoundary","fetchGeo","fetchMonths","getConnection","buildLayers","createMap","updateLayers","CRIME_TYPES","DEFAULT_FORCE","FORCES","GEOGRAPHIES","fixForceName"], body: async () => {
-const [{computeCapture, monthLabel}, {fetchCounts, fetchForceBoundary, fetchGeo, fetchMonths, getConnection}, {buildLayers, createMap, updateLayers}, {CRIME_TYPES, DEFAULT_FORCE, FORCES, GEOGRAPHIES, fixForceName}] = await Promise.all([import("./_import/components/capture.d47e0781.js"), import("./_import/components/dataClient.a538d7df.js"), import("./_import/components/mapLayers.c2575ff9.js"), import("./_import/components/meta.89f28480.js")]);
+const [{computeCapture, monthLabel}, {fetchCounts, fetchForceBoundary, fetchGeo, fetchMonths, getConnection}, {buildLayers, createMap, updateLayers}, {CRIME_TYPES, DEFAULT_FORCE, FORCES, GEOGRAPHIES, fixForceName}] = await Promise.all([import("./_import/components/capture.d47e0781.js"), import("./_import/components/dataClient.a538d7df.js"), import("./_import/components/mapLayers.24d5933e.js"), import("./_import/components/meta.89f28480.js")]);
 
 return {computeCapture,monthLabel,fetchCounts,fetchForceBoundary,fetchGeo,fetchMonths,getConnection,buildLayers,createMap,updateLayers,CRIME_TYPES,DEFAULT_FORCE,FORCES,GEOGRAPHIES,fixForceName};
 }});
@@ -223,7 +223,7 @@ months.at(-1)
 <main id="observablehq-main" class="observablehq">
 <h1 id="crime-capture-explorer" tabindex="-1"><a class="observablehq-header-anchor" href="#crime-capture-explorer">Crime capture explorer</a></h1>
 <p>Given a target land area, find the areas that capture the most <a href="https://data.police.uk" target="_blank" rel="noopener noreferrer">police.uk</a> recorded crime of a chosen type — per police force, spatial unit and time window. All computation happens in your browser; every query runs live against Azure Blob Storage over short-lived, read-only SAS tokens — nothing is pre-aggregated or cached server-side.</p>
-<link rel="stylesheet" type="text/css" href="./_npm/maplibre-gl@6.11.1/dist/maplibre-gl.css">
+<link rel="stylesheet" type="text/css" href="./_npm/maplibre-gl@6.11.2/dist/maplibre-gl.css">
 <div class="observablehq observablehq--block"><!--:61cd9d16:--></div>
 <div class="observablehq observablehq--block"><!--:bcd160fd:--></div>
 <div class="observablehq observablehq--block"><!--:f4702353:--></div>
