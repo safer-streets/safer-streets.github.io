@@ -122,17 +122,17 @@ export const GEOGRAPHIES = new Map([
   // Not an H3 unit despite the identical `spatial_id` shape: a BEAHIV id decodes to a polygon only
   // through beahiv's own `cell_polygons`, a Python UDF the tooling registers server-side. There is no
   // browser equivalent, so unlike H3 this geography cannot reconstruct its cells from the id and must
-  // read them from the `beahiv202` extract, which carries the hex outlines as real geometry.
+  // read them from the `bh350eef` extract, which carries the hex outlines as real geometry.
   // boundaryForceColumn: that extract holds one row per (cell, force), so a cell straddling a force
   // boundary appears once per force it touches — filter on it or straddlers get drawn twice.
   [
-    "BEAHIV202",
+    "BEAHIV350",
     {
-      label: "BEAHIV202",
+      label: "BEAHIV 350m edge-edge flat",
       spatialUnit: "spatial_id",
-      featureTable: "beahiv202_geogs",
-      countTable: "beahiv202",
-      boundaryTable: "beahiv202",
+      featureTable: "bh350eef_geogs",
+      countTable: "bh350eef",
+      boundaryTable: "bh350eef",
       boundaryForceColumn: "pfa24cd",
     },
   ],

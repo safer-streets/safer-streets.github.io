@@ -208,7 +208,7 @@ export async function fetchGeo(conn, pfa24cd, geographyKey, geog) {
       );
     } else {
       const boundaryUrl = await blobUrl(`phase2/extract/${geog.boundaryTable}.parquet`);
-      // Boundary tables keyed per (feature, force) — currently only beahiv202 — need the force
+      // Boundary tables keyed per (feature, force) — currently only bh350eef — need the force
       // filter as well as the id join, or cells straddling a force boundary come back once per
       // force they touch and get drawn on top of themselves. ONS layers have no such column.
       const forceFilter = geog.boundaryForceColumn ? `b.${geog.boundaryForceColumn} = ? AND ` : "";

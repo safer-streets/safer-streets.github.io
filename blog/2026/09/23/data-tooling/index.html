@@ -15,6 +15,7 @@
         <link rel="canonical" href="http://safer-streets.github.io/blog/2026/09/23/data-tooling/">
       
       
+      
         <link rel="prev" href="../../../../2025/11/18/scaling-up/">
       
       
@@ -25,7 +26,7 @@
       
       
       <link rel="icon" href="../../../../../img/safer-streets-small.png">
-      <meta name="generator" content="zensical-0.0.65">
+      <meta name="generator" content="zensical-0.0.71">
     
     
       
@@ -36,12 +37,12 @@
       
         
       
-      <link rel="stylesheet" href="../../../../../assets/stylesheets/modern/main.40d3fdbb.min.css">
+      <link rel="stylesheet" href="../../../../../assets/stylesheets/modern/main.e442bf79.min.css">
       
         
           
         
-        <link rel="stylesheet" href="../../../../../assets/stylesheets/modern/palette.812a03bb.min.css">
+        <link rel="stylesheet" href="../../../../../assets/stylesheets/modern/palette.b60ce83d.min.css">
       
       
 
@@ -83,14 +84,11 @@
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
-    <label class="md-overlay" for="__drawer" aria-label="Navigation"></label>
+    <label class="md-overlay" for="__drawer" aria-hidden="true"></label>
     <div data-md-component="skip">
-      
-        
-        <a href="#data-tooling" class="md-skip">
-          Skip to content
-        </a>
-      
+      <a href="#__skip" class="md-skip">
+        Skip to content
+      </a>
     </div>
     <div data-md-component="announce">
       
@@ -1405,8 +1403,10 @@
       </div>
     </div>
     <article class="md-content__inner md-typeset">
+      <a id="__skip" tabindex="-1"></a>
       
         
+
   
   
 
@@ -1635,7 +1635,7 @@ added in future is excluded without anyone having to remember to do so.</p>
 <p>Everything is driven by a single command line tool:</p>
 <div class="highlight"><pre><span></span><code>uv<span class="w"> </span>run<span class="w"> </span>data<span class="w"> </span>build<span class="w">                    </span><span class="c1"># extract anything missing, then transform</span>
 uv<span class="w"> </span>run<span class="w"> </span>data<span class="w"> </span>extract<span class="w"> </span>--only<span class="w"> </span>crime_data<span class="w"> </span><span class="c1"># refresh a single dataset</span>
-uv<span class="w"> </span>run<span class="w"> </span>data<span class="w"> </span>transform<span class="w"> </span>--grid<span class="w"> </span>beahiv<span class="w">  </span><span class="c1"># rebuild just one grid&#39;s outputs</span>
+uv<span class="w"> </span>run<span class="w"> </span>data<span class="w"> </span>transform<span class="w"> </span>--grid<span class="w"> </span>beahiv<span class="w">  </span><span class="c1"># rebuild just one grid's outputs</span>
 uv<span class="w"> </span>run<span class="w"> </span>data<span class="w"> </span>sync<span class="w"> </span>--update<span class="w"> </span>newer<span class="w">      </span><span class="c1"># two-way sync with the cloud</span>
 </code></pre></div>
 <h2 id="accessing-the-data">Accessing the data</h2>
@@ -1648,8 +1648,8 @@ packages available) but requires some knowledge of SQL.</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># requires: pandas, pyarrow, fsspec, adlfs</span>
 
 <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_parquet</span><span class="p">(</span>
-    <span class="s2">&quot;az://phase2/extract/poi.parquet&quot;</span><span class="p">,</span>
-    <span class="n">storage_options</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;connection_string&quot;</span><span class="p">:</span> <span class="n">AZURE_STORAGE_CONNSTR</span><span class="p">},</span>
+    <span class="s2">"az://phase2/extract/poi.parquet"</span><span class="p">,</span>
+    <span class="n">storage_options</span><span class="o">=</span><span class="p">{</span><span class="s2">"connection_string"</span><span class="p">:</span> <span class="n">AZURE_STORAGE_CONNSTR</span><span class="p">},</span>
 <span class="p">)</span>
 </code></pre></div>
 <p>But if you're comfortable with SQL, there's no need to download the entire file at all: duckdb's
@@ -1657,13 +1657,13 @@ packages available) but requires some knowledge of SQL.</p>
 because parquet is a columnar format with row-group statistics, only the columns and rows a query actually needs are
 fetched. For example, to get total violent crime per H3 cell alongside the cell's LSOA and deprivation score:</p>
 <div class="highlight"><pre><span></span><code><span class="n">INSTALL</span><span class="w"> </span><span class="n">azure</span><span class="p">;</span><span class="w"> </span><span class="k">LOAD</span><span class="w"> </span><span class="n">azure</span><span class="p">;</span>
-<span class="k">SET</span><span class="w"> </span><span class="n">azure_storage_connection_string</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;...&#39;</span><span class="p">;</span>
+<span class="k">SET</span><span class="w"> </span><span class="n">azure_storage_connection_string</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'...'</span><span class="p">;</span>
 
 <span class="k">SELECT</span><span class="w"> </span><span class="n">hex</span><span class="p">.</span><span class="n">spatial_id</span><span class="p">,</span><span class="w"> </span><span class="n">hex</span><span class="p">.</span><span class="n">lsoa21cd</span><span class="p">,</span><span class="w"> </span><span class="n">imd</span><span class="p">.</span><span class="n">imd_score</span><span class="p">,</span><span class="w"> </span><span class="k">SUM</span><span class="p">(</span><span class="n">crime</span><span class="p">.</span><span class="k">count</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">crimes</span>
-<span class="k">FROM</span><span class="w"> </span><span class="n">read_parquet</span><span class="p">(</span><span class="s1">&#39;az://phase2/transform/h3r9_crime_counts.parquet&#39;</span><span class="p">)</span><span class="w"> </span><span class="n">crime</span>
-<span class="k">JOIN</span><span class="w"> </span><span class="n">read_parquet</span><span class="p">(</span><span class="s1">&#39;az://phase2/transform/h3r9_geogs.parquet&#39;</span><span class="p">)</span><span class="w"> </span><span class="n">hex</span><span class="w"> </span><span class="k">USING</span><span class="w"> </span><span class="p">(</span><span class="n">spatial_id</span><span class="p">)</span>
-<span class="k">LEFT</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">read_parquet</span><span class="p">(</span><span class="s1">&#39;az://phase2/extract/imd_scores_pct.parquet&#39;</span><span class="p">)</span><span class="w"> </span><span class="n">imd</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">hex</span><span class="p">.</span><span class="n">lsoa21cd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">imd</span><span class="p">.</span><span class="n">spatial_id</span>
-<span class="k">WHERE</span><span class="w"> </span><span class="n">crime</span><span class="p">.</span><span class="n">crime_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Violence and sexual offences&#39;</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">read_parquet</span><span class="p">(</span><span class="s1">'az://phase2/transform/h3r9_crime_counts.parquet'</span><span class="p">)</span><span class="w"> </span><span class="n">crime</span>
+<span class="k">JOIN</span><span class="w"> </span><span class="n">read_parquet</span><span class="p">(</span><span class="s1">'az://phase2/transform/h3r9_geogs.parquet'</span><span class="p">)</span><span class="w"> </span><span class="n">hex</span><span class="w"> </span><span class="k">USING</span><span class="w"> </span><span class="p">(</span><span class="n">spatial_id</span><span class="p">)</span>
+<span class="k">LEFT</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">read_parquet</span><span class="p">(</span><span class="s1">'az://phase2/extract/imd_scores_pct.parquet'</span><span class="p">)</span><span class="w"> </span><span class="n">imd</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">hex</span><span class="p">.</span><span class="n">lsoa21cd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">imd</span><span class="p">.</span><span class="n">spatial_id</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">crime</span><span class="p">.</span><span class="n">crime_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'Violence and sexual offences'</span>
 <span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="k">ALL</span>
 <span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">crimes</span><span class="w"> </span><span class="k">DESC</span><span class="p">;</span>
 </code></pre></div>
@@ -1791,7 +1791,7 @@ that are missing are simply skipped. See the
 </footer>
       
     </div>
-    <div class="md-dialog" data-md-component="dialog">
+    <div class="md-dialog" data-md-component="dialog" role="status" aria-atomic="true">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
     
@@ -1803,10 +1803,10 @@ that are missing are simply skipped. See the
       
         
         
-      <script id="__config" type="application/json">{"annotate":null,"base":"../../../../..","features":["content.code.copy","content.code.annotate","navigation.indexes"],"redirect":null,"search":"../../../../../assets/javascripts/workers/search.7d14d953.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+      <script id="__config" type="application/json">{"annotate":null,"base":"../../../../..","features":["content.code.copy","content.code.annotate","navigation.indexes"],"redirect":null,"search":"../../../../../assets/javascripts/workers/search.c47bb847.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","clipboard.error":"Could not copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
     
     
-      <script src="../../../../../assets/javascripts/bundle.c04ba553.min.js"></script>
+      <script src="../../../../../assets/javascripts/bundle.a2388154.min.js"></script>
       
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
       
