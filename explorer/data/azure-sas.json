@@ -1,20 +1,20 @@
 {
   "account": "saferstreets",
-  "generated_at": "2026-10-20T10:38:15.474Z",
-  "expires_on": "2026-12-04T10:38:15.468Z",
+  "generated_at": "2026-11-05T13:42:27.656Z",
+  "expires_on": "2026-12-20T13:42:27.654Z",
   "blobs": {
-    "phase2/extract/crime_data.parquet": "sv=2026-10-06&spr=https&se=2026-12-04T10%3A38%3A15Z&sr=b&sp=r&sig=XpfUmvr%2BsOhYQYcOwkvm1XamcoQSxkOaRzFiCSEjd4k%3D",
-    "phase2/extract/police_force_areas.parquet": "sv=2026-10-06&spr=https&se=2026-12-04T10%3A38%3A15Z&sr=b&sp=r&sig=qxBxKBZFTnMcK1ve7Hxq3UVkRbI0vX0rAT1YNyjvZDU%3D",
-    "phase2/transform/h3r9_geogs.parquet": "sv=2026-10-06&spr=https&se=2026-12-04T10%3A38%3A15Z&sr=b&sp=r&sig=dZkWctDgodmPjCFusz3v9vVi9cMDuE1CNsmcUjiO3qQ%3D",
-    "phase2/transform/msoa21cd_crime_counts.parquet": "sv=2026-10-06&spr=https&se=2026-12-04T10%3A38%3A15Z&sr=b&sp=r&sig=dLBwReguR4qKv7wPJHCse4fG%2FTB0YoxBDRfgbgeqxB0%3D",
-    "phase2/extract/msoa_2021.parquet": "sv=2026-10-06&spr=https&se=2026-12-04T10%3A38%3A15Z&sr=b&sp=r&sig=uq1UvmcRbswWoBODge24rc%2Fy7s7kuUZiXQg%2F7aHu%2FBA%3D",
-    "phase2/transform/lsoa21cd_crime_counts.parquet": "sv=2026-10-06&spr=https&se=2026-12-04T10%3A38%3A15Z&sr=b&sp=r&sig=iNMhA%2B2%2FdS44rGsmRSN30qQ%2B2FlvFODrcnw9CxLSSMU%3D",
-    "phase2/extract/lsoa_2021.parquet": "sv=2026-10-06&spr=https&se=2026-12-04T10%3A38%3A15Z&sr=b&sp=r&sig=4fPPGtL%2B4LSqL2eowod9WGtocxD8yKsvRehPkp8NAkE%3D",
-    "phase2/transform/oa21cd_crime_counts.parquet": "sv=2026-10-06&spr=https&se=2026-12-04T10%3A38%3A15Z&sr=b&sp=r&sig=awV2wb3wgTxO1TIRgzteQe2COaFE5PV5Chdh3np910c%3D",
-    "phase2/extract/output_areas_2021.parquet": "sv=2026-10-06&spr=https&se=2026-12-04T10%3A38%3A15Z&sr=b&sp=r&sig=HOQOrpjmB%2BPQ68uLlRFmMuvlkZ0eS3Jhu6dQT6PSmJU%3D",
-    "phase2/transform/h3r9_crime_counts.parquet": "sv=2026-10-06&spr=https&se=2026-12-04T10%3A38%3A15Z&sr=b&sp=r&sig=%2FrIb%2Fy8eCuw6rLirqS3w6E7d%2FNDD9ptY7sVi6fWUrQ8%3D",
-    "phase2/transform/bh350eef_geogs.parquet": "sv=2026-10-06&spr=https&se=2026-12-04T10%3A38%3A15Z&sr=b&sp=r&sig=0fm%2Bnei6bfiJ3o27K5drvIaX7jSVXWHElP0669DNS5Y%3D",
-    "phase2/transform/bh350eef_crime_counts.parquet": "sv=2026-10-06&spr=https&se=2026-12-04T10%3A38%3A15Z&sr=b&sp=r&sig=l76I9Dp5nfdSShbBCyQgYyabdqYDADCHB2ujzuBRCrQ%3D",
-    "phase2/extract/bh350eef.parquet": "sv=2026-10-06&spr=https&se=2026-12-04T10%3A38%3A15Z&sr=b&sp=r&sig=Y3BqrXWgkOYK6s%2BhKFdADcT%2B4XQb%2BYF7aQhVxTKfVCg%3D"
+    "phase2/extract/crime_data.parquet": "sv=2026-10-06&spr=https&se=2026-12-20T13%3A42%3A27Z&sr=b&sp=r&sig=GwFJnFxChWBeu6QlgGxclajGFnPY7MCKIvmebxHMeAk%3D",
+    "phase2/extract/police_force_areas.parquet": "sv=2026-10-06&spr=https&se=2026-12-20T13%3A42%3A27Z&sr=b&sp=r&sig=gieJyjEE2czdQjeR5U%2BDhpITttxRVyT0NNm%2Fb%2B12dbI%3D",
+    "phase2/transform/h3r9_geogs.parquet": "sv=2026-10-06&spr=https&se=2026-12-20T13%3A42%3A27Z&sr=b&sp=r&sig=N9ikXLr97b1QovzTccjGOrRCn7ALs3vrceUDWnOkcQk%3D",
+    "phase2/transform/msoa21cd_crime_counts.parquet": "sv=2026-10-06&spr=https&se=2026-12-20T13%3A42%3A27Z&sr=b&sp=r&sig=%2FJ2JUQOA0zPs8Wq8OYln8cON0Z9o99FbkL994RPumv4%3D",
+    "phase2/extract/msoa_2021.parquet": "sv=2026-10-06&spr=https&se=2026-12-20T13%3A42%3A27Z&sr=b&sp=r&sig=PlV2NRzOCFdOD0gLBZUAHik6HJFfFvh8jI2Evzl%2FIUg%3D",
+    "phase2/transform/lsoa21cd_crime_counts.parquet": "sv=2026-10-06&spr=https&se=2026-12-20T13%3A42%3A27Z&sr=b&sp=r&sig=bZdueaAAaB5nWimFGyFlNM%2FAtkTWGc8Rvi3lm5IFeME%3D",
+    "phase2/extract/lsoa_2021.parquet": "sv=2026-10-06&spr=https&se=2026-12-20T13%3A42%3A27Z&sr=b&sp=r&sig=6SrygTD8Ux9K41iSk6IU6P8HxEsWLfLJlp2s1xLcq7E%3D",
+    "phase2/transform/oa21cd_crime_counts.parquet": "sv=2026-10-06&spr=https&se=2026-12-20T13%3A42%3A27Z&sr=b&sp=r&sig=NJ87pRIZjdLecKgeroulSiNpJCy6N9RtTzaHtxuQZEU%3D",
+    "phase2/extract/output_areas_2021.parquet": "sv=2026-10-06&spr=https&se=2026-12-20T13%3A42%3A27Z&sr=b&sp=r&sig=AX62hJdwp63MEE9%2BlUvH1GN2FKIrYaT2Dx4IYXMy4DE%3D",
+    "phase2/transform/h3r9_crime_counts.parquet": "sv=2026-10-06&spr=https&se=2026-12-20T13%3A42%3A27Z&sr=b&sp=r&sig=U0d15VYnyzb2BDcJm3Wn62rCHHDXs4o%2FcArPae%2BP6Hg%3D",
+    "phase2/transform/bh350eef_geogs.parquet": "sv=2026-10-06&spr=https&se=2026-12-20T13%3A42%3A27Z&sr=b&sp=r&sig=zEvCRig0OY9K0h%2BlJUM9gmJ722LdBkXDeFmYDV%2FrFl4%3D",
+    "phase2/transform/bh350eef_crime_counts.parquet": "sv=2026-10-06&spr=https&se=2026-12-20T13%3A42%3A27Z&sr=b&sp=r&sig=eBkt11dZWdxSKh%2BGn5HHLzfvJJEh1%2B87dG5mTSRgcjo%3D",
+    "phase2/extract/bh350eef.parquet": "sv=2026-10-06&spr=https&se=2026-12-20T13%3A42%3A27Z&sr=b&sp=r&sig=6Dk9ZkZNwYoByXd9JhCqNvRsvppDE5zJykjmAeVN5aw%3D"
   }
 }
